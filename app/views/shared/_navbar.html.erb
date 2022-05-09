@@ -12,10 +12,22 @@
         <li class="nav-item">
           <%= link_to "About", about_path, class: "nav-link"%>
         </li>
-      </ul>
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <% if Current.user %>
+        <% if Current.user && (Current.user.has_role? :admin) %>
           <li class="nav-item">
+            <%= link_to "All Users", users_path, class: "nav-link"%>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">All Tasks</a>
+          </li>
+        <%elsif Current.user && (Current.user.has_role? :employee) %>
+          <li class="nav-item">
+            <a class="nav-link" href="#">My Tasks</a>
+          </li>
+        <%end%>
+      </ul>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+        <% if Current.user %>
+          <li class="nav-item nav-link">
            <%= Current.user.email %>
           </li>
           <li class="nav-item">

@@ -7,6 +7,10 @@
         </div>
     <% end %>
   <% end %>
+    <div class="mb-3">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control", placeholder: "Your Name" %>
+  </div>
   <div class="mb-3">
     <%= f.label :email %>
     <%= f.email_field :email, class: "form-control", placeholder: "steve@apple.com" %>
