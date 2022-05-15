@@ -1,0 +1,25 @@
+<table id="alltask">
+  <tr>
+    <th>Task Name</th>
+    <th>Category</th>
+    <th>Created By</th>
+    <th>Required on</th>
+    <th>Assigned To</th>
+    <th>Repeat Interval</th>
+    <th>Actions</th>
+  </tr>
+
+  <% @tasks.each do |task| %>
+     <tr>
+        <td><%= task.name %></td>
+        <td><%= task.category %></td>
+        <td><%= task.user.name %></td>
+        <td><%= task.date %></td>
+        <td><%= User.find(task.employee_id).name %></td>
+        <td><%= task.repeat %></td>
+        <td><%= link_to "Edit",edit_task_path(id: task.id), class: "btn btn-primary", role: "button" %>
+        <%= link_to "Show",task_path(id: task.id), class: "btn btn-secondary", role: "button" %></td>
+    </tr>
+  <% end %>
+
+</table>

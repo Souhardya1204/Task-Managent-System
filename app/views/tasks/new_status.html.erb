@@ -1,0 +1,11 @@
+<h1>Change Status</h1>
+<%= form_with model: @task, url: status_path do |f|%>
+  <div class="mb-3">
+    <%= f.label :status %>
+    <%= f.select :status, options_for_select([["In Progress", "In Progress"],["Completed", "Completed"]]),:include_blank => true, class: "form-control" %>
+  </div>
+<%= hidden_field_tag :id, @task.id %>
+  <div class="mb-3">
+    <%= f.submit "Update Status", class: "btn btn-primary" %>
+  </div>
+<% end %>

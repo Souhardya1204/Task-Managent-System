@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_user_log_in!
+  before_action :require_user_log_in!, only: [:index]
   before_action :admin_user, only: :index
  
   def new

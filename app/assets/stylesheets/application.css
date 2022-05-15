@@ -15,5 +15,13 @@
  */
  table, th, td {
     border:1px solid black;
-    width: 50%;
+  }
+
+  table{
+    width: 100%;
+  }
+
+  h4 span{
+    font-size: 20px;
+    color: blue;
   }

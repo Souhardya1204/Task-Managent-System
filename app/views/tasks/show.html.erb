@@ -1,0 +1,8 @@
+<h1>Task Details</h1>
+<h4>Task Name : <span><%= @task.name %></span></h4>
+<h4>Category : <span><%= @task.category %></span></h4>
+<h4>Required On : <span><%= @task.date %></span></h4>
+<h4>Created by : <span><%= @task.user.name %></span></h4>
+<h4>Assigned To : <span><%= User.find(@task.employee_id).name %></span></h4>
+<h4>Repeat Interval : <span><%= @task.repeat %></span></h4>
+<h4>Completion status : <span><%= @task.status %></span></h4>

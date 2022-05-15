@@ -12,18 +12,23 @@
         <li class="nav-item">
           <%= link_to "About", about_path, class: "nav-link"%>
         </li>
-        <% if Current.user && (Current.user.has_role? :admin) %>
-          <li class="nav-item">
-            <%= link_to "All Users", users_path, class: "nav-link"%>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">All Tasks</a>
-          </li>
-        <%elsif Current.user && (Current.user.has_role? :employee) %>
-          <li class="nav-item">
-            <a class="nav-link" href="#">My Tasks</a>
-          </li>
-        <%end%>
+        <% if Current.user %>
+          <% if (Current.user.has_role? :admin) %>
+            <li class="nav-item">
+              <%= link_to "All Users", users_path, class: "nav-link"%>
+            </li>
+            <li class="nav-item">
+              <%= link_to "All Tasks", tasks_path, class:"nav-link" %>
+            </li>
+          <% elsif  (Current.user.has_role? :employee) %>
+            <li class="nav-item">
+              <%= link_to "My Tasks", mytasks_path(id: Current.user.id) , class: "nav-link"%>
+            </li>
+          <%end%>
+            <li class="nav-item">
+              <%= link_to "Create New Task", new_task_path , class: "nav-link"%>
+            </li>
+        <% end %>
       </ul>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
         <% if Current.user %>

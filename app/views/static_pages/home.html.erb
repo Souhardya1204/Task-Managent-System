@@ -2,9 +2,13 @@
     <div class="d-flex align-items+center justify-content-center">
         <h1>Welcome to the TaskTracker App</h1>
     </div>
-    <% if Current.user && (Current.user.has_role? :admin) %>
-        <h2>Logged in as Admin</h2>
-    <% elsif Current.user && (Current.user.has_role? :employee) %>
-        <h2>Logged in as Employee</h2>
-    <% end %>
+    <% if Current.user%>
+        <% if(Current.user.has_role? :admin) %>
+            <h2>Logged in as Admin</h2>
+        <% elsif (Current.user.has_role? :hrd) %>
+            <h2>Logged in as HR Department</h2>
+        <% else %>
+            <h2>Logged in as employee</h2>
+        <% end %>
+    <%end%>
 </div>

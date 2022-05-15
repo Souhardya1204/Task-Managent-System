@@ -1,0 +1,28 @@
+
+    <% if @mytasks %>
+        <table>
+            <tr>
+                <th>Task Name</th>
+                <th>Created By</th>
+                <th>Required on</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Repeat Interval</th>
+                <th>Actions</th>
+            </tr>
+        <% @mytasks.each do |task| %>
+            <tr>
+                <td><%= task.name %></td>
+                <td><%= task.user.name %></td>
+                <td><%= task.date %></td>
+                <td><%= task.category %></td>
+                <td><%= task.status %></td>
+                <td><%= task.repeat %></td>
+                <td><%= link_to "Change status",status_path(id: task.id), class: "btn btn-primary", role: "button" %></td>
+            </tr>
+        <% end %>
+        </table>
+    <% else %>
+        <h2>No task is assigned </h2>
+    <% end %>
+

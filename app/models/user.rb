@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :tasks
   before_save { self.email = email.downcase }
   after_create :assign_default_role
   rolify

@@ -1,0 +1,42 @@
+<h1>Create New Task</h1>
+<%= form_with model: @task, url: tasks_path do |f|%>
+  <% if f.object.errors.any? %>
+    <% f.object.errors.full_messages.each do |message| %>
+        <div class="alert alert-danger" role="alert">
+            <%= message %>
+        </div>
+    <% end %>
+  <% end %>
+    <div class="mb-3">
+    <%= f.label :name,"Task Name" %>
+    <%= f.text_field :name, class: "form-control", placeholder: "Task Name" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :date, "Required On" %>
+    <%= f.date_field :date, class: "form-control"%>
+  </div>
+  <div class="mb-3">
+    <%= f.label :employee_id, "Assigned To" %>
+    <%= collection_select(:task, :employee_id, User.all, :id, :name, {:prompt => true, :multiple=>false })%>
+  </div>
+  <div class="mb-3">
+    <%= f.label :repeat, "Repeat Interval" %><br>
+    <%= f.radio_button :repeat, 'Onetime' %> 
+    <%= f.label :repeat, 'OneTime', value:'onetime' %>
+    <%= f.radio_button :repeat, 'Daily' %>
+    <%= f.label :repeat, 'Daily', value:'daily' %>
+    <%= f.radio_button :repeat, 'Weekly' %>
+    <%= f.label :repeat, 'Weekly', value:'weekly' %>
+    <%= f.radio_button :repeat, 'Monthly' %>
+    <%= f.label :repeat, 'Monthly', value:'monthly' %>
+    <%= f.radio_button :repeat, 'Quarterly' %>
+    <%= f.label :repeat, 'Quarterly', value:'quarterly' %>
+    <%= f.radio_button :repeat, 'Halfyearly' %>
+    <%= f.label :repeat, 'Half-Yearly', value:'halfyearly' %>
+    <%= f.radio_button :repeat, 'Yearly' %>
+    <%= f.label :repeat, 'Yearly', value:'yearly' %>
+  </div>
+  <div class="mb-3">
+    <%= f.submit "Create Task", class: "btn btn-primary" %>
+  </div>
+<% end %>

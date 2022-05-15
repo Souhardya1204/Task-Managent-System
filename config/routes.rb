@@ -9,7 +9,11 @@ Rails.application.routes.draw do
 
   get 'sign_in', to: 'sessions#new'
   post 'sign_in', to: 'sessions#create'
-
   delete 'logout', to: 'sessions#destroy'
+
+  get '/mytasks', to: 'tasks#my_task'
+  get '/status', to: 'tasks#new_status'
+  patch '/status', to: 'tasks#change_status'
   resources :users
+  resources :tasks
 end
