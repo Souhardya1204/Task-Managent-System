@@ -11,6 +11,6 @@ class ApplicationController < ActionController::Base
     end
 
     def admin_user
-        redirect_to root_path unless Current.user.has_role?(:admin)
+        redirect_to root_path unless Current.user.is_admin?
     end
 end
