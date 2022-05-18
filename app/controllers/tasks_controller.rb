@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
     before_action :require_user_log_in!
-    before_action :admin_user, only: [:index, :edit]
+    before_action :admin_user, only: [:index, :edit, :approve_task, :reject_task]
     before_action :correct_user, only: [:my_task]
     def index
         @tasks = Task.all
@@ -53,6 +53,17 @@ class TasksController < ApplicationController
         end
 
     end
+
+    def acceptance
+        @task = Task.find(params[:id])
+        @task.acceptance = params[:value]
+        if @task.save
+            redirect_to tasks_path,{notice: "Task approved"}
+        else
+            render 'show',{alert: "Something went wrong"}
+        end
+    end
+
   
     private
     def task_params

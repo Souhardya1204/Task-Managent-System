@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   get '/mytasks', to: 'tasks#my_task'
   get '/status', to: 'tasks#new_status'
   patch '/status', to: 'tasks#change_status'
+
   resources :users
-  resources :tasks
+  resources :tasks do
+    patch 'acceptance', on: :member
+  end
 end

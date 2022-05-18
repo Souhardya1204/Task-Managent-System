@@ -6,6 +6,7 @@
     <th>Required on</th>
     <th>Assigned To</th>
     <th>Repeat Interval</th>
+    <th>Acceptance Status</th>
     <th>Actions</th>
   </tr>
 
@@ -17,6 +18,7 @@
         <td><%= task.date %></td>
         <td><%= User.find(task.employee_id).name %></td>
         <td><%= task.repeat %></td>
+        <td><%= task.acceptance %></td>
         <td><%= link_to "Edit",edit_task_path(id: task.id), class: "btn btn-primary", role: "button" %>
         <%= link_to "Show",task_path(id: task.id), class: "btn btn-secondary", role: "button" %></td>
     </tr>

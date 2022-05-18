@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_15_150022) do
+ActiveRecord::Schema.define(version: 2022_05_18_052314) do
 
   create_table "tasks", charset: "utf8mb3", force: :cascade do |t|
     t.string "name"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2022_05_15_150022) do
     t.integer "employee_id"
     t.string "category", default: "Not Specified"
     t.string "status", default: "Pending"
+    t.string "acceptance", default: "Pending"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
