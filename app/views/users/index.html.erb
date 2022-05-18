@@ -1,13 +1,17 @@
-<table>
+<table id="all_user">
   <tr>
     <th>Name</th>
     <th>Email</th>
+    <th>Role</th>
+    <th>Actions</th>
   </tr>
 
   <% @users.each do |user| %>
      <tr>
         <td><%= user.name %></td>
         <td><%= user.email %></td>
+        <td><%= user.role.capitalize %></td>
+        <td><%= link_to "Edit",edit_user_path(id: user.id), class: "btn btn-primary", role: "button" %></td>
     </tr>
   <% end %>
 
