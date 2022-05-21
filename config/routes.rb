@@ -11,12 +11,14 @@ Rails.application.routes.draw do
   post 'sign_in', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
 
-  get '/mytasks', to: 'tasks#my_task'
-  get '/status', to: 'tasks#new_status'
-  patch '/status', to: 'tasks#change_status'
 
-  resources :users
+
+  resources :users do
+    get 'mytasks', on: :member
+  end
   resources :tasks do
     patch 'acceptance', on: :member
+    patch 'status', on: :member
+    patch 'category', on: :member
   end
 end

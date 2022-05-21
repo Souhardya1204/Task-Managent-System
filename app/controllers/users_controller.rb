@@ -1,13 +1,19 @@
 class UsersController < ApplicationController
-  before_action :require_user_log_in!, only: [:index]
+  before_action :require_user_log_in!, except: [:new, :create]
   before_action :admin_user, only: [:index, :edit, :update]
  
   def new
-    @user = User.new
+    if Current.user
+      redirect_to root_path, notice: "Already logged in"
+    else
+      @user = User.new
+    end
   end
+
   def index
     @users = User.all
   end
+
   def create
       @user = User.new(user_params)
       if @user.save
@@ -22,6 +28,7 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
   end
+
   def update
     @user = User.find(params[:id])
     if @user.update_attribute('role', user_update_params[:role])
@@ -30,6 +37,11 @@ class UsersController < ApplicationController
       render 'edit', {alert: "Try again!!"}
     end
   end
+
+  def mytasks
+    @my_tasks = Task.where(employee_id: params[:id])
+  end
+
   private
   def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)

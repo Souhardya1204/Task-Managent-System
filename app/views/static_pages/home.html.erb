@@ -12,85 +12,14 @@
         <br>
         <div id="my_task">
             <h3>My Tasks</h3>
-            <% if @my_tasks %>
-                <table class="tasks">
-                    <tr>
-                        <th>Task Name</th>
-                        <th>Created By</th>
-                        <th>Required on</th>
-                        <th>Category</th>
-                        <th>Status</th>
-                        <th>Repeat Interval</th>
-                        <th>Actions</th>
-                    </tr>
-                    <% Array(@my_tasks).each do |task| %>
-                        <tr>
-                            <td>
-                                <%= task.name %>
-                            </td>
-                            <td>
-                                <%= task.user.name %>
-                            </td>
-                            <td>
-                                <%= task.date %>
-                            </td>
-                            <td>
-                                <%= task.category %>
-                            </td>
-                            <td class="status">
-                                <%= task.status %>
-                            </td>
-                            <td>
-                                <%= task.repeat %>
-                            </td>
-                            <td>
-                                <%= link_to "Change status" ,status_path(id: task.id),
-                                    class: "btn btn-primary" , role: "button" %>
-                            </td>
-                        </tr>
-                    <% end %>
-                </table>
-            <% else %>
-                <h4>No task is assigned </h4>
-            <% end %>
+            <%= render partial: "shared/my_task_table"%>
         </div>
         <br>
         <br>
         <div id="created_task">
             <h3>Created Tasks</h3>
             <% if @created_tasks %>
-                <table class="tasks">
-                    <tr>
-                        <th>Task Name</th>
-                        <th>Assigned To</th>
-                        <th>Required on</th>
-                        <th>Category</th>
-                        <th>Status</th>
-                        <th>Repeat Interval</th>
-                    </tr>
-                    <% Array(@created_tasks).each do |task| %>
-                        <tr>
-                            <td>
-                                <%= task.name %>
-                            </td>
-                            <td>
-                                <%= User.find(task.employee_id).name %>
-                            </td>
-                            <td>
-                                <%= task.date %>
-                            </td>
-                            <td>
-                                <%= task.category %>
-                            </td>
-                            <td class="status">
-                                <%= task.status %>
-                            </td>
-                            <td>
-                                <%= task.repeat %>
-                            </td>
-                        </tr>
-                    <% end %>
-                </table>
+                <%= render partial: "shared/created_task_table"%>
             <% else %>
                 <h4>You haven't created any task !!</h4>
             <% end %>

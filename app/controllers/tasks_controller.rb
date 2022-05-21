@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
     before_action :require_user_log_in!
-    before_action :admin_user, only: [:index, :edit, :approve_task, :reject_task]
+    before_action :admin_user, only: [:index, :edit, :acceptance]
     before_action :correct_user, only: [:my_task]
     def index
         @tasks = Task.all
@@ -19,9 +19,6 @@ class TasksController < ApplicationController
         end
     end
 
-    def my_task
-        @mytasks = Task.where(employee_id: params[:id])
-    end
     def show
         @task = Task.find(params[:id])
     end
@@ -39,19 +36,23 @@ class TasksController < ApplicationController
         end
     end
 
-    def new_status
+    def status
         @task = Task.find(params[:id])
-    end
-
-    def change_status
-        @task = Task.find(params[:id])
-        @user = User.find(@task.employee_id)
         if @task.update(change_status_params)
-            redirect_to mytasks_path(id: @user.id), flash: {notice: "Task status updated"}
+            redirect_to task_path(id: @task.id), flash: {notice: "Task status updated"}
         else
-            render "new_status", flash:{alert: "Something went wrong" }
+            render "home", flash:{alert: "Something went wrong" }
         end
 
+    end
+
+    def category
+        @task = Task.find(params[:id])
+        if @task.update(category_params)
+            redirect_to tasks_path
+        else
+            render "home", flash:{alert: "Something went wrong" }
+        end
     end
 
     def acceptance
@@ -76,6 +77,10 @@ class TasksController < ApplicationController
 
     def change_status_params
         params.require(:task).permit(:status)
+    end
+
+    def category_params
+        params.require(:task).permit(:category)
     end
 
     def correct_user

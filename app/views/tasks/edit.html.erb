@@ -13,7 +13,7 @@
   </div>
   <div class="mb-3">
     <%= f.label :category %>
-    <%= f.select :category, options_for_select([["Exams", "Exams"],["Birthday", "Birthday"],["Campus","Campus"],["Mock Test", "Mock Test"],["Interview", "Interview"],["Event","Event"],["Hiring", "Hiring"]]), class: "form-control" %>
+    <%= f.select :category, options_for_select([["Exams", "Exams"],["Birthday", "Birthday"],["Campus","Campus"],["Mock Test", "Mock Test"],["Interview", "Interview"],["Event","Event"],["Hiring", "Hiring"]], selected: @task.category), class: "form-control" %>
   </div>
   <div class="mb-3">
     <%= f.label :date, "Required On" %>
