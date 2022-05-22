@@ -40,6 +40,15 @@ class UsersController < ApplicationController
 
   def mytasks
     @my_tasks = Task.where(employee_id: params[:id])
+    if @my_tasks.empty?
+      @my_tasks = nil
+    end
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy()
+    redirect_to users_path, {alert: "User deleted"}
   end
 
   private

@@ -27,7 +27,8 @@
         <td><%= task.repeat %></td>
         <td><%= task.acceptance %></td>
         <td><%= link_to "Edit",edit_task_path(id: task.id), class: "btn btn-primary", role: "button" %>
-        <%= link_to "Show",task_path(id: task.id), class: "btn btn-secondary", role: "button" %></td>
+        <%= link_to "Show",task_path(id: task.id), class: "btn btn-secondary", role: "button" %>
+        <%= link_to "Delete",task_path(id: task.id), method: :delete, class: "btn btn-danger", role: "button" %></td>
     </tr>
   <% end %>
 

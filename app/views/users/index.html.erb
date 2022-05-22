@@ -11,7 +11,8 @@
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= user.role.capitalize %></td>
-        <td><%= link_to "Edit",edit_user_path(id: user.id), class: "btn btn-primary", role: "button" %></td>
+        <td><%= link_to "Edit",edit_user_path(id: user.id), class: "btn btn-primary", role: "button" %>
+        <%= link_to "Delete",user_path(id: user.id), method: :delete,  class: "btn btn-danger", role: "button" %></td>
     </tr>
   <% end %>
 

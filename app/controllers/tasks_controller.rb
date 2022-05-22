@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
     before_action :require_user_log_in!
-    before_action :admin_user, only: [:index, :edit, :acceptance]
+    before_action :admin_user, only: [:index, :edit, :acceptance, :delete]
     before_action :correct_user, only: [:my_task]
     def index
         @tasks = Task.all
@@ -13,6 +13,7 @@ class TasksController < ApplicationController
         @task = Current.user.tasks.build(task_params)
         if @task.save
             flash[:notice] = "New task added"
+            TaskMailer.with(user: Current.user, task: @task ).task_assigned.deliver_later
             redirect_to root_path
         else
             render "new"
@@ -63,6 +64,12 @@ class TasksController < ApplicationController
         else
             render 'show',{alert: "Something went wrong"}
         end
+    end
+
+    def destroy
+        task = Task.find(params[:id])
+        task.destroy
+        redirect_to tasks_path, {alert: "Task deleted"}
     end
 
   
