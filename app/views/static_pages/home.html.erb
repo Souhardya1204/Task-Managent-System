@@ -1,28 +1,7 @@
 <div>
-    <div class="d-flex align-items-center justify-content-center">
-        <h1>Welcome to the TaskTracker App</h1>
-    </div>
     <% if Current.user%>
-        <% if(Current.user.is_admin?) %>
-            <h2>Logged in as Admin</h2>
-        <% else %>
-            <h2>Logged in as <%= Current.user.name %></h2>
-        <% end %>
-        <br>
-        <br>
-        <div id="my_task">
-            <h3>My Tasks</h3>
-            <%= render partial: "shared/my_task_table"%>
-        </div>
-        <br>
-        <br>
-        <div id="created_task">
-            <h3>Created Tasks</h3>
-            <% if @created_tasks %>
-                <%= render partial: "shared/created_task_table"%>
-            <% else %>
-                <h4>You haven't created any task !!</h4>
-            <% end %>
-        </div>
-     <% end %>
+        <%= render "static_pages/home_logged_in"%>
+    <% else %>
+        <%= render "static_pages/home_not_logged_in"%>
+    <% end %>
 </div>

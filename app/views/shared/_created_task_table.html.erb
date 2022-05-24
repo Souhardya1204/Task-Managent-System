@@ -1,29 +1,31 @@
-<table class="tasks">
-  <tr>
-    <th>Task Name</th>
-    <th>Category</th>
-    <th>Created By</th>
-    <th>Required on</th>
-    <th>Assigned To</th>
-    <th>Repeat Interval</th>
-    <th>Completion Status</th>
-    <th>Acceptance Status</th>
-    <th>Actions</th>
-  </tr>
-
-  <% Array(@created_tasks).each do |task| %>
-     <tr>
-        <td><%= task.name %></td>
-        <td><%= task.category %></td>
-        <td><%= task.user.name %></td>
-        <td><%= task.date %></td>
-        <td><%= User.find(task.employee_id).name %></td>
-        <td><%= task.repeat %></td>
-        <td><%= task.status %></td>
-        <td><%= task.acceptance %></td>
-        <td><%= link_to "Edit",edit_task_path(id: task.id), class: "btn btn-primary", role: "button" %>
-        <%= link_to "Show",task_path(id: task.id), class: "btn btn-secondary", role: "button" %></td>
+<table class="table">
+  <thead class="table-dark">
+    <tr>
+      <th>Task Name</th>
+      <th>Category</th>
+      <th>Created By</th>
+      <th>Required on</th>
+      <th>Assigned To</th>
+      <th>Repeat Interval</th>
+      <th>Completion Status</th>
+      <th>Acceptance Status</th>
+      <th>Actions</th>
     </tr>
-  <% end %>
-
+  </thead>
+  <tbody>
+      <% Array(@created_tasks).each do |task| %>
+      <tr>
+          <td><%= task.name %></td>
+          <td><%= task.category %></td>
+          <td><%= task.user.name %></td>
+          <td><%= task.date %></td>
+          <td><%= User.find(task.employee_id).name %></td>
+          <td><%= task.repeat %></td>
+          <td class="compl-status"><%= task.status %></td>
+          <td class="accep-status"><%= task.acceptance %></td>
+          <td><%= link_to "Edit",edit_task_path(id: task.id), class: "btn btn-primary", role: "button" %>
+          <%= link_to "Show",task_path(id: task.id), class: "btn btn-secondary", role: "button" %></td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>

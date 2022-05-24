@@ -1,0 +1,28 @@
+<div class="banner center jumbotron ">
+    <h1>Welcome <%= Current.user.name %></h1>
+    <% if(Current.user.is_admin?) %>
+        <h4>Logged in as Admin</h4>
+    <% else %>
+        <h4>Logged in as <%= Current.user.name %></h4>
+    <% end %>
+    <br>
+    <%= link_to "Create New Task!", new_task_path, class: "btn btn-lg btn-primary" %>
+    
+</div>
+
+<br>
+<br>
+<div id="my_task">
+    <h3 class="text-center">My Tasks</h3>
+    <%= render partial: "shared/my_task_table"%>
+</div>
+<br>
+<br>
+<div id="created_task">
+    <h3 class="text-center">Created Tasks</h3>
+    <% if @created_tasks %>
+        <%= render partial: "shared/created_task_table"%>
+    <% else %>
+        <h4>You haven't created any task !!</h4>
+    <% end %>
+</div>

@@ -14,6 +14,7 @@ class TasksController < ApplicationController
         if @task.save
             flash[:notice] = "New task added"
             TaskMailer.with(user: Current.user, task: @task ).task_assigned.deliver_later
+            SendReminderWorker.perform_async(@task)
             redirect_to root_path
         else
             render "new"
@@ -60,7 +61,11 @@ class TasksController < ApplicationController
         @task = Task.find(params[:id])
         @task.acceptance = params[:value]
         if @task.save
-            redirect_to tasks_path,{notice: "Task approved"}
+            if @task.acceptance == "Approved"
+                redirect_to tasks_path,{notice: "Task approved"}
+            else
+                redirect_to tasks_path,{alert: "Task rejected"}
+            end
         else
             render 'show',{alert: "Something went wrong"}
         end
