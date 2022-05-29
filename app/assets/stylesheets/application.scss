@@ -13,14 +13,7 @@
  *= require_tree .
  *= require_self
  */
- /* table, th, td {
-    border:1px solid black;
-  }
-
-  table{
-    width: 100%;
-    margin-top: 5vh;
-  } */
+ @import "bootstrap/scss/bootstrap";
 
   h4 span{
     font-size: 20px;
@@ -39,7 +32,7 @@
     background-color: yellowgreen;
   }
 
-.all-task{
+.all-task, .my-task{
   margin-top: 30px;
 }
 

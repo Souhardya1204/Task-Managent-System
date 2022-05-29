@@ -11,6 +11,9 @@ $gray-medium-light: #eaeaea;
 }
 
 /* universal */
+a{
+  text-decoration: none;
+}
 
 
 section {
@@ -28,4 +31,35 @@ textarea {
   }
   background-color: $gray-medium-light;
   padding: 60px;
+}
+
+.profile{
+  margin-top: 60px;
+  font-size: 1.5rem;
+  .card {
+    padding: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .title {
+    color: grey;
+    font-size: 18px;
+  }
+  
+  button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+  }
+
 }

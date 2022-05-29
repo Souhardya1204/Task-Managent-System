@@ -1,9 +1,9 @@
 class TasksController < ApplicationController
     before_action :require_user_log_in!
-    before_action :admin_user, only: [:index, :edit, :acceptance, :delete]
+    before_action :admin_user, only: [:index, :acceptance, :delete]
     before_action :correct_user, only: [:my_task]
     def index
-        @tasks = Task.all
+        @tasks = Task.all.order(:priority)
     end
     def new
         @task = Task.new
@@ -13,8 +13,9 @@ class TasksController < ApplicationController
         @task = Current.user.tasks.build(task_params)
         if @task.save
             flash[:notice] = "New task added"
-            TaskMailer.with(user: Current.user, task: @task ).task_assigned.deliver_later
-            SendReminderWorker.perform_async(@task)
+            TaskMailer.with(user: Current.user, task: @task ).task_assigned.deliver_now
+            # SendReminderWorker.perform_async(@task)
+            # ReminderMailer.with(task: @task).send_reminder.deliver_later
             redirect_to root_path
         else
             render "new"
@@ -26,6 +27,7 @@ class TasksController < ApplicationController
     end
     def edit
         @task = Task.find(params[:id])
+        redirect_to root_path unless edit_access(@task)
     end
 
     def update
@@ -41,7 +43,8 @@ class TasksController < ApplicationController
     def status
         @task = Task.find(params[:id])
         if @task.update(change_status_params)
-            redirect_to task_path(id: @task.id), flash: {notice: "Task status updated"}
+            flash[:notice] = "Task Status updated"
+            redirect_back(fallback_location: root_path)
         else
             render "home", flash:{alert: "Something went wrong" }
         end
@@ -62,9 +65,9 @@ class TasksController < ApplicationController
         @task.acceptance = params[:value]
         if @task.save
             if @task.acceptance == "Approved"
-                redirect_to tasks_path,{notice: "Task approved"}
+                redirect_to task_path,{notice: "Task approved"}
             else
-                redirect_to tasks_path,{alert: "Task rejected"}
+                redirect_to task_path,{alert: "Task rejected"}
             end
         else
             render 'show',{alert: "Something went wrong"}
@@ -80,11 +83,11 @@ class TasksController < ApplicationController
   
     private
     def task_params
-        params.require(:task).permit(:name, :date, :repeat, :employee_id)
+        params.require(:task).permit(:name, :date, :priority, :repeat, :employee_id)
     end
 
     def task_update_params
-        params.require(:task).permit(:name,:category, :date, :repeat, :employee_id)
+        params.require(:task).permit(:name,:category, :date, :priority, :repeat, :employee_id)
     end
 
     def change_status_params
@@ -98,5 +101,13 @@ class TasksController < ApplicationController
     def correct_user
         @user = User.find(params[:id])
         redirect_to root_path unless @user == Current.user
+    end
+
+    def edit_access(task)
+        if Current.user.is_admin? || (Current.user == task.user )
+            return true 
+        else
+            return false
+        end
     end
 end

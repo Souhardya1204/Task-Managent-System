@@ -1,0 +1,31 @@
+<table class="table all-task">
+  <thead class="table-primary">
+      <tr>
+      <th>Task Name</th>
+      <th>Required on</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% Array(tasks).each do |task| %>
+      <tr>
+          <td><%= link_to task.name, task %></td>
+          <td><%= task.date %></td>
+          <td>
+          <% if Current.user.is_admin? %>
+            <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            Actions</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><%= link_to "Edit",edit_task_path(id: task.id), class:"dropdown-item"%></li>
+                <li> <%= link_to "Show",task_path(id: task.id), class: "dropdown-item" %></li>
+            </ul>
+            </div>
+          <% else %>
+            <%= link_to "Show",task, class:"btn btn-secondary"%>
+          <% end %>
+          </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

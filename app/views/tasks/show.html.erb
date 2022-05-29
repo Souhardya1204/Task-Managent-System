@@ -1,15 +1,53 @@
-<h1>Task Details</h1>
-<h4>Task Name : <span><%= @task.name %></span></h4>
-<h4>Category : <span><%= @task.category %></span></h4>
-<h4>Required On : <span><%= @task.date %></span></h4>
-<h4>Created by : <span><%= @task.user.name %></span></h4>
-<h4>Assigned To : <span><%= User.find(@task.employee_id).name %></span></h4>
-<h4>Repeat Interval : <span><%= @task.repeat %></span></h4>
-<h4>Completion status : <span><%= @task.status %></span></h4>
-<h4>Acceptance status : <span><%= @task.acceptance %></span></h4>
-<% if @task.status == "Completed" && Current.user.is_admin? %>
-  <div class="d-flex">
-  <%= link_to "Approve", acceptance_task_path(value: "Approved"),method: :patch , class:"btn btn-success" %>
-  <%= link_to "Reject",acceptance_task_path(value:"Rejected") , method: :patch , class:"btn btn-danger" %>
-  </div>
-<% end %>
+<table class="table table-striped">
+  <h2>Task Details</h2>
+  <tr>
+    <th> Task Name</th>
+    <td><%= @task.name%></td>
+  </tr>
+  <tr>
+    <th> Category</th>
+    <td><%= @task.category%></td>
+  </tr>
+  <tr>
+    <th>Required On</th>
+    <td><%= @task.date%></td>
+  </tr>
+  <tr>
+    <th>Created By</th>
+    <td><%= @task.user.name%></td>
+  </tr>
+  <tr>
+    <th> Assigned to</th>
+    <td><%= User.find(@task.employee_id).name %></td>
+  </tr>
+  <tr>
+    <th>Repeat Interval</th>
+    <td><%= @task.repeat%></td>
+  </tr>
+  <tr>
+    <th>Completion Status</th>
+    <td>
+      <%= form_with model: @task, url: status_task_url(id: @task.id) do |f|%>
+        <div class="mb-3">
+          <%= f.select :status, options_for_select([["Pending", "Pending"],["In Progress", "In Progress"],["Completed", "Completed"]], selected: @task.status),prompt: "Please select", class: "form-control" %>
+          <%= f.submit "Update", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th>Acceptance Status</th>
+    <td><%= @task.acceptance %></td>
+  </tr>
+  <% if @task.status == "Completed" && Current.user.is_admin? %>
+    <tr>
+      <th>Approve/Reject</th>
+      <td>
+        <div class="d-flex" style="gap:10px">
+          <%= link_to "Approve", acceptance_task_path(value: "Approved"),method: :patch , class:"btn btn-success" %>
+          <%= link_to "Reject",acceptance_task_path(value:"Rejected") , method: :patch , class:"btn btn-danger" %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</table>

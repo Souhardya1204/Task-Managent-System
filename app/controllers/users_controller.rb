@@ -25,6 +25,10 @@ class UsersController < ApplicationController
       end
   end
 
+  def show
+    @user = User.find(params[:id])
+  end
+
   def edit
     @user = User.find(params[:id])
   end
@@ -39,7 +43,7 @@ class UsersController < ApplicationController
   end
 
   def mytasks
-    @my_tasks = Task.where(employee_id: params[:id])
+    @my_tasks = Task.where(employee_id: params[:id]).order(:priority)
     if @my_tasks.empty?
       @my_tasks = nil
     end
