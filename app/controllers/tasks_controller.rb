@@ -2,6 +2,7 @@ class TasksController < ApplicationController
     before_action :require_user_log_in!
     before_action :admin_user, only: [:index, :acceptance, :delete]
     before_action :correct_user, only: [:my_task]
+    before_action :set_task, except: [:index, :new, :create]
     def index
         @tasks = Task.all.order(:priority)
     end
@@ -23,16 +24,13 @@ class TasksController < ApplicationController
     end
 
     def show
-        @task = Task.find(params[:id])
+       
     end
     def edit
-        @task = Task.find(params[:id])
         redirect_to root_path unless edit_access(@task)
     end
 
     def update
-        @task = Task.find(params[:id])
-       
         if @task.update(task_update_params)
             redirect_to tasks_path, flash: {notice: "Task successfully updated"}
         else
@@ -41,7 +39,6 @@ class TasksController < ApplicationController
     end
 
     def status
-        @task = Task.find(params[:id])
         if @task.update(change_status_params)
             flash[:notice] = "Task Status updated"
             redirect_back(fallback_location: root_path)
@@ -52,7 +49,6 @@ class TasksController < ApplicationController
     end
 
     def category
-        @task = Task.find(params[:id])
         if @task.update(category_params)
             redirect_to tasks_path
         else
@@ -60,8 +56,16 @@ class TasksController < ApplicationController
         end
     end
 
+    def document
+        if @task.update(document_params)
+            flash[:notice] = "File uploaded"
+        else
+            flash[:alert] = "Something went wrong"
+        end
+        redirect_back(fallback_location: root_path)
+    end
+
     def acceptance
-        @task = Task.find(params[:id])
         @task.acceptance = params[:value]
         if @task.save
             if @task.acceptance == "Approved"
@@ -75,13 +79,19 @@ class TasksController < ApplicationController
     end
 
     def destroy
-        task = Task.find(params[:id])
         task.destroy
         redirect_to tasks_path, {alert: "Task deleted"}
     end
 
+    def delete_attachment
+        @task.document.purge
+        redirect_back fallback_location: root_path, notice: "File deleted successfully"
+      end
   
     private
+    def set_task
+        @task = Task.find(params[:id])
+    end
     def task_params
         params.require(:task).permit(:name, :date, :priority, :repeat, :employee_id)
     end
@@ -96,6 +106,10 @@ class TasksController < ApplicationController
 
     def category_params
         params.require(:task).permit(:category)
+    end
+
+    def document_params
+        params.require(:task).permit(:document)
     end
 
     def correct_user

@@ -20,5 +20,7 @@ Rails.application.routes.draw do
     patch 'acceptance', on: :member
     patch 'status', on: :member
     patch 'category', on: :member
+    patch 'document', on: :member
+    delete 'document', on: :member, to: 'tasks#delete_attachment'
   end
 end

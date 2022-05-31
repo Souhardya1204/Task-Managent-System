@@ -39,6 +39,24 @@
     <th>Acceptance Status</th>
     <td><%= @task.acceptance %></td>
   </tr>
+  <tr>
+    <th>Upload Document</th>
+    <td>
+      <% if @task.document.attached? %>
+        <%= link_to @task.document.filename , rails_blob_path(@task.document, disposition: "attachment")%>
+         <%= link_to 'Remove', document_task_path(@task),class:"btn btn-sm btn-danger",
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %>
+      <% else %>
+        <%= form_with model: @task, url: document_task_url(id: @task.id) do |f|%>
+          <div class="mb-3">
+            <%= f.file_field :document , accept: 'application/pdf, application/doc, application/xls'%>
+            <%= f.submit "Upload", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
   <% if @task.status == "Completed" && Current.user.is_admin? %>
     <tr>
       <th>Approve/Reject</th>
