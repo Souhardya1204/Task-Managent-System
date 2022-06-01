@@ -1,0 +1,6 @@
+<% if @subtask.errors.any? %>
+  $('#errorArea').html("<%= j render('errors', subtask: @subtask)%>")
+<% else %>
+  $('#subtasksTable').prepend("<%= j render('subtask_row', subtask: @subtask)%>")
+  $('.close-modal').click()
+<% end %>

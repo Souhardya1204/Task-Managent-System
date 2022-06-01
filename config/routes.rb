@@ -22,5 +22,8 @@ Rails.application.routes.draw do
     patch 'category', on: :member
     patch 'document', on: :member
     delete 'document', on: :member, to: 'tasks#delete_attachment'
+    resources :subtasks do
+      patch 'status', on: :member
+    end
   end
 end

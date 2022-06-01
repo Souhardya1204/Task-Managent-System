@@ -69,3 +69,45 @@
     </tr>
   <% end %>
 </table>
+<%= link_to 'Add Subtask', new_task_subtask_path(@task) , class: "btn btn-primary btn-lg mb-3", data:{ bs_target: "#newSubtaskModal", bs_toggle: "modal", remote: true}%>
+<%= render 'subtasks/index'  %>
+
+<!-- Show Subtask Modal -->
+<div class="modal fade" id="newSubtaskModal" tabindex="-1" aria-labelledby="newSubtaskModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newSubtaskModalLabel">New Subtask</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div id="newSubtaskForm"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Edit Subtask Modal -->
+<div class="modal fade" id="editSubtaskModal" tabindex="-1" aria-labelledby="editSubtaskModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editSubtaskModalLabel">Edit Subtask</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div id="editSubtaskForm"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Show User Modal -->
+<div class="modal fade" id="showSubtaskModal" tabindex="-1" aria-labelledby="showSubtaskModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="showSubtaskModalLabel">Subtask Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div id="showSubtaskForm"></div>
+    </div>
+  </div>
+</div>

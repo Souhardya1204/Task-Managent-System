@@ -24,7 +24,7 @@ class TasksController < ApplicationController
     end
 
     def show
-       
+       @subtasks = @task.subtasks.order(created_at: :desc)
     end
     def edit
         redirect_to root_path unless edit_access(@task)
@@ -79,7 +79,7 @@ class TasksController < ApplicationController
     end
 
     def destroy
-        task.destroy
+        @task.destroy
         redirect_to tasks_path, {alert: "Task deleted"}
     end
 

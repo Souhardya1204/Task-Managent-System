@@ -1,0 +1,24 @@
+<tr id="subtaskRow_<% subtask.id %>">
+  <td> <%= link_to subtask.title,task_subtask_path(task_id: subtask.task_id, id:subtask.id),data:{bs_toggle:'modal', bs_target: '#showSubtaskModal', remote: true }  %></td>
+  <td>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        Actions
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <%= link_to "Show", task_subtask_path(task_id: subtask.task_id, id:subtask.id) , class: "dropdown-item", data:{bs_toggle:'modal', bs_target: '#showSubtaskModal', remote: true }%>
+        <%= link_to "Edit", edit_task_subtask_path(task_id: subtask.task_id, id:subtask.id), class: "dropdown-item", data:{bs_toggle:'modal', bs_target: '#editSubtaskModal', remote: true }%>
+        <%= link_to "Destroy", [@task, subtask ] ,method: :delete,  class: "dropdown-item", remote: true%>
+      </ul>
+    </div>
+  </td>
+  <td>
+
+      <%= 
+        check_box_tag 'complete', true , subtask.complete,
+          onchange: "$(this).data('params', 'complete =' + this.checked)",
+          data: { remote: true, url: status_task_subtask_path(task_id: subtask.task_id, id: subtask.id), method: :patch }
+%>
+ 
+  </td>
+</tr>

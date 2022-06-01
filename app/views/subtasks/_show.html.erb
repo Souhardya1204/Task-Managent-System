@@ -1,0 +1,24 @@
+<div class="modal-body">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <p id="notice"><%= notice %></p>
+        <p>
+          <strong>Title:</strong>
+          <%= subtask.title %>
+        </p>
+        <p>
+          <strong>Description:</strong>
+          <%= subtask.description %>
+        </p>
+        <p>
+          <strong>Status:</strong>
+          <%= give_status(subtask) %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary btn-lg close-modal" data-bs-dismiss="modal">Close</button>
+</div>
