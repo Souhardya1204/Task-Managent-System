@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <title>TaskManagementSystem</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <%= csp_meta_tag %>
-  <%= csrf_meta_tags %>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  
-   
-</head>
-
-<body>
-  <%= render partial:'shared/navbar'%>
-  <div class="container">
-    <%= render partial: 'shared/flash'%>
-    <%= yield %>
-  </div>
-  <%= javascript_pack_tag 'custom', 'data-turbolinks-track': 'reload' %>
-</body>
+  <head>
+    <title>TaskManagementSystem</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csp_meta_tag %>
+    <%= csrf_meta_tags %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+    <%= render partial:'shared/navbar'%>
+    <div class="container">
+      <%= render partial: 'shared/flash'%>
+      <%= yield %>
+    </div>
+    <%= javascript_pack_tag 'custom', 'data-turbolinks-track': 'reload' %>
+  </body>
 </html>
