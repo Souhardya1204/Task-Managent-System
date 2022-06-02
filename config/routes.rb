@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   post 'sign_in', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
 
-
+  get '/auth/:provider/callback' => 'sessions#omniauth'
 
   resources :users do
     get 'mytasks', on: :member

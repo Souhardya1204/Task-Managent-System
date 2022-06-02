@@ -14,7 +14,7 @@ class TasksController < ApplicationController
         @task = Current.user.tasks.build(task_params)
         if @task.save
             flash[:notice] = "New task added"
-            TaskMailer.with(user: Current.user, task: @task ).task_assigned.deliver_now
+            TaskMailer.with(user: Current.user, task: @task ).task_assigned.deliver_later
             # SendReminderWorker.perform_async(@task)
             # ReminderMailer.with(task: @task).send_reminder.deliver_later
             redirect_to root_path
