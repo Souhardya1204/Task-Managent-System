@@ -12,14 +12,20 @@ class TasksController < ApplicationController
 
     def create
         @task = Current.user.tasks.build(task_params)
-        if @task.save
-            flash[:notice] = "New task added"
-            TaskMailer.with(user: Current.user, task: @task ).task_assigned.deliver_later
-            # SendReminderWorker.perform_async(@task)
-            # ReminderMailer.with(task: @task).send_reminder.deliver_later
-            redirect_to root_path
-        else
-            render "new"
+        respond_to do |format|
+            if @task.save
+                TaskMailer.with(user: Current.user, task: @task ).task_assigned.deliver_later
+                format.html{redirect_to root_path, notice: "New Task Added"}
+                
+                # SendReminderWorker.perform_async(@task)
+                # ReminderMailer.with(task: @task).send_reminder.deliver_later
+                format.js
+                
+            else
+                format.html{render "new"}
+                format.js
+            end
+
         end
     end
 
@@ -78,6 +84,10 @@ class TasksController < ApplicationController
         end
     end
 
+    def done
+        @task.update_attribute(:done, params[:Done])
+    end
+
     def destroy
         @task.destroy
         redirect_to tasks_path, {alert: "Task deleted"}
@@ -86,14 +96,16 @@ class TasksController < ApplicationController
     def delete_attachment
         @task.document.purge
         redirect_back fallback_location: root_path, notice: "File deleted successfully"
-      end
+    end
   
     private
     def set_task
         @task = Task.find(params[:id])
     end
     def task_params
-        params.require(:task).permit(:name, :date, :priority, :repeat, :employee_id)
+        list_params_allowed = [:name, :date, :priority, :repeat, :employee_id]
+        list_params_allowed << :category if Current.user.is_admin?
+        params.require(:task).permit(list_params_allowed)
     end
 
     def task_update_params

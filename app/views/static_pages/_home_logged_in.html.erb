@@ -1,38 +1,45 @@
 <div class="banner center jumbotron ">
-    <h1>Welcome <%= Current.user.name %></h1>
-    <% if(Current.user.is_admin?) %>
-        <h4>Logged in as Admin</h4>
-    <% else %>
-        <h4>Logged in as <%= Current.user.role.capitalize %></h4>
-    <% end %>
-    <br>
-    <%= link_to "Create New Task!", new_task_path, class: "btn btn-lg btn-primary" %>
-    
+  <h1>Welcome <%= Current.user.name %></h1>
+  <% if(Current.user.is_admin?) %>
+    <h4>Logged in as Admin</h4>
+  <% else %>
+    <h4>Logged in as <%= Current.user.role.capitalize %></h4>
+  <% end %>
+  <br>
+  <%= link_to "Create New Task!", new_task_path, class: "btn btn-lg btn-primary", data:{ bs_target: "#newTaskModal", bs_toggle: "modal", remote: true} %>
 </div>
 <br>
 <br>
 <h1 class="text-center">My Tasks</h1>
 <div id="my_task" class=" row d-flex col-lg-12">
-    <div class="col-lg-4">
-        <h3 class="bg-danger">High Priority</h3>
-        <%= render partial: "priority_task_table" , locals:{tasks: @high_tasks}%> 
-    </div>
-    <div class="col-lg-4">
-        <h3 class="bg-warning">Medium Priority</h3>
-        <%= render partial: "priority_task_table" , locals:{tasks: @medium_tasks}%> 
-    </div>
-    <div class="col-lg-4">
-        <h3 class="bg-info">Low Priority</h3>
-        <%= render partial: "priority_task_table" , locals:{tasks: @low_tasks}%> 
-    </div>
+  <div class="col-lg-4" id="1">
+    <h3 class="bg-danger">High Priority</h3>
+    <%= render partial: "priority_task_table" , locals:{tasks: @high_tasks}%>
+  </div>
+  <div class="col-lg-4" id="2">
+    <h3 class="bg-warning">Medium Priority</h3>
+    <%= render partial: "priority_task_table" , locals:{tasks: @medium_tasks}%>
+  </div>
+  <div class="col-lg-4" id="3">
+    <h3 class="bg-info">Low Priority</h3>
+    <%= render partial: "priority_task_table" , locals:{tasks: @low_tasks}%>
+  </div>
 </div>
 <br>
 <br>
 <div id="created_task">
-    <h3 class="text-center">Created Tasks</h3>
-    <% if @created_tasks %>
-        <%= render partial: "shared/created_task_table"%>
-    <% else %>
-        <h4>You haven't created any task !!</h4>
-    <% end %>
+  <h3 class="text-center">Created Tasks</h3>
+  <%= render partial: "shared/created_task_table"%>
+</div>
+<!-- New Task Modal -->
+<div class="modal fade" id="newTaskModal" tabindex="-1" aria-labelledby="newTaskModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newTaskModalLabel">New Task</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div id="newTaskForm"></div>
+    </div>
+  </div>
 </div>

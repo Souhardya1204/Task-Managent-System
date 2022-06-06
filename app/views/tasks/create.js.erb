@@ -1,0 +1,10 @@
+<% if @task.errors.any? %>
+  $('#errorArea').html("<%= j render('shared/errors', object: @task)%>")
+<% else %>
+  $('#createdTasksTable').prepend("<%= j render('created_task_row', task: @task)%>")
+  <% if @task.employee_id == Current.user.id %>
+    let id = '#'+ <%= @task.priority %>
+    $( id+' table tbody').prepend("<%= j render('mytask_row', task: @task)%>")
+  <% end %>
+  $('.close-modal').click()
+<% end %>

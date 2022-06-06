@@ -13,12 +13,10 @@
     </div>
   </td>
   <td>
-
-      <%= 
+    <%= 
         check_box_tag 'complete', true , subtask.complete,
           onchange: "$(this).data('params', 'complete =' + this.checked)",
-          data: { remote: true, url: status_task_subtask_path(task_id: subtask.task_id, id: subtask.id), method: :patch }
+          data: { remote: true, url: complete_task_subtask_path(task_id: subtask.task_id, id: subtask.id), method: :patch }
 %>
- 
   </td>
 </tr>

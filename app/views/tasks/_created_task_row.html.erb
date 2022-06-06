@@ -1,0 +1,13 @@
+      
+<tr>
+  <td><%= task.name %></td>
+  <td><%= task.category %></td>
+  <td><%= task.user.name %></td>
+  <td><%= task.date %></td>
+  <td><%= User.find(task.employee_id).name %></td>
+  <td><%= task.repeat %></td>
+  <td class="compl-status table-info"><%= task.status %></td>
+  <td class="accep-status table-info"><%= task.acceptance %></td>
+  <td><%= link_to "Edit",edit_task_path(id: task.id), class: "btn btn-primary", role: "button" %>
+    <%= link_to "Show",task_path(id: task.id), class: "btn btn-secondary", role: "button" %></td>
+</tr>

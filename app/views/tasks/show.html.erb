@@ -29,7 +29,11 @@
     <td>
       <%= form_with model: @task, url: status_task_url(id: @task.id) do |f|%>
         <div class="mb-3">
-          <%= f.select :status, options_for_select([["Pending", "Pending"],["In Progress", "In Progress"],["Completed", "Completed"]], selected: @task.status),prompt: "Please select", class: "form-control" %>
+        <% if @task.done %>
+        <%= f.select :status, options_for_select([["Pending", "Pending"],["In Progress", "In Progress"],["Completed", "Completed"]], selected: @task.status),prompt: "Please select", class: "form-control" %>
+        <% else %>
+        <%= f.select :status, options_for_select([["Pending", "Pending"],["In Progress", "In Progress"]], selected: @task.status),prompt: "Please select", class: "form-control" %>
+        <% end %>
           <%= f.submit "Update", class: "btn btn-primary" %>
         </div>
       <% end %>
@@ -72,7 +76,7 @@
 <%= link_to 'Add Subtask', new_task_subtask_path(@task) , class: "btn btn-primary btn-lg mb-3", data:{ bs_target: "#newSubtaskModal", bs_toggle: "modal", remote: true}%>
 <%= render 'subtasks/index'  %>
 
-<!-- Show Subtask Modal -->
+<!-- New Subtask Modal -->
 <div class="modal fade" id="newSubtaskModal" tabindex="-1" aria-labelledby="newSubtaskModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -99,7 +103,7 @@
   </div>
 </div>
 
-<!-- Show User Modal -->
+<!-- Show Subtask Modal -->
 <div class="modal fade" id="showSubtaskModal" tabindex="-1" aria-labelledby="showSubtaskModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

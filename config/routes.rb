@@ -22,9 +22,10 @@ Rails.application.routes.draw do
     patch 'status', on: :member
     patch 'category', on: :member
     patch 'document', on: :member
+    patch 'done', on: :member
     delete 'document', on: :member, to: 'tasks#delete_attachment'
     resources :subtasks do
-      patch 'status', on: :member
+      patch 'complete', on: :member
     end
   end
 end

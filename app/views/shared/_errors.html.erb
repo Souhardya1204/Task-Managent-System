@@ -1,8 +1,8 @@
-<% if subtask.errors.any? %>
+<% if object.errors.any? %>
   <div id="error_explanation">
-    <h6 class="text-danger"><%= pluralize(subtask.errors.count, "error") %> prohibited this subtask from being saved:</h6>
+    <h6 class="text-danger"><%= pluralize(object.errors.count, "error") %> prohibited this object from being saved:</h6>
     <ul>
-      <% subtask.errors.each do |error| %>
+      <% object.errors.each do |error| %>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
           <strong>
             <li><%= error.full_message %></li>

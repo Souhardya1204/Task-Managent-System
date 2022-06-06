@@ -1,0 +1,48 @@
+<%= form_with(model: task, url: tasks_path, local: false) do |f| %>
+  <div class="modal-body">
+    <div id="errorArea"></div>
+    <div class="form-group mb-3">
+      <%= f.label :name,"Task Name" %>
+      <%= f.text_field :name, class: "form-control", placeholder: "Task Name" %>
+    </div>
+    <% if Current.user.is_admin? %>
+      <div class="form-group mb-3">
+        <%= f.label :category %>
+        <%= f.select :category, options_for_select([["Exams", "Exams"],["Birthday", "Birthday"],["Campus","Campus"],["Mock Test", "Mock Test"],["Interview", "Interview"],["Event","Event"],["Hiring", "Hiring"]], selected: @task.category), prompt: "Please select", class: "form-control" %>
+      </div>
+    <% end %>
+    <div class="form-group mb-3">
+      <%= f.label :date, "Required On" %>
+      <%= f.date_field :date, class: "form-control"%>
+    </div>
+    <div class="form-group mb-3">
+      <%= f.label :priority %>
+      <%= f.select :priority, options_for_select([["High", 1 ],["Medium", 2 ],["Low", 3 ]]),prompt: "Please select", class: "form-control" %>
+    </div>
+    <div class="form-group mb-3">
+      <%= f.label :employee_id, "Assigned To" %>
+      <%= collection_select(:task, :employee_id, User.all, :id, :name, {:prompt => true, :multiple=>false })%>
+    </div>
+    <div class="form-group mb-3">
+      <%= f.label :repeat, "Repeat Interval" %><br>
+      <%= f.radio_button :repeat, 'Onetime' %>
+      <%= f.label :repeat, 'OneTime', value:'onetime', style:"margin-right: 15px;" %>
+      <%= f.radio_button :repeat, 'Daily' %>
+      <%= f.label :repeat, 'Daily', value:'daily', style:"margin-right: 15px;" %>
+      <%= f.radio_button :repeat, 'Weekly' %>
+      <%= f.label :repeat, 'Weekly', value:'weekly', style:"margin-right: 15px;" %>
+      <%= f.radio_button :repeat, 'Monthly' %>
+      <%= f.label :repeat, 'Monthly', value:'monthly', style:"margin-right: 15px;" %>
+      <%= f.radio_button :repeat, 'Quarterly' %>
+      <%= f.label :repeat, 'Quarterly', value:'quarterly', style:"margin-right: 15px;" %>
+      <%= f.radio_button :repeat, 'Halfyearly' %>
+      <%= f.label :repeat, 'Half-Yearly', value:'halfyearly', style:"margin-right: 15px;" %>
+      <%= f.radio_button :repeat, 'Yearly' %>
+      <%= f.label :repeat, 'Yearly', value:'yearly' %>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <%= f.submit class:"btn btn-primary btn-lg" %>
+    <button type="button" class="btn btn-secondary btn-lg close-modal" data-bs-dismiss="modal">Close</button>
+  </div>
+<% end %>

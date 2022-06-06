@@ -1,6 +1,6 @@
 class SubtasksController < ApplicationController
     before_action :set_task
-    before_action :set_subtask , only:[:show, :edit, :update, :destroy, :status]
+    before_action :set_subtask , only:[:show, :edit, :update, :destroy, :complete]
     helper_method :give_status
     def new
         @subtask = Subtask.new
@@ -39,7 +39,7 @@ class SubtasksController < ApplicationController
         @subtask.destroy
     end
 
-    def status
+    def complete
         @subtask.update_attribute(:complete, params[:complete])
         
     end
