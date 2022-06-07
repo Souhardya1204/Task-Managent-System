@@ -1,32 +1,39 @@
 <div class="col-lg-6 mx-auto">
   <h1>Sign up</h1>
-<%= form_with model: @user, url: sign_up_path do |f|%>
-  <% if @user.errors.any? %>
-    <% @user.errors.full_messages.each do |message| %>
+  <%= form_with model: @user, url: sign_up_path do |f|%>
+    <% if @user.errors.any? %>
+      <% @user.errors.full_messages.each do |message| %>
         <div class="alert alert-danger" role="alert">
-            <%= message %>
+          <%= message %>
         </div>
+      <% end %>
     <% end %>
-  <% end %>
     <div class="mb-3">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: "form-control", placeholder: "Your Name" %>
-  </div>
-  <div class="mb-3">
-    <%= f.label :email %>
-    <%= f.email_field :email, class: "form-control", placeholder: "steve@apple.com" %>
-  </div>
-  <div class="mb-3">
-    <%= f.label :password %>
-    <%= f.password_field :password , class: "form-control", placeholder: "password" %>
-  </div>
-  <div class="mb-3">
-    <%= f.label :password_confirmation%>
-    <%= f.password_field :password_confirmation, class: "form-control", placeholder: "password" %>
-  </div>
-  <div class="mb-3">
-    <%= f.submit "Sign up", class: "btn btn-primary" %>
-  </div>
-<% end %>
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "form-control", placeholder: "Your Name" %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :email %>
+      <%= f.email_field :email, class: "form-control", placeholder: "steve@apple.com" %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :password %>
+      <%= f.password_field :password , class: "form-control", placeholder: "password" %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :password_confirmation%>
+      <%= f.password_field :password_confirmation, class: "form-control", placeholder: "password" %>
+    </div>
+    <div class="mb-3">
+      <%= f.submit "Sign up", class: "btn btn-primary" %>
+    </div>
+    <div class="mb-3">
+      <%= link_to "Sign up with Google", '/auth/google_oauth2', class:"login-btn login-google", style:"text-decoration: none" %>
+    </div>
+    <div class="mb-3">
+      <%= link_to "/auth/facebook" , class:"login-btn login-facebook" do %>
+        <%= image_tag "facebook.png", style:"height:30px; padding-right: 10px; padding-left:0px;"%>Sign up with Facebook
+      <% end %>
+    </div>
+  <% end %>
 </div>
-

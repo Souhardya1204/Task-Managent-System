@@ -20,11 +20,16 @@
             <li class="nav-item">
               <%= link_to "All Tasks", tasks_path, class:"nav-link" %>
             </li>
-          <% else %>
+            
+          <% elsif Current.user.is_hr? %>
+              <li class="nav-item">
+              <%= link_to "Approved Tasks", tasks_approved_path, class:"nav-link" %>
+            </li>
+            
+          <% end %>
             <li class="nav-item">
               <%= link_to "My Tasks", mytasks_user_path(id: Current.user.id) , class: "nav-link"%>
             </li>
-          <%end%>
             <li class="nav-item">
               <%= link_to "Create New Task", new_task_path , class: "nav-link"%>
             </li>

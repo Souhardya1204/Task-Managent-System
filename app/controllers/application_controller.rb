@@ -13,4 +13,8 @@ class ApplicationController < ActionController::Base
     def admin_user
         redirect_to root_path unless Current.user.is_admin?
     end
+
+    def only_hr
+        redirect_to root_path unless Current.user.is_hr?
+    end
 end

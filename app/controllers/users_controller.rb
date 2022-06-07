@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :require_user_log_in!, except: [:new, :create]
   before_action :admin_user, only: [:index, :edit, :update]
+  before_action :only_hr, only: [:approved_tasks]
  
   def new
     if Current.user
@@ -49,6 +50,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def approved_tasks
+    @approved_tasks = Task.where( acceptance: "Approved")
+  end
+
   def destroy
     @user = User.find(params[:id])
     @user.destroy()
@@ -63,4 +68,5 @@ class UsersController < ApplicationController
   def user_update_params
     params.require(:user).permit(:name, :email, :role)
   end
+
 end

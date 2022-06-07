@@ -1,47 +1,49 @@
-
-    <% if @my_tasks %>
-        <table class="table my-task">
-          <thead class="table-dark">
-              <tr>
-                <th>Task Name</th>
-                <th>Category</th>
-                <th>Created By</th>
-                <th>Required on</th> 
-                <th>Assigned To</th>
-                <th>Repeat Interval</th>
-                <th>Completion Status</th>
-                <th>Acceptance Status</th>
-                <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% Array(@my_tasks).each do |task| %>
-              <tr>
-                  <td><%= task.name %></td>
-                  <td><%= task.category %></td>
-                  <td><%= task.user.name %></td>
-                  <td><%= task.date %></td>
-                  <td><%= User.find(task.employee_id).name %></td>
-                  <td><%= task.repeat %></td>
-                  <td>
-                    <%= form_with model: task, url: status_task_url(id: task.id) do |f|%>
-                        <div class="mb-3">
-                          <%= f.select :status, options_for_select([["Pending", "Pending"],["In Progress", "In Progress"],["Completed", "Completed"]], selected: task.status),prompt: "Please select", class: "form-control" %>
-                          <%= f.submit "Update", class: "btn btn-primary" %>
-                        </div>
-                    <% end %>
-                  </td>
-                  <td class="accep-status"><%= task.acceptance %></td>
-                  <td>
-                    <% if Current.user.is_admin? %>
-                      <%= link_to "Edit",edit_task_path(id: task.id), class: "btn btn-primary", role: "button" %>
-                    <% end %>
-                    <%= link_to "Show",task_path(id: task.id), class: "btn btn-secondary", role: "button" %></td>
-              </tr>
+<% if @my_tasks %>
+  <table class="table my-task">
+    <thead class="table-dark">
+      <tr>
+        <th>Task Name</th>
+        <th>Category</th>
+        <th>Created By</th>
+        <th>Required on</th>
+        <th>Assigned To</th>
+        <th>Repeat Interval</th>
+        <th>Completion Status</th>
+        <th>Acceptance Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% Array(@my_tasks).each do |task| %>
+        <tr>
+          <td><%= task.name %></td>
+          <td><%= task.category %></td>
+          <td><%= task.user.name %></td>
+          <td><%= task.date %></td>
+          <td><%= User.find(task.employee_id).name %></td>
+          <td><%= task.repeat %></td>
+          <td>
+            <%= form_with model: task, url: status_task_url(id: task.id) do |f|%>
+              <div class="mb-3">
+                <% if task.done %>
+                  <%= f.select :status, options_for_select([["Pending", "Pending"],["In Progress", "In Progress"],["Completed", "Completed"]], selected: task.status),prompt: "Please select", class: "form-control" %>
+                <% else %>
+                  <%= f.select :status, options_for_select([["Pending", "Pending"],["In Progress", "In Progress"]], selected: task.status),prompt: "Please select", class: "form-control" %>
+                <% end %>
+                <%= f.submit "Update", class: "btn btn-primary" %>
+              </div>
             <% end %>
-          </tbody>
-        </table>
-       
-    <% else %>
-        <h4>No task is assigned </h4>
-    <% end %>
+          </td>
+          <td class="accep-status"><%= task.acceptance %></td>
+          <td>
+            <% if Current.user.is_admin? %>
+              <%= link_to "Edit",edit_task_path(id: task.id), class: "btn btn-primary", role: "button" %>
+            <% end %>
+            <%= link_to "Show",task_path(id: task.id), class: "btn btn-secondary", role: "button" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h4>No task is assigned </h4>
+<% end %>

@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback' => 'sessions#omniauth'
   get 'auth/failure', to: redirect('/')
 
+  get 'tasks/approved', to: 'users#approved_tasks'
+  get 'tasks/approved/show', to: 'tasks#approved_show'
   resources :users do
     get 'mytasks', on: :member
   end

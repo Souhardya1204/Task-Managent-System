@@ -32,6 +32,21 @@ class TasksController < ApplicationController
     def show
        @subtasks = @task.subtasks.order(created_at: :desc)
     end
+
+    def approved_show
+         @subtasks = @task.subtasks
+         respond_to do |format|
+            format.html 
+      
+            format.pdf do
+              pdf = ApprovedTaskPdf.new(@task)
+              send_data pdf.render,
+                filename: "Task_#{ @task.id }.pdf",
+                type: 'application/pdf',
+                disposition: 'inline'
+            end
+          end
+    end
     def edit
         redirect_to root_path unless edit_access(@task)
     end

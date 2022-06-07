@@ -13,11 +13,19 @@ class User < ApplicationRecord
     end
     return false
   end
+
+  def is_hr?
+    if self.role == "hrd"
+      return true
+    end
+    return false
+  end
+  
   def self.from_omniauth(auth)
     where(email: auth.info.email).first_or_initialize do |user|
       user.provider = auth.provider
       user.uid = auth.uid
-      user.name = auth.info.name
+      user.name = auth.info.name.capitalize
       user.email = auth.info.email
       user.password = SecureRandom.hex
     end

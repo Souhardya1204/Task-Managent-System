@@ -1,0 +1,21 @@
+<div class="col-lg-6 mx-auto">
+  <table class="table all-task ">
+    <thead class="table-primary">
+      <tr>
+        <th>Task Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% Array(@approved_tasks).each do |task| %>
+        <tr>
+          <td><%= link_to task.name, tasks_approved_show_path(id: task.id) %></td>
+          <td>
+            <%= link_to "Show",tasks_approved_show_path(id: task.id), class:"btn btn-secondary"%>
+            <%= link_to "Print Pdf", tasks_approved_show_path(id: task.id, format: "pdf"), target: "_blank", class:"btn btn-primary" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
