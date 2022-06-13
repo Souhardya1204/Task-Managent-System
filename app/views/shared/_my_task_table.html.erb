@@ -6,7 +6,7 @@
         <th>Category</th>
         <th>Created By</th>
         <th>Required on</th>
-        <th>Assigned To</th>
+        <th>Priority</th>
         <th>Repeat Interval</th>
         <th>Completion Status</th>
         <th>Acceptance Status</th>
@@ -20,7 +20,7 @@
           <td><%= task.category %></td>
           <td><%= task.user.name %></td>
           <td><%= task.date %></td>
-          <td><%= User.find(task.employee_id).name %></td>
+          <td><%= get_string_priority(task) %></td>
           <td><%= task.repeat %></td>
           <td>
             <%= form_with model: task, url: status_task_url(id: task.id) do |f|%>

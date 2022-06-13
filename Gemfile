@@ -67,4 +67,6 @@ gem 'omniauth-facebook'
 gem 'prawn'
 gem 'prawn-table'
 
+gem 'whenever'
+
 

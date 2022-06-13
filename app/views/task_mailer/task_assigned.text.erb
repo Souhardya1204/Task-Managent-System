@@ -1,3 +1,10 @@
-Task#task_assigned
+<h1>New Task Assigned</h1>
 
-<%= @greeting %>, find me in app/views/task_mailer/task_assigned.text.erb
+<p>
+  <%= @greeting %>,<br>
+  A new task has been assigned to you. Find the details below. <br>
+  Name: <%= @task.name %> <br>
+  Assigned By: <%= @task.user.name %> <br>
+  Required on: <%= @task.date %> <br>
+  Click on the link to view: <%= link_to @task.name , task_url(@task) %>
+</p>
