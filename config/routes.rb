@@ -25,9 +25,10 @@ Rails.application.routes.draw do
     patch 'category', on: :member
     patch 'document', on: :member
     patch 'done', on: :member
-    delete 'document', on: :member, to: 'tasks#delete_attachment'
+    delete 'attachments/:id/purge', on: :member, to: 'attachments#purge' , :as => 'purge_attachment'
     resources :subtasks do
       patch 'complete', on: :member
+      patch 'document', on: :member
     end
   end
 end

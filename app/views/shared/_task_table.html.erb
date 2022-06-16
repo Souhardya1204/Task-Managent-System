@@ -1,6 +1,6 @@
 <table class="table all-task">
   <thead class="table-primary">
-      <tr>
+    <tr>
       <th>Task Name</th>
       <th>Category</th>
       <th>Created By</th>
@@ -14,21 +14,18 @@
   <tbody>
     <% Array(@tasks).each do |task| %>
       <tr>
-          <td><%= task.name %></td>
-          <td>                  
-              <%= form_with model: task, url: category_task_url(id: task.id) do |f|%>
-                  <div class="mb-3">
-                      <%= f.select :category, options_for_select([["Exams", "Exams"],["Birthday", "Birthday"],["Campus","Campus"],["Mock Test", "Mock Test"],["Interview", "Interview"],["Event","Event"],["Hiring", "Hiring"]], selected: task.category), class: "form-control" %>
-                      <%= f.submit "Update", class: "btn btn-primary" %>
-                  </div>
-              <% end %>
-          </td>
-          <td><%= task.user.name %></td>
-          <td><%= task.date %></td>
-          <td><%= User.find(task.employee_id).name %></td>
-          <td><%= task.repeat %></td>
-          <td class="accep-status"><%= task.acceptance %></td>
-          <td><%= link_to "Edit",edit_task_path(id: task.id), class: "btn btn-primary", role: "button" %>
+        <td><%= task.name %></td>
+        <td>
+          <div class="mb-3">
+            <%= select_tag('category', options_for_select([["Exams", "Exams"],["Birthday", "Birthday"],["Campus","Campus"],["Mock Test", "Mock Test"],["Interview", "Interview"],["Event","Event"],["Hiring", "Hiring"]], selected: task.category),data:{ remote: true, url: category_task_path(id: task.id), method: :patch }) %>
+          </div>
+        </td>
+        <td><%= task.user.name %></td>
+        <td><%= task.date %></td>
+        <td><%= User.find(task.employee_id).name %></td>
+        <td><%= task.repeat %></td>
+        <td class="accep-status"><%= task.acceptance %></td>
+        <td><%= link_to "Edit",edit_task_path(id: task.id), class: "btn btn-primary", role: "button" %>
           <%= link_to "Show",task_path(id: task.id), class: "btn btn-secondary", role: "button" %>
           <%= link_to "Delete",task_path(id: task.id), method: :delete, class: "btn btn-danger", role: "button" %></td>
       </tr>

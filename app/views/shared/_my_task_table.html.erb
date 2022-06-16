@@ -23,15 +23,10 @@
           <td><%= get_string_priority(task) %></td>
           <td><%= task.repeat %></td>
           <td>
-            <%= form_with model: task, url: status_task_url(id: task.id) do |f|%>
-              <div class="mb-3">
-                <% if task.done %>
-                  <%= f.select :status, options_for_select([["Pending", "Pending"],["In Progress", "In Progress"],["Completed", "Completed"]], selected: task.status),prompt: "Please select", class: "form-control" %>
-                <% else %>
-                  <%= f.select :status, options_for_select([["Pending", "Pending"],["In Progress", "In Progress"]], selected: task.status),prompt: "Please select", class: "form-control" %>
-                <% end %>
-                <%= f.submit "Update", class: "btn btn-primary" %>
-              </div>
+            <% if task.done %>
+              <%= select_tag( 'status', options_for_select([["Pending", "Pending"],["In Progress", "In Progress"],["Completed", "Completed"]], selected: task.status),prompt: "Please select" ,data:{ remote: true, url: status_task_path(id: task.id), method: :patch }) %>
+            <% else %>
+              <%= select_tag('status', options_for_select([["Pending", "Pending"],["In Progress", "In Progress"]], selected: task.status),prompt: "Please select",data: { remote: true, url: status_task_path(id: task.id), method: :patch }) %>
             <% end %>
           </td>
           <td class="accep-status"><%= task.acceptance %></td>

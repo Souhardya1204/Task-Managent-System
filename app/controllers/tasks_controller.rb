@@ -53,28 +53,32 @@ class TasksController < ApplicationController
 
     def update
         if @task.update(task_update_params)
-            redirect_to tasks_path, flash: {notice: "Task successfully updated"}
+            redirect_back(fallback_location: root_path,flash: {notice: "Task successfully updated"})
         else
             render "edit"
         end
     end
 
     def status
-        if @task.update(change_status_params)
-            flash[:notice] = "Task Status updated"
-            redirect_back(fallback_location: root_path)
-        else
-            render "home", flash:{alert: "Something went wrong" }
-        end
+        # if @task.update(change_status_params)
+        #     flash[:notice] = "Task Status updated"
+        #     redirect_back(fallback_location: root_path)
+        # else
+        #     render "home", flash:{alert: "Something went wrong" }
+        # end
+        @task.update_attribute(:status, params[:status])
+        flash[:notice] = "Task status updated"
+        redirect_back(fallback_location: root_path)
 
     end
 
     def category
-        if @task.update(category_params)
-            redirect_to tasks_path
-        else
-            render "home", flash:{alert: "Something went wrong" }
-        end
+        # if @task.update(category_params)
+        #     redirect_to tasks_path
+        # else
+        #     render "home", flash:{alert: "Something went wrong" }
+        # end
+        @task.update_attribute(:category, params[:category])
     end
 
     def document
@@ -107,11 +111,6 @@ class TasksController < ApplicationController
         @task.destroy
         redirect_to tasks_path, {alert: "Task deleted"}
     end
-
-    def delete_attachment
-        @task.document.purge
-        redirect_back fallback_location: root_path, notice: "File deleted successfully"
-    end
   
     private
     def set_task
@@ -127,16 +126,16 @@ class TasksController < ApplicationController
         params.require(:task).permit(:name,:category, :date, :priority, :repeat, :employee_id)
     end
 
-    def change_status_params
-        params.require(:task).permit(:status)
-    end
+    # def change_status_params
+    #     params.require(:task).permit(:status)
+    # end
 
-    def category_params
-        params.require(:task).permit(:category)
-    end
+    # def category_params
+    #     params.require(:task).permit(:category)
+    # end
 
     def document_params
-        params.require(:task).permit(:document)
+        params.require(:task).permit(documents: [])
     end
 
     def correct_user

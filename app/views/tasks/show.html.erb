@@ -27,15 +27,10 @@
   <tr>
     <th>Completion Status</th>
     <td>
-      <%= form_with model: @task, url: status_task_url(id: @task.id) do |f|%>
-        <div class="mb-3">
-        <% if @task.done %>
-        <%= f.select :status, options_for_select([["Pending", "Pending"],["In Progress", "In Progress"],["Completed", "Completed"]], selected: @task.status),prompt: "Please select", class: "form-control" %>
-        <% else %>
-        <%= f.select :status, options_for_select([["Pending", "Pending"],["In Progress", "In Progress"]], selected: @task.status),prompt: "Please select", class: "form-control" %>
-        <% end %>
-          <%= f.submit "Update", class: "btn btn-primary" %>
-        </div>
+      <% if @task.done %>
+        <%= select_tag( 'status', options_for_select([["Pending", "Pending"],["In Progress", "In Progress"],["Completed", "Completed"]], selected: @task.status),prompt: "Please select" ,data:{ remote: true, url: status_task_path(id: @task.id), method: :patch }) %>
+      <% else %>
+        <%= select_tag('status', options_for_select([["Pending", "Pending"],["In Progress", "In Progress"]], selected: @task.status),prompt: "Please select",data: { remote: true, url: status_task_path(id: @task.id), method: :patch }) %>
       <% end %>
     </td>
   </tr>
@@ -46,19 +41,28 @@
   <tr>
     <th>Upload Document</th>
     <td>
-      <% if @task.document.attached? %>
-        <%= link_to @task.document.filename , rails_blob_path(@task.document, disposition: "inline")%>
-         <%= link_to 'Remove', document_task_path(@task),class:"btn btn-sm btn-danger",
+      <div class="d-flex" style="gap: 20px;">
+        <% if @task.documents.attached? %>
+          <% @task.documents.each do |document| %>
+            <div class="d-flex flex-column ", style="gap: 20px;">
+              <div class="d-flex" , style="gap: 20px;">
+                <%= link_to document.filename , rails_blob_path(document, disposition: "inline")%>
+                <%= link_to 'Remove', purge_attachment_task_path(document),class:"btn btn-sm btn-danger",
                 method: :delete,
                 data: { confirm: 'Are you sure?' } %>
-      <% else %>
-        <%= form_with model: @task, url: document_task_url(id: @task.id) do |f|%>
-          <div class="mb-3">
-            <%= f.file_field :document , accept: 'application/pdf, application/doc, application/xls'%>
-            <%= f.submit "Upload", class: "btn btn-primary" %>
-          </div>
+              </div>
+              <iframe src=<%= url_for(document) %> style="border: none;"> </iframe>
+            </div>
+          <% end %>
+        <% else %>
+          <%= form_with model: @task, url: document_task_url(id: @task.id) do |f|%>
+            <div class="mb-3">
+              <%= f.file_field :documents , accept: 'application/pdf, application/doc, application/xls', multiple: true, required: true%>
+              <%= f.submit "Upload", class: "btn btn-primary" %>
+            </div>
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
     </td>
   </tr>
   <% if @task.status == "Completed" && Current.user.is_admin? %>
@@ -75,7 +79,6 @@
 </table>
 <%= link_to 'Add Subtask', new_task_subtask_path(@task) , class: "btn btn-primary btn-lg mb-3", data:{ bs_target: "#newSubtaskModal", bs_toggle: "modal", remote: true}%>
 <%= render 'subtasks/index'  %>
-
 <!-- New Subtask Modal -->
 <div class="modal fade" id="newSubtaskModal" tabindex="-1" aria-labelledby="newSubtaskModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -88,8 +91,6 @@
     </div>
   </div>
 </div>
-
-
 <!-- Edit Subtask Modal -->
 <div class="modal fade" id="editSubtaskModal" tabindex="-1" aria-labelledby="editSubtaskModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -102,7 +103,6 @@
     </div>
   </div>
 </div>
-
 <!-- Show Subtask Modal -->
 <div class="modal fade" id="showSubtaskModal" tabindex="-1" aria-labelledby="showSubtaskModalLabel" aria-hidden="true">
   <div class="modal-dialog">

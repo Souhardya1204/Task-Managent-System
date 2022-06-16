@@ -1,6 +1,6 @@
 class SubtasksController < ApplicationController
     before_action :set_task
-    before_action :set_subtask , only:[:show, :edit, :update, :destroy, :complete]
+    before_action :set_subtask , only:[:show, :edit, :update, :destroy, :complete, :document]
     helper_method :give_status
     def new
         @subtask = Subtask.new
@@ -52,6 +52,15 @@ class SubtasksController < ApplicationController
         end
     end
 
+    def document
+        if @subtask.update(document_params)
+            flash[:notice] = "File uploaded"
+        else
+            flash[:alert] = "Something went wrong"
+        end
+        redirect_back(fallback_location: root_path)
+    end
+
     private
     def set_task
         @task = Task.find(params[:task_id])
@@ -61,6 +70,9 @@ class SubtasksController < ApplicationController
     end
     def subtask_params
         params.require(:subtask).permit(:title, :description)
+    end
+    def document_params
+        params.require(:subtask).permit(documents: [])
     end
 
 end
