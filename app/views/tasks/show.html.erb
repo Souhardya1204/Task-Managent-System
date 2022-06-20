@@ -10,7 +10,11 @@
   </tr>
   <tr>
     <th>Required On</th>
-    <td><%= @task.date%></td>
+    <% if @task.time %>
+      <td><%= @task.date %> at <%= @task.time.strftime("%I:%M%p") %></td>
+    <% else %>
+      <td><%= @task.date %></td>
+    <% end %>
   </tr>
   <tr>
     <th>Created By</th>

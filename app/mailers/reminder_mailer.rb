@@ -8,7 +8,6 @@ class ReminderMailer < ApplicationMailer
   def send_reminder
     @greeting = "Hi"
     @task = params[:task]
-    puts params[:task].name
     mail(to: User.find_by(id: @task.employee_id).email, subject: "Reminder for assigned task")
   end
 end

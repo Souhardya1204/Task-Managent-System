@@ -14,11 +14,11 @@ class TasksController < ApplicationController
         @task = Current.user.tasks.build(task_params)
         respond_to do |format|
             if @task.save
-                TaskMailer.with(user: Current.user, task: @task ).task_assigned.deliver_now
+                TaskMailer.with(user: Current.user, task: @task ).task_assigned.deliver_later
                 format.html{redirect_to root_path, notice: "New Task Added"}
                 
                 # SendReminderWorker.perform_async(@task)
-                # ReminderMailer.with(task: @task).send_reminder.deliver_later
+                ReminderMailer.with(task: @task).send_reminder.deliver_later
                 format.js
                 
             else
@@ -117,13 +117,13 @@ class TasksController < ApplicationController
         @task = Task.find(params[:id])
     end
     def task_params
-        list_params_allowed = [:name, :date, :priority, :repeat, :employee_id]
+        list_params_allowed = [:name, :date, :time, :priority, :repeat, :employee_id]
         list_params_allowed << :category if Current.user.is_admin?
         params.require(:task).permit(list_params_allowed)
     end
 
     def task_update_params
-        params.require(:task).permit(:name,:category, :date, :priority, :repeat, :employee_id)
+        params.require(:task).permit(:name,:category, :date, :time, :priority, :repeat, :employee_id)
     end
 
     # def change_status_params

@@ -6,7 +6,7 @@ namespace  :schedule_task do
             repeat = task.repeat
             today = Date.today
             next_date = Date.today
-            new_task = Task.new(name: task.name, repeat: task.repeat, user_id: task.user_id, employee_id: task.employee_id, category: task.category, priority: task.priority)
+            new_task = Task.new(name: task.name,time: task.time, repeat: task.repeat, user_id: task.user_id, employee_id: task.employee_id, category: task.category, priority: task.priority)
             case repeat
             when "Daily"
                 next_date = today + 1.day
@@ -29,4 +29,14 @@ namespace  :schedule_task do
             
         end
     end
+
+    desc 'Task for sending reminder mail'
+    task send_reminder_task: :environment do
+        upcoming_tasks = Task.where(date: (Date.today + 6.days) )
+        upcoming_tasks.each do |task|
+            ReminderMailer.with(task: task).send_reminder.deliver_later
+        end
+            
+    end
+    
 end
