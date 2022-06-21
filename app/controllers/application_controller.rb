@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
     before_action :set_current_user
+    before_action :get_unread_notifications
     def set_current_user
         if session[:user_id]
             Current.user = User.find_by(id: session[:user_id])
@@ -16,5 +17,12 @@ class ApplicationController < ActionController::Base
 
     def only_hr
         redirect_to root_path unless Current.user.is_hr?
+    end
+
+    def get_unread_notifications
+        if Current.user
+            @unread_notifications = Current.user.notifications.where({seen: false}).order(created_at: :desc)
+            @unread_count = @unread_notifications.count
+        end
     end
 end

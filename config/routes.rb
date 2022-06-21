@@ -19,6 +19,11 @@ Rails.application.routes.draw do
   resources :users do
     get 'mytasks', on: :member
   end
+  
+  get 'notifications', to: "notifications#index"
+  delete 'notifications/:id', to: "notifications#destroy", as: :destroy_notification
+  patch 'notifications/:id/seen', to: "notifications#seen", as: :seen_notification
+  
   resources :tasks do
     patch 'acceptance', on: :member
     patch 'status', on: :member

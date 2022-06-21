@@ -1,0 +1,23 @@
+<div class="col-lg-6 mx-auto">
+  <table class="table my-task col-lg-6">
+    <thead class="table-dark">
+      <tr>
+        <th>Notification</th>
+        <th>Received on</th>
+        <th>Mark as Read</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @notifications.each do |notification| %>
+        <tr>
+          <td>Reminder for the  task due on <%= Task.find(notification.task_id).date %>. Follow the link to get the details. <br>
+            <%= link_to Task.find(notification.task_id).name, task_path(id: notification.task_id) %></td>
+          <td><%= notification.created_at.strftime("%m/%d/%Y") %> </td>
+          <td><%= check_box_tag 'seen', true , notification.seen, data: { remote: true, url: seen_notification_path(id: notification.id), method: :patch }%> </td>
+          <td><%= link_to ' <i class="fa-solid fa-trash-can"></i>'.html_safe, destroy_notification_path(notification), method: :delete  %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
