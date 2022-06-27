@@ -4,7 +4,7 @@ class TasksController < ApplicationController
     before_action :correct_user, only: [:my_task]
     before_action :set_task, except: [:index, :new, :create, :search]
     def index
-        @tasks = Task.all.order(:priority)
+        @tasks = Task.includes(:user).all.order(:priority)
     end
     def new
         @task = Task.new

@@ -1,50 +1,54 @@
-<table class="table table-striped">
-  <h2>Task Details</h2>
-  <tr>
-    <th> Task Name</th>
-    <td><%= @task.name%></td>
-  </tr>
-  <tr>
-    <th> Category</th>
-    <td><%= @task.category%></td>
-  </tr>
-  <tr>
-    <th>Required On</th>
-    <td><%= @task.date%></td>
-  </tr>
-  <tr>
-    <th>Created By</th>
-    <td><%= @task.user.name%></td>
-  </tr>
-  <tr>
-    <th> Assigned to</th>
-    <td><%= User.find(@task.employee_id).name %></td>
-  </tr>
-  <tr>
-    <th>Repeat Interval</th>
-    <td><%= @task.repeat%></td>
-  </tr>
-  <tr>
-    <th>Completion Status</th>
-    <td>
-      <%= @task.status %>
-    </td>
-  </tr>
-  <tr>
-    <th>Acceptance Status</th>
-    <td><%= @task.acceptance %></td>
-  </tr>
-  <tr>
-    <th>Upload Document</th>
-    <td>
-      <% if @task.document.attached? %>
-        <%= link_to @task.document.filename , rails_blob_path(@task.document, disposition: "inline")%>
-      <% else %>
-        <h6>No Document</h6>
-      <% end %>
-    </td>
-  </tr>
-</table>
+<div class="col-lg-8 mx-auto">
+  <table class="table table-striped">
+    <h2>Task Details</h2>
+    <tr>
+      <th> Task Name</th>
+      <td><%= @task.name%></td>
+    </tr>
+    <tr>
+      <th> Category</th>
+      <td><%= @task.category%></td>
+    </tr>
+    <tr>
+      <th>Required On</th>
+      <td><%= @task.date%></td>
+    </tr>
+    <tr>
+      <th>Created By</th>
+      <td><%= @task.user.name%></td>
+    </tr>
+    <tr>
+      <th> Assigned to</th>
+      <td><%= User.find(@task.employee_id).name %></td>
+    </tr>
+    <tr>
+      <th>Repeat Interval</th>
+      <td><%= @task.repeat%></td>
+    </tr>
+    <tr>
+      <th>Completion Status</th>
+      <td>
+        <%= @task.status %>
+      </td>
+    </tr>
+    <tr>
+      <th>Acceptance Status</th>
+      <td><%= @task.acceptance %></td>
+    </tr>
+    <tr>
+      <th>Uploaded Document</th>
+      <td>
+        <% if @task.documents.attached? %>
+          <% @task.documents.each do |document| %>
+            <%= link_to document.filename , rails_blob_path(document, disposition: "inline"), target: "_blank", style:"margin-right: 10px"%>
+          <% end %>
+        <% else %>
+          <h6>No Document</h6>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+</div>
 <div class="col-lg-2 mx-auto">
-<%= link_to "Print Pdf", tasks_approved_show_path(id: @task.id, format: "pdf"), target: "_blank", class:"btn btn-primary" %>
+  <%= link_to "Print Pdf", tasks_approved_show_path(id: @task.id, format: "pdf"), target: "_blank", class:"btn btn-primary" %>
 </div>

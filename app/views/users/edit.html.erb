@@ -17,7 +17,7 @@
   </div>
   <div class="mb-3">
     <%= f.label :role %>
-    <%= f.select :role, options_for_select([["Admin", "admin"],["HRD", "hrd"],["Employee","employee"]]), class: "form-control" %>
+    <%= f.select :role, options_for_select([["Admin", "admin"],["HRD", "hrd"],["Employee","employee"]], selected: @user.role), class: "form-control" %>
   </div>
   <div class="mb-3">
     <%= f.submit "Update User", class: "btn btn-primary" %>

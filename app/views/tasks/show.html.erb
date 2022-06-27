@@ -62,20 +62,6 @@
             </div>
           <% end %>
         </td>
-        <!-- <% if @task.documents.attached? %>
-              <% @task.documents.each do |document| %>
-                <div class="d-flex flex-column ", style="gap: 20px;">
-                  <div class="d-flex" , style="gap: 20px;">
-                    <%= link_to document.filename , rails_blob_path(document, disposition: "inline"), target: "_blank"%>
-                    <%= link_to 'Remove', purge_attachment_task_path(document),class:"btn btn-sm btn-danger",
-                method: :delete,
-                data: { confirm: 'Are you sure?' } %>
-                  </div>
-                  <iframe src=<%= url_for(document) %> style="border: none;"> </iframe>
-                </div>
-              <% end %>
-            <% else %>-->
-        <!-- <% end %>-->
       </tr>
       <% if @task.status == "Completed" && Current.user.is_admin? %>
         <tr>
@@ -95,7 +81,7 @@
     <div class="col-md">
       <h2>Task Documents</h2>
       <div class="d-flex" style="gap:20px">
-        <% @task.documents.each do |document| %>
+        <% @task.documents.includes([:blob]).each do |document| %>
           <div class="d-flex flex-column ", style="gap: 20px;">
             <%= link_to document.filename , rails_blob_path(document, disposition: "inline"), target: "_blank"%>
             <iframe src=<%= url_for(document) %> width="200" height="150"> </iframe>
@@ -115,20 +101,22 @@
   <div class="col-md">
     <%= render 'subtasks/index'  %>
   </div>
-  <div class="col-md my-3">
+  <div class="col-md my-4">
     <% @task.subtasks.each do |subtask| %>
       <% if subtask.documents.attached? %>
-        <div class="row my-1">
-          <b><%= subtask.title %> Documents: </b>
+        <div class="col-md  my-1">
           <div class="d-flex">
-            <% subtask.documents.each do |document| %>
-              <div class="d-flex mx-2" style="gap: 10px">
-                <%= link_to document.filename , rails_blob_path(document, disposition: "inline"), target: "_blank"%>
-                <%= link_to ' <i class="fa-solid fa-trash-can"></i>'.html_safe, purge_attachment_task_path(document), style: "color: red" ,
+            <b><%= subtask.title %> Documents: </b>
+            <div class="d-flex">
+              <% subtask.documents.includes([:blob]).each do |document| %>
+                <div class="d-flex mx-2" style="gap: 10px">
+                  <%= link_to document.filename , rails_blob_path(document, disposition: "inline"), target: "_blank"%>
+                  <%= link_to ' <i class="fa-solid fa-trash-can"></i>'.html_safe, purge_attachment_task_path(document), style: "color: red" ,
                 method: :delete,
                 data: { confirm: 'Are you sure?' } %>
-              </div>
-            <% end %>
+                </div>
+              <% end %>
+            </div>
           </div>
         </div>
       <% end %>
