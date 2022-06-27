@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
     before_action :set_current_user
     before_action :get_unread_notifications
+    before_action :set_query
     def set_current_user
         if session[:user_id]
             Current.user = User.find_by(id: session[:user_id])
@@ -23,6 +24,17 @@ class ApplicationController < ActionController::Base
         if Current.user
             @unread_notifications = Current.user.notifications.where({seen: false}).order(created_at: :desc)
             @unread_count = @unread_notifications.count
+        end
+    end
+
+    def set_query
+        if Current.user
+            if Current.user.is_admin?
+                @q = Task.ransack(params[:q])
+            else
+                @q = Task.where(employee_id: Current.user.id).or( Current.user.tasks ).ransack(params[:q])
+            end
+            @search_tasks = @q.result(distinct: true)
         end
     end
 end

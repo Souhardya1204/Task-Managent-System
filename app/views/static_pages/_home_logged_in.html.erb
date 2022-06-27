@@ -1,4 +1,4 @@
-<div class="banner center jumbotron ">
+<!-- <div class="banner center jumbotron ">
   <h1>Welcome <%= Current.user.name %></h1>
   <% if(Current.user.is_admin?) %>
     <h4>Logged in as Admin</h4>
@@ -9,7 +9,7 @@
   <%= link_to "Create New Task!", new_task_path, class: "btn btn-lg btn-primary", data:{ bs_target: "#newTaskModal", bs_toggle: "modal", remote: true} %>
 </div>
 <br>
-<br>
+<br> -->
 <h1 class="text-center">My Tasks</h1>
 <div id="my_task" class=" row d-flex col-lg-12">
   <div class="col-lg-4" id="1">
@@ -28,7 +28,10 @@
 <br>
 <br>
 <div id="created_task">
-  <h3 class="text-center">Created Tasks</h3>
+  <div class="d-flex p-2 justify-content-between">
+    <h2>Created Tasks</h2>
+    <%= link_to "Create New Task!", new_task_path, class: "btn btn-md btn-primary", data:{ bs_target: "#newTaskModal", bs_toggle: "modal", remote: true} %>
+  </div>
   <%= render partial: "shared/created_task_table"%>
 </div>
 <!-- New Task Modal -->

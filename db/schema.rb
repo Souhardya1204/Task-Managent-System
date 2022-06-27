@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_20_151843) do
+ActiveRecord::Schema.define(version: 2022_06_23_091454) do
 
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2022_06_20_151843) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "task_id"
     t.integer "owner_id"
+    t.text "desc"
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 

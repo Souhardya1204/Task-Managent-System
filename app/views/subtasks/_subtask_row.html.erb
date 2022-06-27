@@ -22,7 +22,7 @@
   <td>
     <% if subtask.documents.attached? %>
       <% subtask.documents.each do |document| %>
-        <%= link_to document.filename , rails_blob_path(document, disposition: "inline")%>
+        <%= link_to document.filename , rails_blob_path(document, disposition: "inline"), target: "_blank" %>
         <%= link_to 'Remove', purge_attachment_task_path(document),class:"btn btn-sm btn-danger",
                 method: :delete,
                 data: { confirm: 'Are you sure?' } %>

@@ -1,88 +1,111 @@
-<table class="table table-striped">
-  <h2>Task Details</h2>
-  <tr>
-    <th> Task Name</th>
-    <td><%= @task.name%></td>
-  </tr>
-  <tr>
-    <th> Category</th>
-    <td><%= @task.category%></td>
-  </tr>
-  <tr>
-    <th>Required On</th>
-    <% if @task.time %>
-      <td><%= @task.date %> at <%= @task.time.strftime("%I:%M%p") %></td>
-    <% else %>
-      <td><%= @task.date %></td>
-    <% end %>
-  </tr>
-  <tr>
-    <th>Created By</th>
-    <td><%= @task.user.name%></td>
-  </tr>
-  <tr>
-    <th> Assigned to</th>
-    <td><%= User.find(@task.employee_id).name %></td>
-  </tr>
-  <tr>
-    <th>Repeat Interval</th>
-    <td><%= @task.repeat%></td>
-  </tr>
-  <tr>
-    <th>Completion Status</th>
-    <td>
-      <% if @task.done %>
-        <%= select_tag( 'status', options_for_select([["Pending", "Pending"],["In Progress", "In Progress"],["Completed", "Completed"]], selected: @task.status),prompt: "Please select" ,data:{ remote: true, url: status_task_path(id: @task.id), method: :patch }) %>
-      <% else %>
-        <%= select_tag('status', options_for_select([["Pending", "Pending"],["In Progress", "In Progress"]], selected: @task.status),prompt: "Please select",data: { remote: true, url: status_task_path(id: @task.id), method: :patch }) %>
-      <% end %>
-    </td>
-  </tr>
-  <tr>
-    <th>Acceptance Status</th>
-    <td><%= @task.acceptance %></td>
-  </tr>
-  <tr>
-    <th>Upload Document</th>
-    <td>
-      <div class="d-flex" style="gap: 20px;">
-        <% if @task.documents.attached? %>
-          <% @task.documents.each do |document| %>
-            <div class="d-flex flex-column ", style="gap: 20px;">
-              <div class="d-flex" , style="gap: 20px;">
-                <%= link_to document.filename , rails_blob_path(document, disposition: "inline")%>
-                <%= link_to 'Remove', purge_attachment_task_path(document),class:"btn btn-sm btn-danger",
+<div class="row">
+  <div class="col-md">
+    <table class="table table-striped">
+      <h2>Task Details</h2>
+      <tr>
+        <th> Task Name</th>
+        <td><%= @task.name%></td>
+      </tr>
+      <tr>
+        <th> Category</th>
+        <td><%= @task.category%></td>
+      </tr>
+      <tr>
+        <th>Required On</th>
+        <% if @task.time %>
+          <td><%= @task.date %> at <%= @task.time.strftime("%I:%M%p") %></td>
+        <% else %>
+          <td><%= @task.date %></td>
+        <% end %>
+      </tr>
+      <tr>
+        <th>Created By</th>
+        <td><%= @task.user.name%></td>
+      </tr>
+      <tr>
+        <th> Assigned to</th>
+        <td><%= User.find(@task.employee_id).name %></td>
+      </tr>
+      <tr>
+        <th>Repeat Interval</th>
+        <td><%= @task.repeat%></td>
+      </tr>
+      <tr>
+        <th>Completion Status</th>
+        <td>
+          <% if @task.done %>
+            <%= select_tag( 'status', options_for_select([["Pending", "Pending"],["In Progress", "In Progress"],["Completed", "Completed"]], selected: @task.status),prompt: "Please select" ,data:{ remote: true, url: status_task_path(id: @task.id), method: :patch }) %>
+          <% else %>
+            <%= select_tag('status', options_for_select([["Pending", "Pending"],["In Progress", "In Progress"]], selected: @task.status),prompt: "Please select",data: { remote: true, url: status_task_path(id: @task.id), method: :patch }) %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th>Acceptance Status</th>
+        <td><%= @task.acceptance %></td>
+      </tr>
+      <tr>
+        <% unless @task.documents.attached? %>
+          <th>Upload Document</th>
+          <td>
+            <%= form_with model: @task, url: document_task_url(id: @task.id) do |f|%>
+              <div class="mb-3">
+                <%= f.file_field :documents , accept: 'application/pdf, application/doc, application/xls', multiple: true, required: true%>
+                <%= f.submit "Upload", class: "btn btn-primary" %>
+              </div>
+            <% end %>
+          </td>
+        <% end %>
+        <!-- <% if @task.documents.attached? %>
+              <% @task.documents.each do |document| %>
+                <div class="d-flex flex-column ", style="gap: 20px;">
+                  <div class="d-flex" , style="gap: 20px;">
+                    <%= link_to document.filename , rails_blob_path(document, disposition: "inline"), target: "_blank"%>
+                    <%= link_to 'Remove', purge_attachment_task_path(document),class:"btn btn-sm btn-danger",
                 method: :delete,
                 data: { confirm: 'Are you sure?' } %>
-              </div>
-              <iframe src=<%= url_for(document) %> style="border: none;"> </iframe>
+                  </div>
+                  <iframe src=<%= url_for(document) %> style="border: none;"> </iframe>
+                </div>
+              <% end %>
+            <% else %>-->
+        <!-- <% end %>-->
+      </tr>
+      <% if @task.status == "Completed" && Current.user.is_admin? %>
+        <tr>
+          <th>Approve/Reject</th>
+          <td>
+            <div class="d-flex" style="gap:10px">
+              <%= link_to "Approve", acceptance_task_path(value: "Approved"),method: :patch , class:"btn btn-success" %>
+              <%= link_to "Reject",acceptance_task_path(value:"Rejected") , method: :patch , class:"btn btn-danger" %>
             </div>
-          <% end %>
-        <% else %>
-          <%= form_with model: @task, url: document_task_url(id: @task.id) do |f|%>
-            <div class="mb-3">
-              <%= f.file_field :documents , accept: 'application/pdf, application/doc, application/xls', multiple: true, required: true%>
-              <%= f.submit "Upload", class: "btn btn-primary" %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+    <%= link_to 'Add Subtask', new_task_subtask_path(@task) , class: "btn btn-primary btn-lg mb-3", data:{ bs_target: "#newSubtaskModal", bs_toggle: "modal", remote: true}%>
+    <%= render 'subtasks/index'  %>
+  </div>
+  <% if @task.documents.attached? %>
+    <div class="col-md">
+      <h2>Task Documents</h2>
+      <div class="d-flex" style="gap:20px">
+        <% @task.documents.each do |document| %>
+          <div class="d-flex flex-column ", style="gap: 20px;">
+            <%= link_to document.filename , rails_blob_path(document, disposition: "inline"), target: "_blank"%>
+            <iframe src=<%= url_for(document) %> width="200" height="150"> </iframe>
+            <div class="d-flex" , style="gap: 10px;">
+              <%= link_to "Download" , rails_blob_path(document, disposition: "attachment"),class:"btn btn-primary", target: "_blank"%>
+              <%= link_to 'Remove', purge_attachment_task_path(document),class:"btn btn-sm btn-danger",
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %>
             </div>
-          <% end %>
+          </div>
         <% end %>
       </div>
-    </td>
-  </tr>
-  <% if @task.status == "Completed" && Current.user.is_admin? %>
-    <tr>
-      <th>Approve/Reject</th>
-      <td>
-        <div class="d-flex" style="gap:10px">
-          <%= link_to "Approve", acceptance_task_path(value: "Approved"),method: :patch , class:"btn btn-success" %>
-          <%= link_to "Reject",acceptance_task_path(value:"Rejected") , method: :patch , class:"btn btn-danger" %>
-        </div>
-      </td>
-    </tr>
+    </div>
   <% end %>
-</table>
-<%= link_to 'Add Subtask', new_task_subtask_path(@task) , class: "btn btn-primary btn-lg mb-3", data:{ bs_target: "#newSubtaskModal", bs_toggle: "modal", remote: true}%>
-<%= render 'subtasks/index'  %>
+</div>
 <!-- New Subtask Modal -->
 <div class="modal fade" id="newSubtaskModal" tabindex="-1" aria-labelledby="newSubtaskModalLabel" aria-hidden="true">
   <div class="modal-dialog">

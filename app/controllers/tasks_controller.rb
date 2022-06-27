@@ -2,7 +2,7 @@ class TasksController < ApplicationController
     before_action :require_user_log_in!
     before_action :admin_user, only: [:index, :acceptance, :delete]
     before_action :correct_user, only: [:my_task]
-    before_action :set_task, except: [:index, :new, :create]
+    before_action :set_task, except: [:index, :new, :create, :search]
     def index
         @tasks = Task.all.order(:priority)
     end
@@ -18,7 +18,7 @@ class TasksController < ApplicationController
                 format.html{redirect_to root_path, notice: "New Task Added"}
                 
                 # SendReminderWorker.perform_async(@task)
-                ReminderMailer.with(task: @task).send_reminder.deliver_later
+                #ReminderMailer.with(task: @task).send_reminder.deliver_later
                 format.js
                 
             else
@@ -106,6 +106,15 @@ class TasksController < ApplicationController
     def done
         @task.update_attribute(:done, params[:Done])
     end
+
+    # def search
+    #     @query = params[:query].downcase
+    #     if Current.user.is_admin?
+    #         @tasks = Tasks.where("lower(tasks.name) LIKE ?",["%#{@query}%"])
+    #     else
+    #         @tasks = Task.where("employee_id = ? AND lower(tasks.name) LIKE ?",Current.user.id, "%#{@query}%").or(Current.user.tasks.where("lower(tasks.name) LIKE ?",["%#{@query}%"]))
+    #     end
+    # end
 
     def destroy
         @task.destroy

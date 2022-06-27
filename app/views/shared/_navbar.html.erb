@@ -35,9 +35,10 @@
       </ul>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
         <% if Current.user %>
+          <%= render 'search/form' %>
           <%= render 'shared/display_notification', notifications: @unread_notifications %>
           <li class="nav-item nav-link">
-            <%= link_to Current.user.email, user_path(Current.user) %>
+            <%= link_to Current.user.name, user_path(Current.user) %>
           </li>
           <li class="nav-item">
             <%= link_to "Logout", logout_path, method: :delete,  class: "nav-link"%>

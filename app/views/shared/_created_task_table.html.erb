@@ -3,7 +3,7 @@
     <tr>
       <th>Task Name</th>
       <th>Category</th>
-      <th>Created By</th>
+      <th>Priority</th>
       <th>Required on</th>
       <th>Assigned To</th>
       <th>Repeat Interval</th>
@@ -17,7 +17,7 @@
       <tr>
           <td><%= task.name %></td>
           <td><%= task.category %></td>
-          <td><%= task.user.name %></td>
+          <td><%= get_string_priority(task)%></td>
           <td><%= task.date %></td>
           <td><%= User.find(task.employee_id).name %></td>
           <td><%= task.repeat %></td>

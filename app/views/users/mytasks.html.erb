@@ -1,3 +1,16 @@
-
-<%= render partial: "shared/my_task_table"%>
+<h1 class="text-center">My Tasks</h1>
+<div id="my_task" class=" row d-flex col-lg-12">
+  <div class="col-lg-4" id="1">
+    <h3 class="bg-danger">High Priority</h3>
+    <%= render partial: "static_pages/priority_task_table" , locals:{tasks: @high_tasks}%>
+  </div>
+  <div class="col-lg-4" id="2">
+    <h3 class="bg-warning">Medium Priority</h3>
+    <%= render partial: "static_pages/priority_task_table" , locals:{tasks: @medium_tasks}%>
+  </div>
+  <div class="col-lg-4" id="3">
+    <h3 class="bg-info">Low Priority</h3>
+    <%= render partial: "static_pages/priority_task_table" , locals:{tasks: @low_tasks}%>
+  </div>
+</div>
 

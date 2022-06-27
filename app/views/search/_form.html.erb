@@ -1,0 +1,12 @@
+<%= search_form_for(@q, url: search_path, method: :get, class:'d-flex') do |f| %>
+  <%= f.search_field :name_i_cont_any,
+   placeholder: "Search...",
+   class: "form-control me-2" %>
+  <%= f.select :priority_eq, options_for_select([
+        ['Priority', ''],
+        ['High', 1],
+        ['Medium', 2 ],
+        ['Low', 3 ]
+      ], @q.priority_eq) %>
+  <%= f.submit "Search!", class:"btn btn-outline-success mx-2" %>
+<% end %>

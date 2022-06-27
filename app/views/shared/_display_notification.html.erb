@@ -7,8 +7,15 @@
     <% end %>
     <% notifications.each do |notification|%>
       <div class="d-flex  align-items-center justify-content-around mb-3">
-        <li style="width: 320px;"> <b>Reminder for the  task due on <%= Task.find(notification.task_id).date %>. Follow the link to get the details. <br>
-            <%= link_to Task.find(notification.task_id).name, task_path(id: notification.task_id) %> </b>
+        <li style="width: 320px;"> <b><%= notification.desc %>  </b>
+          <% if Task.find_by_id(notification.task_id) %>
+            Follow the link to get the details:
+            <b><%= link_to Task.find(notification.task_id).name, task_path(id: notification.task_id) %> </b>
+          <% else %>
+            <b>
+              <p class="text-danger">Task has been deleted </p>
+            </b>
+          <% end %>
           <span class="m-3">
             <td><%= check_box_tag 'seen', true , notification.seen, data: { remote: true, url: seen_notification_path(id: notification.id), method: :patch }%> </td>
             Mark as Read</span>

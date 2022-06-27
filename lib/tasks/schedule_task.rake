@@ -2,6 +2,7 @@ namespace  :schedule_task do
     desc 'Task for scheduling'
     task schedule_next_task: :environment do
         todays_tasks = Task.where(date: Date.today )
+        binding.pry
         todays_tasks.each do |task|
             repeat = task.repeat
             today = Date.today
@@ -36,7 +37,8 @@ namespace  :schedule_task do
         upcoming_tasks.each do |task|
             ReminderMailer.with(task: task).send_reminder.deliver_later
             user = User.find(task.employee_id)
-            notification = user.notifications.create(task_id: task.id, owner_id: task.user_id, seen: false)
+            desc = "Reminder for the  task due on  #{task.date} . Task Name: #{ task.name } ."
+            notification = user.notifications.create(task_id: task.id, desc: desc,  owner_id: task.user_id, seen: false)
         end    
     end
 end
