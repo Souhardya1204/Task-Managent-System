@@ -20,20 +20,11 @@
 %>
   </td>
   <td>
-    <% if subtask.documents.attached? %>
-      <% subtask.documents.each do |document| %>
-        <%= link_to document.filename , rails_blob_path(document, disposition: "inline"), target: "_blank" %>
-        <%= link_to 'Remove', purge_attachment_task_path(document),class:"btn btn-sm btn-danger",
-                method: :delete,
-                data: { confirm: 'Are you sure?' } %>
-      <% end %>
-    <% else %>
-      <%= form_with model: subtask, url: document_task_subtask_url(task_id: @task.id, id: subtask.id) do |f|%>
-        <div class="mb-3">
-          <%= f.file_field :documents , accept: 'application/pdf, application/doc, application/xls', multiple: true, required: true %>
-          <%= f.submit "Upload", class: "btn btn-primary" %>
-        </div>
-      <% end %>
+    <%= form_with model: subtask, url: document_task_subtask_url(task_id: @task.id, id: subtask.id) do |f|%>
+      <div class="mb-3">
+        <%= f.file_field :documents , accept: 'application/pdf, application/doc, application/xls', multiple: true, required: true %>
+        <%= f.submit "Upload", class: "btn btn-primary" %>
+      </div>
     <% end %>
   </td>
 </tr>

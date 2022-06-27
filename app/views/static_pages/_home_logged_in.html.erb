@@ -28,9 +28,9 @@
 <br>
 <br>
 <div id="created_task">
-  <div class="d-flex p-2 justify-content-between">
+  <div class="d-flex p-2 justify-content-center" style="gap:5rem">
     <h2>Created Tasks</h2>
-    <%= link_to "Create New Task!", new_task_path, class: "btn btn-md btn-primary", data:{ bs_target: "#newTaskModal", bs_toggle: "modal", remote: true} %>
+    <%= link_to "Create New Task!", new_task_path, class: "btn btn-primary btn-lg", data:{ bs_target: "#newTaskModal", bs_toggle: "modal", remote: true} %>
   </div>
   <%= render partial: "shared/created_task_table"%>
 </div>

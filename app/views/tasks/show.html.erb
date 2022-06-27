@@ -31,6 +31,14 @@
         <td><%= @task.repeat%></td>
       </tr>
       <tr>
+        <tr>
+          <th> Done Status</th>
+          <td> <%= 
+            check_box_tag 'Done', true , @task.done,
+            onchange: "$(this).data('params',  this.checked)",
+            data: { remote: true, url: done_task_path(id: @task.id), method: :patch }%>
+          </td>
+        </tr>
         <th>Completion Status</th>
         <td>
           <% if @task.done %>
@@ -45,17 +53,15 @@
         <td><%= @task.acceptance %></td>
       </tr>
       <tr>
-        <% unless @task.documents.attached? %>
-          <th>Upload Document</th>
-          <td>
-            <%= form_with model: @task, url: document_task_url(id: @task.id) do |f|%>
-              <div class="mb-3">
-                <%= f.file_field :documents , accept: 'application/pdf, application/doc, application/xls', multiple: true, required: true%>
-                <%= f.submit "Upload", class: "btn btn-primary" %>
-              </div>
-            <% end %>
-          </td>
-        <% end %>
+        <th>Upload Document</th>
+        <td>
+          <%= form_with model: @task, url: document_task_url(id: @task.id) do |f|%>
+            <div class="mb-3">
+              <%= f.file_field :documents , accept: 'application/pdf, application/doc, application/xls', multiple: true, required: true%>
+              <%= f.submit "Upload", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </td>
         <!-- <% if @task.documents.attached? %>
               <% @task.documents.each do |document| %>
                 <div class="d-flex flex-column ", style="gap: 20px;">
@@ -84,7 +90,6 @@
       <% end %>
     </table>
     <%= link_to 'Add Subtask', new_task_subtask_path(@task) , class: "btn btn-primary btn-lg mb-3", data:{ bs_target: "#newSubtaskModal", bs_toggle: "modal", remote: true}%>
-    <%= render 'subtasks/index'  %>
   </div>
   <% if @task.documents.attached? %>
     <div class="col-md">
@@ -105,6 +110,30 @@
       </div>
     </div>
   <% end %>
+</div>
+<div class="row">
+  <div class="col-md">
+    <%= render 'subtasks/index'  %>
+  </div>
+  <div class="col-md my-3">
+    <% @task.subtasks.each do |subtask| %>
+      <% if subtask.documents.attached? %>
+        <div class="row my-1">
+          <b><%= subtask.title %> Documents: </b>
+          <div class="d-flex">
+            <% subtask.documents.each do |document| %>
+              <div class="d-flex mx-2" style="gap: 10px">
+                <%= link_to document.filename , rails_blob_path(document, disposition: "inline"), target: "_blank"%>
+                <%= link_to ' <i class="fa-solid fa-trash-can"></i>'.html_safe, purge_attachment_task_path(document), style: "color: red" ,
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>
 <!-- New Subtask Modal -->
 <div class="modal fade" id="newSubtaskModal" tabindex="-1" aria-labelledby="newSubtaskModalLabel" aria-hidden="true">
