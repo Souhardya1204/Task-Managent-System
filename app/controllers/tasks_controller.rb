@@ -16,11 +16,7 @@ class TasksController < ApplicationController
             if @task.save
                 TaskMailer.with(user: Current.user, task: @task ).task_assigned.deliver_later
                 format.html{redirect_to root_path, notice: "New Task Added"}
-                
-                # SendReminderWorker.perform_async(@task)
-                #ReminderMailer.with(task: @task).send_reminder.deliver_later
                 format.js
-                
             else
                 format.html{render "new"}
                 format.js

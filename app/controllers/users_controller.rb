@@ -45,9 +45,6 @@ class UsersController < ApplicationController
 
   def mytasks
      @my_tasks = Task.where(employee_id: params[:id])
-    # if @my_tasks.empty?
-    #   @my_tasks = nil
-    # end
     @high_tasks = @my_tasks.where(employee_id: session[:user_id], priority: 1)
     @medium_tasks = @my_tasks.where(employee_id: session[:user_id], priority: 2)
     @low_tasks = @my_tasks.where(employee_id: session[:user_id], priority: 3)
