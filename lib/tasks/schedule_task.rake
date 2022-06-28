@@ -2,7 +2,6 @@ namespace  :schedule_task do
     desc 'Task for scheduling'
     task schedule_next_task: :environment do
         todays_tasks = Task.where(date: Date.today )
-        binding.pry
         todays_tasks.each do |task|
             repeat = task.repeat
             today = Date.today

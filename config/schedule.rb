@@ -18,7 +18,7 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-every 1.day, at: "9:26 pm" do
+every 1.day do
     rake "schedule_task:schedule_next_task"
     rake "schedule_task:send_reminder_task"
 end

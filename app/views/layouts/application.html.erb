@@ -15,7 +15,7 @@
       <%= render partial: 'shared/flash'%>
       <%= yield %>
       <% if Current.user %>
-        <%= link_to 'Back', :back %>
+        <%= link_to 'Back', :back, class: "btn btn-outline-secondary" %>
       <% end %>
     </div>
     <%= javascript_pack_tag 'custom', 'data-turbolinks-track': 'reload' %>
