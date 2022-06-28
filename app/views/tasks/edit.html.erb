@@ -8,9 +8,9 @@
         </div>
       <% end %>
     <% end %>
-    <div class="mb-3">
+    <div class="mb-3 required">
       <%= f.label :name,"Task Name" %>
-      <%= f.text_field :name, class: "form-control", placeholder: "Task Name" %>
+      <%= f.text_field :name, class: "form-control", placeholder: "Task Name", required: true %>
     </div>
     <div class="mb-3">
       <%= f.label :category %>
@@ -32,7 +32,7 @@
       <%= f.label :priority %>
       <%= f.select :priority, options_for_select([["High", 1 ],["Medium", 2 ],["Low", 3 ]], selected: @task.priority),:include_blank => true, class: "form-control" %>
     </div>
-    <div class="mb-3">
+    <div class="mb-3 required">
       <%= f.label :employee_id, "Assigned To" %>
       <%= collection_select(:task, :employee_id, User.all, :id, :name, {:prompt => true, :multiple=>false })%>
     </div>

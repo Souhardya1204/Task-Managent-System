@@ -110,3 +110,8 @@ textarea {
 .login-facebook{
   padding: 12px 16px 12px 12px;
 }
+
+.required label::after{
+  content:"*";
+  color:red;
+}

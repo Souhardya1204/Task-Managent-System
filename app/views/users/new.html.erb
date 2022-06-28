@@ -8,21 +8,21 @@
         </div>
       <% end %>
     <% end %>
-    <div class="mb-3">
+    <div class="mb-3 required">
       <%= f.label :name %>
-      <%= f.text_field :name, class: "form-control", placeholder: "Your Name" %>
+      <%= f.text_field :name, class: "form-control", placeholder: "Your Name", required: true %>
     </div>
-    <div class="mb-3">
+    <div class="mb-3 required">
       <%= f.label :email %>
-      <%= f.email_field :email, class: "form-control", placeholder: "steve@apple.com" %>
+      <%= f.email_field :email, class: "form-control", placeholder: "steve@apple.com", required: true %>
     </div>
-    <div class="mb-3">
+    <div class="mb-3 required">
       <%= f.label :password %>
-      <%= f.password_field :password , class: "form-control", placeholder: "password" %>
+      <%= f.password_field :password , class: "form-control", placeholder: "password", required: true %>
     </div>
-    <div class="mb-3">
+    <div class="mb-3 required">
       <%= f.label :password_confirmation%>
-      <%= f.password_field :password_confirmation, class: "form-control", placeholder: "password" %>
+      <%= f.password_field :password_confirmation, class: "form-control", placeholder: "password", required: true %>
     </div>
     <div class="mb-3">
       <%= f.submit "Sign up", class: "btn btn-primary" %>

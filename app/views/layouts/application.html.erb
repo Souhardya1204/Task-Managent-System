@@ -14,6 +14,9 @@
     <div class="container">
       <%= render partial: 'shared/flash'%>
       <%= yield %>
+      <% if Current.user %>
+        <%= link_to 'Back', :back %>
+      <% end %>
     </div>
     <%= javascript_pack_tag 'custom', 'data-turbolinks-track': 'reload' %>
   </body>

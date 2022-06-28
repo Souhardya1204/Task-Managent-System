@@ -8,9 +8,9 @@
         </div>
       <% end %>
     <% end %>
-    <div class="mb-3">
+    <div class="mb-3 required">
       <%= f.label :name,"Task Name" %>
-      <%= f.text_field :name, class: "form-control", placeholder: "Task Name" %>
+      <%= f.text_field :name, class: "form-control", placeholder: "Task Name" , required: true %>
     </div>
     <% if Current.user.is_admin? %>
       <div class="mb-3">
@@ -30,9 +30,9 @@
       <%= f.label :time %>
       <%= f.time_field :time %>
     </div>
-    <div class="mb-3">
-      <%= f.label :employee_id, "Assigned To" %>
-      <%= collection_select(:task, :employee_id, User.all, :id, :name, {:prompt => true, :multiple=>false })%>
+    <div class="mb-3 required">
+      <%= f.label :employee_id, "Assigned To", class: "required" %>
+      <%= collection_select(:task, :employee_id, User.all, :id, :name, {:prompt => true, :multiple=>false }) %>
     </div>
     <div class="mb-3">
       <%= f.label :repeat, "Repeat Interval" %><br>
