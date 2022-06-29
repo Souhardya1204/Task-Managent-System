@@ -15,7 +15,7 @@
     <% if Current.user.is_admin? %>
       <div class="mb-3">
         <%= f.label :category %>
-        <%= f.select :category, options_for_select([["Please select", "Not Specified",["Exams", "Exams"],["Birthday", "Birthday"],["Campus","Campus"],["Mock Test", "Mock Test"],["Interview", "Interview"],["Event","Event"],["Hiring", "Hiring"]], selected: @task.category), class: "form-control" %>
+        <%= f.select :category, options_for_select([["Please select", "Not Specified"],["Exams", "Exams"],["Birthday", "Birthday"],["Campus","Campus"],["Mock Test", "Mock Test"],["Interview", "Interview"],["Event","Event"],["Hiring", "Hiring"]], selected: @task.category), class: "form-control" %>
       </div>
     <% end %>
     <div class="mb-3">

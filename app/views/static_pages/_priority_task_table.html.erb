@@ -3,6 +3,7 @@
     <tr>
       <th>Task Name</th>
       <th>Required on</th>
+      <th>Status</th>
       <th>Actions</th>
       <th>Done</th>
     </tr>
@@ -12,6 +13,7 @@
       <tr>
         <td><%= link_to task.name, task %></td>
         <td><%= task.date %></td>
+        <td><%= task.status %></td>
         <td>
           <% if Current.user.is_admin? %>
             <div class="dropdown">

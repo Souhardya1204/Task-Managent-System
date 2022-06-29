@@ -1,14 +1,14 @@
-<div class="dropdown">
+<div class="dropdown ">
   <a class="btn btn-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
     <i class="fa fa-bell"></i><span class="badge"><%= notifications.count %></span></a>
-  <ul class="dropdown-menu p-3" aria-labelledby="dropdownMenuLink">
+  <ul class="dropdown-menu dropdown-left-manual p-3" aria-labelledby="dropdownMenuLink">
     <% if notifications.empty? %>
       <li> No unread notifications </li>
     <% end %>
     <% notifications.each do |notification|%>
       <div class="d-flex  align-items-center justify-content-around mb-3">
         <li style="width: 320px;"> <b><%= notification.desc %>  </b>
-          <% if Task.find_by_id(notification.task_id) %>
+          <% if Task.find_by(id: notification.task_id) %>
             Follow the link to get the details:
             <b><%= link_to Task.find(notification.task_id).name, task_path(id: notification.task_id) %> </b>
           <% else %>

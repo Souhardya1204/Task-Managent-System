@@ -111,7 +111,7 @@
               <% subtask.documents.includes([:blob]).each do |document| %>
                 <div class="d-flex mx-2" style="gap: 10px">
                   <%= link_to document.filename , rails_blob_path(document, disposition: "inline"), target: "_blank"%>
-                  <%= link_to ' <i class="fa-solid fa-trash-can"></i>'.html_safe, purge_attachment_task_path(document), style: "color: red" ,
+                  <%= link_to ' <i class="fa fa-trash"></i>'.html_safe, purge_attachment_task_path(document), style: "color: red" ,
                 method: :delete,
                 data: { confirm: 'Are you sure?' } %>
                 </div>
