@@ -1,17 +1,18 @@
-
-<table class="table table-success table-hover">
-  <thead>
-    <h4>Subtasks</h4>
-    <tr>
-      <th scope="col">Title</th>
-      <th scope="col">Action</th>
-      <th scope="col">Completed</th>
-      <th scope="col">Attachments</th>
-    </tr>
-  </thead>
-  <tbody id="subtasksTable">
-    <% @subtasks.each do |subtask| %>
-      <%= render 'subtasks/subtask_row',subtask: subtask %>
-    <% end %>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table table-success table-hover">
+    <thead>
+      <h4>Subtasks</h4>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Action</th>
+        <th scope="col">Completed</th>
+        <th scope="col">Attachments</th>
+      </tr>
+    </thead>
+    <tbody id="subtasksTable">
+      <% @subtasks.each do |subtask| %>
+        <%= render 'subtasks/subtask_row',subtask: subtask %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,20 +1,21 @@
-<table class="table">
-  <thead class="table-dark">
-    <tr>
-      <th>Task Name</th>
-      <th>Category</th>
-      <th>Priority</th>
-      <th>Required on</th>
-      <th>Assigned To</th>
-      <th>Repeat Interval</th>
-      <th>Completion Status</th>
-      <th>Acceptance Status</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody id="createdTasksTable">
-      <% Array(@created_tasks).each do |task| %>
+<div class="table-responsive">
+  <table class="table">
+    <thead class="table-dark">
       <tr>
+        <th>Task Name</th>
+        <th>Category</th>
+        <th>Priority</th>
+        <th>Required on</th>
+        <th>Assigned To</th>
+        <th>Repeat Interval</th>
+        <th>Completion Status</th>
+        <th>Acceptance Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="createdTasksTable">
+      <% Array(@created_tasks).each do |task| %>
+        <tr>
           <td><%= task.name %></td>
           <td><%= task.category %></td>
           <td><%= get_string_priority(task)%></td>
@@ -24,8 +25,9 @@
           <td class="compl-status"><%= task.status %></td>
           <td class="accep-status"><%= task.acceptance %></td>
           <td><%= link_to "Edit",edit_task_path(id: task.id), class: "btn btn-primary", role: "button" %>
-          <%= link_to "Show",task_path(id: task.id), class: "btn btn-secondary", role: "button" %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+            <%= link_to "Show",task_path(id: task.id), class: "btn btn-secondary", role: "button" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

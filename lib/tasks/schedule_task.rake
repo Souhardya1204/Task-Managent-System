@@ -10,7 +10,6 @@ namespace  :schedule_task do
             case repeat
             when "Daily"
                 next_date = today + 1.day
-                puts(next_date)
             when "Weekly"
                 next_date = today + 7.days
             when "Monthly"
@@ -26,7 +25,7 @@ namespace  :schedule_task do
             end
             new_task.date = next_date 
             new_task.save!
-            
+            TaskMailer.with(user:new_task.user , task: new_task ).task_assigned.deliver_later
         end
     end
 
@@ -34,7 +33,7 @@ namespace  :schedule_task do
     task send_reminder_task: :environment do
         upcoming_tasks = Task.where(date: (Date.today + 6.days) )
         upcoming_tasks.each do |task|
-            ReminderMailer.with(task: task).send_reminder.deliver_later
+            ReminderMailer.with(task: task, user: task.user).send_reminder.deliver_later
             user = User.find(task.employee_id)
             desc = "Reminder for the  task due on  #{task.date} . Task Name: #{ task.name } ."
             notification = user.notifications.create(task_id: task.id, desc: desc,  owner_id: task.user_id, seen: false)

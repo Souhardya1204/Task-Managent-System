@@ -1,4 +1,4 @@
-<div class="col-lg-8 mx-auto">
+<div class="col-lg-6 mx-auto table-responsive">
   <table class="table table-striped">
     <h2>Task Details</h2>
     <tr>
@@ -48,7 +48,8 @@
       </td>
     </tr>
   </table>
-</div>
-<div class="col-lg-2 mx-auto">
-  <%= link_to "Print Pdf", tasks_approved_show_path(id: @task.id, format: "pdf"), target: "_blank", class:"btn btn-primary" %>
+  <div class="col-lg-2 mx-auto">
+    <%= link_to "Print Pdf", tasks_approved_show_path(id: @task.id, format: "pdf"), target: "_blank", class:"btn btn-primary" %>
+  </div>
+  <%= link_to 'Back', :back, class: "btn btn-outline-secondary" %>
 </div>

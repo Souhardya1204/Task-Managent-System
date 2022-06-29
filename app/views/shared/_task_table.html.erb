@@ -1,34 +1,36 @@
-<table class="table all-task">
-  <thead class="table-primary">
-    <tr>
-      <th>Task Name</th>
-      <th>Category</th>
-      <th>Created By</th>
-      <th>Required on</th>
-      <th>Assigned To</th>
-      <th>Repeat Interval</th>
-      <th>Acceptance Status</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% Array(@tasks).each do |task| %>
+<div class="table-responsive">
+  <table class="table all-task">
+    <thead class="table-primary">
       <tr>
-        <td><%= task.name %></td>
-        <td>
-          <div class="mb-3">
-            <%= select_tag('category', options_for_select([["Exams", "Exams"],["Birthday", "Birthday"],["Campus","Campus"],["Mock Test", "Mock Test"],["Interview", "Interview"],["Event","Event"],["Hiring", "Hiring"]], selected: task.category),data:{ remote: true, url: category_task_path(id: task.id), method: :patch }) %>
-          </div>
-        </td>
-        <td><%= task.user.name %></td>
-        <td><%= task.date %></td>
-        <td><%= User.find(task.employee_id).name %></td>
-        <td><%= task.repeat %></td>
-        <td class="accep-status"><%= task.acceptance %></td>
-        <td><%= link_to "Edit",edit_task_path(id: task.id), class: "btn btn-primary", role: "button" %>
-          <%= link_to "Show",task_path(id: task.id), class: "btn btn-secondary", role: "button" %>
-          <%= link_to "Delete",task_path(id: task.id), method: :delete, class: "btn btn-danger", role: "button" %></td>
+        <th>Task Name</th>
+        <th>Category</th>
+        <th>Created By</th>
+        <th>Required on</th>
+        <th>Assigned To</th>
+        <th>Repeat Interval</th>
+        <th>Acceptance Status</th>
+        <th>Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% Array(@tasks).each do |task| %>
+        <tr>
+          <td><%= task.name %></td>
+          <td>
+            <div class="mb-3">
+              <%= select_tag('category', options_for_select([["Please select", nil],["Exams", "Exams"],["Birthday", "Birthday"],["Campus","Campus"],["Mock Test", "Mock Test"],["Interview", "Interview"],["Event","Event"],["Hiring", "Hiring"]], selected: task.category),data:{ remote: true, url: category_task_path(id: task.id), method: :patch }) %>
+            </div>
+          </td>
+          <td><%= task.user.name %></td>
+          <td><%= task.date %></td>
+          <td><%= User.find(task.employee_id).name %></td>
+          <td><%= task.repeat %></td>
+          <td class="accep-status"><%= task.acceptance %></td>
+          <td><%= link_to "Edit",edit_task_path(id: task.id), class: "btn btn-primary", role: "button" %>
+            <%= link_to "Show",task_path(id: task.id), class: "btn btn-secondary", role: "button" %>
+            <%= link_to "Delete",task_path(id: task.id), method: :delete, class: "btn btn-danger", role: "button" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

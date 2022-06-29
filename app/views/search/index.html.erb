@@ -1,4 +1,5 @@
 <h1 class="text-center"><%= pluralize(@search_tasks.count, "Result") %></h1>
 <div class="col-lg-6 mx-auto">
   <%= render "static_pages/priority_task_table", tasks: @search_tasks%>
+  <%= link_to 'Back', :back, class: "btn btn-outline-secondary" %>
 </div>

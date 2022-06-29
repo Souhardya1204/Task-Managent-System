@@ -1,22 +1,25 @@
-<table class="table table-striped">
-  <h2 class="text-center">All Users</h2>
-  <thead class="table-primary">
-  <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Role</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
+<div class="col-lg-6 mx-auto table-responsive">
+  <table class="table table-striped">
+    <h2 class="text-center">All Users</h2>
+    <thead class="table-primary">
       <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
           <td><%= user.name %></td>
           <td><%= user.email %></td>
           <td><%= user.role.capitalize %></td>
           <td><%= link_to "Edit",edit_user_path(id: user.id), class: "btn btn-primary", role: "button" %>
-          <%= link_to "Delete",user_path(id: user.id), method: :delete,  class: "btn btn-danger", role: "button" %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+            <%= link_to "Delete",user_path(id: user.id), method: :delete,  class: "btn btn-danger", role: "button" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to 'Back', :back, class: "btn btn-outline-secondary" %>
+</div>

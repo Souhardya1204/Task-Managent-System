@@ -9,7 +9,7 @@ class StaticPagesController < ApplicationController
             if @user.tasks.empty?
                 @created_tasks = nil
             else
-                @created_tasks = @user.tasks
+                @created_tasks = @user.tasks.order(created_at: :desc)
             end
         end
     end

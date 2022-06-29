@@ -14,7 +14,7 @@
     </div>
     <div class="mb-3">
       <%= f.label :category %>
-      <%= f.select :category, options_for_select([["Exams", "Exams"],["Birthday", "Birthday"],["Campus","Campus"],["Mock Test", "Mock Test"],["Interview", "Interview"],["Event","Event"],["Hiring", "Hiring"]], selected: @task.category), class: "form-control" %>
+      <%= f.select :category, options_for_select([["Please select", "Not Specified"],["Exams", "Exams"],["Birthday", "Birthday"],["Campus","Campus"],["Mock Test", "Mock Test"],["Interview", "Interview"],["Event","Event"],["Hiring", "Hiring"]], selected: @task.category, :include_blank => true), class: "form-control" %>
     </div>
     <div class="mb-3">
       <%= f.label :date, "Required On" %>
@@ -28,9 +28,9 @@
         <%= f.time_field :time %>
       <% end %>
     </div>
-    <div class="mb-3">
+    <div class="mb-3 required">
       <%= f.label :priority %>
-      <%= f.select :priority, options_for_select([["High", 1 ],["Medium", 2 ],["Low", 3 ]], selected: @task.priority),:include_blank => true, class: "form-control" %>
+      <%= f.select :priority, options_for_select([["High", 1 ],["Medium", 2 ],["Low", 3 ]], selected: @task.priority),:include_blank => true, class: "form-control", required: true %>
     </div>
     <div class="mb-3 required">
       <%= f.label :employee_id, "Assigned To" %>
@@ -57,4 +57,5 @@
       <%= f.submit "Update Task", class: "btn btn-primary" %>
     </div>
   <% end %>
+  <%= link_to 'Back', :back, class: "btn btn-outline-secondary" %>
 </div>

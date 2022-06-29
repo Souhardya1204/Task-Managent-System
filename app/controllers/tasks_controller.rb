@@ -56,12 +56,6 @@ class TasksController < ApplicationController
     end
 
     def status
-        # if @task.update(change_status_params)
-        #     flash[:notice] = "Task Status updated"
-        #     redirect_back(fallback_location: root_path)
-        # else
-        #     render "home", flash:{alert: "Something went wrong" }
-        # end
         @task.update_attribute(:status, params[:status])
         flash[:notice] = "Task status updated"
         redirect_back(fallback_location: root_path)
@@ -69,11 +63,6 @@ class TasksController < ApplicationController
     end
 
     def category
-        # if @task.update(category_params)
-        #     redirect_to tasks_path
-        # else
-        #     render "home", flash:{alert: "Something went wrong" }
-        # end
         @task.update_attribute(:category, params[:category])
     end
 
@@ -101,25 +90,20 @@ class TasksController < ApplicationController
 
     def done
         @task.update_attribute(:done, params[:Done])
+        redirect_back(fallback_location: root_path)
     end
-
-    # def search
-    #     @query = params[:query].downcase
-    #     if Current.user.is_admin?
-    #         @tasks = Tasks.where("lower(tasks.name) LIKE ?",["%#{@query}%"])
-    #     else
-    #         @tasks = Task.where("employee_id = ? AND lower(tasks.name) LIKE ?",Current.user.id, "%#{@query}%").or(Current.user.tasks.where("lower(tasks.name) LIKE ?",["%#{@query}%"]))
-    #     end
-    # end
 
     def destroy
         @task.destroy
-        redirect_to tasks_path, {alert: "Task deleted"}
+        redirect_back(fallback_location: root_path,flash: {alert: "Task deleted"})
     end
   
     private
     def set_task
-        @task = Task.find(params[:id])
+        @task = Task.find_by(id: params[:id])
+        unless @task
+            redirect_to root_path, alert: "Task does not exist anymore"
+        end
     end
     def task_params
         list_params_allowed = [:name, :date, :time, :priority, :repeat, :employee_id]
@@ -130,14 +114,6 @@ class TasksController < ApplicationController
     def task_update_params
         params.require(:task).permit(:name,:category, :date, :time, :priority, :repeat, :employee_id)
     end
-
-    # def change_status_params
-    #     params.require(:task).permit(:status)
-    # end
-
-    # def category_params
-    #     params.require(:task).permit(:category)
-    # end
 
     def document_params
         params.require(:task).permit(documents: [])

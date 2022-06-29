@@ -1,25 +1,28 @@
-<h1>Edit User</h1>
-<%= form_with model: @user, url: user_path do |f|%>
-  <% if @user.errors.any? %>
-    <% @user.errors.full_messages.each do |message| %>
+<div class="col-lg-6 mx-auto">
+  <h1>Edit User</h1>
+  <%= form_with model: @user, url: user_path do |f|%>
+    <% if @user.errors.any? %>
+      <% @user.errors.full_messages.each do |message| %>
         <div class="alert alert-danger" role="alert">
-            <%= message %>
+          <%= message %>
         </div>
+      <% end %>
     <% end %>
-  <% end %>
     <div class="mb-3">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: "form-control", placeholder: "Your Name", disabled: true %>
-  </div>
-  <div class="mb-3">
-    <%= f.label :email %>
-    <%= f.email_field :email, class: "form-control", placeholder: "steve@apple.com", disabled: true %>
-  </div>
-  <div class="mb-3">
-    <%= f.label :role %>
-    <%= f.select :role, options_for_select([["Admin", "admin"],["HRD", "hrd"],["Employee","employee"]], selected: @user.role), class: "form-control" %>
-  </div>
-  <div class="mb-3">
-    <%= f.submit "Update User", class: "btn btn-primary" %>
-  </div>
-<% end %>
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "form-control", placeholder: "Your Name", disabled: true %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :email %>
+      <%= f.email_field :email, class: "form-control", placeholder: "steve@apple.com", disabled: true %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :role %>
+      <%= f.select :role, options_for_select([["Admin", "admin"],["HRD", "hrd"],["Employee","employee"]], selected: @user.role), class: "form-control" %>
+    </div>
+    <div class="mb-3">
+      <%= f.submit "Update User", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+  <%= link_to 'Back', :back, class: "btn btn-outline-secondary" %>
+</div>

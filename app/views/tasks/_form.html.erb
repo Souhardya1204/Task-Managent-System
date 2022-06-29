@@ -1,29 +1,29 @@
 <%= form_with(model: task, url: tasks_path, local: false) do |f| %>
   <div class="modal-body">
     <div id="errorArea"></div>
-    <div class="form-group mb-3">
+    <div class="form-group mb-3 required">
       <%= f.label :name,"Task Name" %>
       <%= f.text_field :name, class: "form-control", placeholder: "Task Name" %>
     </div>
     <% if Current.user.is_admin? %>
       <div class="form-group mb-3">
         <%= f.label :category %>
-        <%= f.select :category, options_for_select([["Exams", "Exams"],["Birthday", "Birthday"],["Campus","Campus"],["Mock Test", "Mock Test"],["Interview", "Interview"],["Event","Event"],["Hiring", "Hiring"]], selected: @task.category), prompt: "Please select", class: "form-control" %>
+        <%= f.select :category, options_for_select([["Please select", "Not Specified"],["Exams", "Exams"],["Birthday", "Birthday"],["Campus","Campus"],["Mock Test", "Mock Test"],["Interview", "Interview"],["Event","Event"],["Hiring", "Hiring"]], selected: @task.category), class: "form-control" %>
       </div>
     <% end %>
-    <div class="mb-3">
-      <%= f.label :time %>
-      <%= f.time_field :time %>
-    </div>
     <div class="form-group mb-3">
       <%= f.label :date, "Required On" %>
       <%= f.date_field :date, class: "form-control"%>
     </div>
-    <div class="form-group mb-3">
-      <%= f.label :priority %>
-      <%= f.select :priority, options_for_select([["High", 1 ],["Medium", 2 ],["Low", 3 ]]),prompt: "Please select", class: "form-control" %>
+    <div class="mb-3">
+      <%= f.label :time %>
+      <%= f.time_field :time %>
     </div>
-    <div class="form-group mb-3">
+    <div class="form-group mb-3 required">
+      <%= f.label :priority %>
+      <%= f.select :priority, options_for_select([["High", 1 ],["Medium", 2 ],["Low", 3 ]]),prompt: "Please select", class: "form-control", required: true %>
+    </div>
+    <div class="form-group mb-3 required">
       <%= f.label :employee_id, "Assigned To" %>
       <%= collection_select(:task, :employee_id, User.all, :id, :name, {:prompt => true, :multiple=>false })%>
     </div>
