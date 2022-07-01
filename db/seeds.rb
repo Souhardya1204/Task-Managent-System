@@ -10,11 +10,6 @@
 @emp1 = User.create!(name: 'Employee1', role: 'employee', email: 'emp1@example.com', password: 'password', password_confirmation: 'password')
 @emp2 = User.create!(name: 'Employee2', role: 'employee', email: 'emp2@example.com', password: 'password', password_confirmation: 'password')
 
-# @admin = User.find_by(role: 'admin')
-# @hrd = User.find_by(role: 'hrd')
-# @emp1 = User.find_by(name: 'Employee1')
-# @emp2 = User.find_by(name: 'Employee2')
-
 @task1 = @admin.tasks.create!(name: "Project1", employee_id: @emp1.id, priority: 1 , repeat: "Onetime")
 @task2 = @admin.tasks.create!(name: "Birthday", employee_id: @hrd.id, priority: 2 , repeat: "Yearly")
 @task3 = @emp1.tasks.create!(name: "Mandala", employee_id: @emp2.id, priority: 1 , repeat: "Onetime")

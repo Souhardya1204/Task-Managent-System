@@ -1,1 +1,13 @@
-<h1>About Page</h1>
+<div class="row about py-5 mb-3">
+  <h1 class="text-center py-3" >About Us</h1>
+  <p>This is a application for task management. Here we provide service of a fully developed task management system. In this application users can create, edit, update and delete task. They can assign the tasks to suitable peoples of their choice. Users can give repeat interval to the tasks also. Mail notification for assigning task and reminder notification is also enabled here. Users will be able to see the assigned tasks according to the priority( high, medium and low ) and will also be able to search them.User can change their task status also. If necessary , users will be able to add subtasks under a particular task. Admin has been provided all the permissions including adding category to every task and approve or reject the task. The HR person can also take printout of the approved tasks. 
+  </p>
+  <p class="mb-0"><strong>Contact to Admin:</strong></p>
+  <div class="px-5">
+    <p class="m-0 p-0"><b>Name:</b> Admin</p>
+    <p class="m-0 p-0"><b>Email:</b> admin@example.com</p>
+  </div>
+</div>
+<% if Current.user %>
+  <%= link_to 'Back', :back, class: "btn btn-outline-secondary" %>
+<% end %>
