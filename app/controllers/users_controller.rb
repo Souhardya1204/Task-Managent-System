@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :require_user_log_in!, except: [:new, :create]
   before_action :admin_user, only: [:index, :edit, :update]
   before_action :only_hr, only: [:approved_tasks]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
  
   def new
     if Current.user
@@ -27,15 +28,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update_attribute('role', user_update_params[:role])
       redirect_to users_path, {notice: "User successfuly updated"}
     else
@@ -45,9 +43,9 @@ class UsersController < ApplicationController
 
   def mytasks
      @my_tasks = Task.where(employee_id: params[:id])
-    @high_tasks = @my_tasks.where(employee_id: session[:user_id], priority: 1)
-    @medium_tasks = @my_tasks.where(employee_id: session[:user_id], priority: 2)
-    @low_tasks = @my_tasks.where(employee_id: session[:user_id], priority: 3)
+     @high_tasks = @my_tasks.with_priority(1)
+     @medium_tasks = @my_tasks.with_priority(2)
+     @low_tasks = @my_tasks.with_priority(3)
   end
 
   def approved_tasks
@@ -55,8 +53,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
-    @user.destroy()
+    @user.destroy
     redirect_to users_path, {alert: "User deleted"}
   end
 
@@ -68,5 +65,10 @@ class UsersController < ApplicationController
   def user_update_params
     params.require(:user).permit(:name, :email, :role)
   end
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+  
 
 end
