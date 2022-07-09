@@ -31,7 +31,7 @@ namespace  :schedule_task do
 
     desc 'Task for sending reminder mail and notification'
     task send_reminder_task: :environment do
-        upcoming_tasks = Task.where(date: (Date.today + 6.days) )
+        upcoming_tasks = Task.where(date: (Date.today + 1.week) )
         upcoming_tasks.each do |task|
             ReminderMailer.with(task: task, user: task.user).send_reminder.deliver_later
             user = User.find(task.employee_id)
