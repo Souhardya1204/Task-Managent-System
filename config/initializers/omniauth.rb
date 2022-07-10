@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :google_oauth2, "486324289510-mvmo40actkrsvgh4v0q3665sngkun0ll.apps.googleusercontent.com",
-           "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", { access_type: "offline" }
-  provider :facebook, "553596949725333", "eab9c3b0ab06859c1f5db638e371e7dc"
+  provider :google_oauth2, Rails.application.credentials.GOOGLE_CLIENT_ID,
+           Rails.application.credentials.GOOGLE_CLIENT_SECRET, { access_type: "offline" }
+  provider :facebook, Rails.application.credentials.FACEBOOK_APP_ID, Rails.application.credentials.FACEBOOK_APP_SECRET
 end
 OmniAuth.config.allowed_request_methods = %i[get]
