@@ -10,9 +10,8 @@ class SubtasksController < ApplicationController
 
   def create
     @subtask = @task.subtasks.build(subtask_params)
+    @subtask.save
     respond_to do |format|
-      if @subtask.save
-      end
       format.js
     end
   end
@@ -22,9 +21,8 @@ class SubtasksController < ApplicationController
   def edit; end
 
   def update
+    @subtask.update(subtask_params)
     respond_to do |format|
-      if @subtask.update(subtask_params)
-      end
       format.js
     end
   end
