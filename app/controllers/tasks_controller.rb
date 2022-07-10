@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
   before_action :require_user_log_in!
   before_action :admin_user, only: %i[index acceptance delete]
@@ -17,11 +19,10 @@ class TasksController < ApplicationController
       if @task.save
         TaskMailer.with(user: Current.user, task: @task).task_assigned.deliver_later
         format.html { redirect_to root_path, notice: "New Task Added" }
-        format.js
       else
         format.html { render "new" }
-        format.js
       end
+      format.js
     end
   end
 

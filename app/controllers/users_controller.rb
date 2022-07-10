@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :require_user_log_in!, except: %i[new create]
   before_action :admin_user, only: %i[index edit update]

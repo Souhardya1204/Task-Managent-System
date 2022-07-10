@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApprovedTaskPdf < Prawn::Document
   def initialize(task)
     super()
@@ -20,9 +22,9 @@ class ApprovedTaskPdf < Prawn::Document
            ["Created By", @task.user.name],
            ["Assigned to", User.find(@task.employee_id).name]],
           position: :center, width: 500) do
-      for i in 0..4 do
+      (0..4).each do |i|
         style(row(i).column(0), font_style: :bold)
-       end
+      end
     end
   end
 

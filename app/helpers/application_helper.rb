@@ -1,11 +1,14 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def get_string_priority(task)
     p = task.priority
-    if p == 1
+    case p
+    when 1
       "High"
-    elsif p == 2
+    when 2
       "Medium"
-    elsif p == 3
+    when 3
       "Low"
     else
       "Not specified"

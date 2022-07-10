@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :schedule_task do
   desc "Task for scheduling"
   task schedule_next_task: :environment do

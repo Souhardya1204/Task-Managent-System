@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddColumnsToTask < ActiveRecord::Migration[6.1]
   def change
     add_column :tasks, :category, :string, default: "Not Specified"
