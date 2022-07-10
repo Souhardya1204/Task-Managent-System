@@ -17,7 +17,7 @@
             </b>
           <% end %>
           <span class="m-3">
-            <td><%= check_box_tag 'seen', true , notification.seen, data: { remote: true, url: seen_notification_path(id: notification.id), method: :patch }%> </td>
+            <td><%= check_box_tag "seen", true , notification.seen, data: { remote: true, url: seen_notification_path(id: notification.id), method: :patch }%> </td>
             Mark as Read</span>
         </li>
         <div>

@@ -21,7 +21,7 @@
     <%= link_to "Create New Task!", new_task_path, class: "btn btn-primary btn-lg", data:{ bs_target: "#newTaskModal", bs_toggle: "modal", remote: true} %>
   </div>
   <%= render partial: "shared/created_task_table"%>
-  <%= link_to 'Back', :back, class: "btn btn-outline-secondary" %>
+  <%= link_to "Back", :back, class: "btn btn-outline-secondary" %>
 </div>
 <!-- New Task Modal -->
 <div class="modal fade" id="newTaskModal" tabindex="-1" aria-labelledby="newTaskModalLabel" aria-hidden="true">

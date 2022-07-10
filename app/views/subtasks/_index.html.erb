@@ -11,7 +11,7 @@
     </thead>
     <tbody id="subtasksTable">
       <% @subtasks.each do |subtask| %>
-        <%= render 'subtasks/subtask_row',subtask: subtask %>
+        <%= render "subtasks/subtask_row",subtask: subtask %>
       <% end %>
     </tbody>
   </table>

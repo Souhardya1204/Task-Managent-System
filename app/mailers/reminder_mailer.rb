@@ -1,5 +1,4 @@
 class ReminderMailer < ApplicationMailer
-
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -11,7 +10,8 @@ class ReminderMailer < ApplicationMailer
     @task = params[:task]
     mail(
       from: @user.email,
-      to: User.find_by(id: @task.employee_id).email, 
-      subject: "Reminder for assigned task")
+      to: User.find_by(id: @task.employee_id).email,
+      subject: "Reminder for assigned task"
+    )
   end
 end

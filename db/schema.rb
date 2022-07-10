@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_23_091454) do
-
+ActiveRecord::Schema.define(version: 20_220_623_091_454) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -19,7 +18,8 @@ ActiveRecord::Schema.define(version: 2022_06_23_091454) do
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
-    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+    t.index %w[record_type record_id name blob_id], name: "index_active_storage_attachments_uniqueness",
+                                                    unique: true
   end
 
   create_table "active_storage_blobs", charset: "utf8mb3", force: :cascade do |t|
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2022_06_23_091454) do
   create_table "active_storage_variant_records", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
-    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+    t.index %w[blob_id variation_digest], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
   create_table "notifications", charset: "utf8mb3", force: :cascade do |t|

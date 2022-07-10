@@ -1,5 +1,4 @@
 class TaskMailer < ApplicationMailer
-
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -11,7 +10,7 @@ class TaskMailer < ApplicationMailer
     @task = params[:task]
     mail(
       from: @user.email,
-      to: User.find_by(id: @task.employee_id).email, 
+      to: User.find_by(id: @task.employee_id).email,
       subject: "New Task assigned"
     )
   end

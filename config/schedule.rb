@@ -19,6 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 every 1.day do
-    rake "schedule_task:schedule_next_task"
-    rake "schedule_task:send_reminder_task"
+  rake "schedule_task:schedule_next_task"
+  rake "schedule_task:send_reminder_task"
 end
