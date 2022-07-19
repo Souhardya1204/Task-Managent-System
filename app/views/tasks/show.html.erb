@@ -41,11 +41,7 @@
         </tr>
         <th>Completion Status</th>
         <td>
-          <% if @task.done %>
-            <%= select_tag( 'status', options_for_select([["Pending", "Pending"],["In Progress", "In Progress"],["Completed", "Completed"]], selected: @task.status),prompt: "Please select" ,data:{ remote: true, url: status_task_path(id: @task.id), method: :patch }) %>
-          <% else %>
-            <%= select_tag('status', options_for_select([["Pending", "Pending"],["In Progress", "In Progress"]], selected: @task.status),prompt: "Please select",data: { remote: true, url: status_task_path(id: @task.id), method: :patch }) %>
-          <% end %>
+            <%= select_tag( 'status', options_for_select(Task.task_specific_statuses(@task).keys, { selected: @task.status } ), prompt: "Please select", data:{ remote: true, url: status_task_path(id: @task.id), method: :patch }) %>
         </td>
       </tr>
       <tr>

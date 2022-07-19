@@ -3,7 +3,7 @@
 <% else %>
   $('#createdTasksTable').prepend("<%= j render('created_task_row', task: @task)%>")
   <% if @task.employee_id == Current.user.id %>
-    let id = '#'+ <%= @task.priority %>
+    let id = '#'+ <%= Task.priorities[@task.priority] %>
     $( id+' table tbody').prepend("<%= j render('mytask_row', task: @task)%>")
   <% end %>
   $('.close-modal').click()

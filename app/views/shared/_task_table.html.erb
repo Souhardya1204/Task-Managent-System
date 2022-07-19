@@ -18,7 +18,7 @@
           <td><%= task.name %></td>
           <td>
             <div class="mb-3">
-              <%= select_tag('category', options_for_select([["Please select", nil],["Exams", "Exams"],["Birthday", "Birthday"],["Campus","Campus"],["Mock Test", "Mock Test"],["Interview", "Interview"],["Event","Event"],["Hiring", "Hiring"]], selected: task.category),data:{ remote: true, url: category_task_path(id: task.id), method: :patch }) %>
+              <%= select_tag('category', options_for_select(Task.categories.keys, selected: task.category),prompt: "Please select", data:{ remote: true, url: category_task_path(id: task.id), method: :patch }) %>
             </div>
           </td>
           <td><%= task.user.name %></td>

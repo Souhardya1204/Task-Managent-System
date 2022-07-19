@@ -1,8 +1,7 @@
-      
 <tr>
   <td><%= task.name %></td>
   <td><%= task.category %></td>
-  <td><%= get_string_priority(task) %></td>
+  <td><%= task.priority %></td>
   <td><%= task.date %></td>
   <td><%= User.find(task.employee_id).name %></td>
   <td><%= task.repeat %></td>
