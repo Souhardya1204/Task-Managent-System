@@ -8,9 +8,9 @@
     <% notifications.each do |notification|%>
       <div class="d-flex  align-items-center justify-content-around mb-3">
         <li style="width: 320px;"> <b><%= notification.desc %>  </b>
-          <% if Task.find_by(id: notification.task_id) %>
+          <% if task_from_notification(notification) %>
             Follow the link to get the details:
-            <b><%= link_to Task.find(notification.task_id).name, task_path(id: notification.task_id) %> </b>
+            <b><%= link_to task_from_notification(notification), task_path(id: notification.task_id) %> </b>
           <% else %>
             <b>
               <p class="text-danger">Task has been deleted </p>

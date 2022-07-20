@@ -1,13 +1,7 @@
 <div class="col-lg-6 mx-auto">
   <h1>Edit User</h1>
   <%= form_with model: @user, url: user_path do |f|%>
-    <% if @user.errors.any? %>
-      <% @user.errors.full_messages.each do |message| %>
-        <div class="alert alert-danger" role="alert">
-          <%= message %>
-        </div>
-      <% end %>
-    <% end %>
+    <%= render 'shared/errors', object: @user %>
     <div class="mb-3">
       <%= f.label :name %>
       <%= f.text_field :name, class: "form-control", placeholder: "Your Name", disabled: true %>

@@ -3,7 +3,7 @@
    placeholder: "Search...",
    class: "form-control me-2" %>
   <%= f.select :category_id_eq, options_from_collection_for_select(
-  Category.all,"id", "name", @q.category_id_eq), prompt: "Category",class: "form-control " %>
-  <%= f.select :priority_eq, options_for_select(Task.priorities.to_a.map { |w| [w[0].humanize, w[1]]}, @q.priority_eq), prompt: "Priority",class: "form-control" %>
+  Category.all,"id", "name", @q.category_id_eq), prompt: "Category",include_blank:"None",class: "form-control " %>
+  <%= f.select :priority_eq, options_for_select(Task.priorities.to_a.map { |w| [w[0].humanize, w[1]]}, @q.priority_eq), prompt: "Priority",include_blank:"None",class: "form-control" %>
   <%= f.submit "Search!", class:"btn btn-outline-success" %>
 <% end %>

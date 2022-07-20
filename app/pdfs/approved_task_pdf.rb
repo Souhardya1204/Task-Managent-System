@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApprovedTaskPdf < Prawn::Document
+  include ApplicationHelper
   def initialize(task)
     super()
     @task = task
@@ -16,12 +17,9 @@ class ApprovedTaskPdf < Prawn::Document
 
   def task_item
     move_down 20
-    table([["Task Name", @task.name],
-           ["Task Category", @task.category],
-           ["Required on", @task.date.to_s],
-           ["Created By", @task.user.name],
-           ["Assigned to", User.find(@task.employee_id).name]],
-          position: :center, width: 500) do
+    table([["Task Name", @task.name], ["Task Category", category_name(@task)],
+           ["Required on", @task.date.to_s], ["Created By", @task.user.name],
+           ["Assigned to", task_employee_name(@task)]], position: :center, width: 500) do
       (0..4).each do |i|
         style(row(i).column(0), font_style: :bold)
       end

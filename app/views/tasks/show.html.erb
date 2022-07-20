@@ -24,7 +24,7 @@
       </tr>
       <tr>
         <th> Assigned to</th>
-        <td><%=User.find(@task.employee_id).name%></td>
+        <td><%=task_employee_name(@task)%></td>
       </tr>
       <tr>
         <th>Repeat Interval</th>

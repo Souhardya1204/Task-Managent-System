@@ -7,7 +7,7 @@
     </tr>
     <tr>
       <th> Category</th>
-      <td><%= @task.category%></td>
+      <td><%=category_name(@task)%></td>
     </tr>
     <tr>
       <th>Required On</th>
@@ -19,7 +19,7 @@
     </tr>
     <tr>
       <th> Assigned to</th>
-      <td><%= User.find(@task.employee_id).name %></td>
+      <td><%= task_employee_name(@task) %></td>
     </tr>
     <tr>
       <th>Repeat Interval</th>

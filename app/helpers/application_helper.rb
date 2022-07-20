@@ -14,4 +14,12 @@ module ApplicationHelper
 
     "Not specified"
   end
+
+  def task_employee_name(task)
+    User.find(task.employee_id).name
+  end
+
+  def task_from_notification(notification)
+    Task.find_by(id: notification.task_id)&.name
+  end
 end
