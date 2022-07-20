@@ -64,7 +64,9 @@ class TasksController < ApplicationController
   end
 
   def category
-    @task.update_attribute(:category_id, params[:category_id])
+    @task.update_attribute(:category_id, params[:task][:category_id])
+    flash[:notice] = "Task Category changed"
+    redirect_back(fallback_location: root_path)
   end
 
   def document

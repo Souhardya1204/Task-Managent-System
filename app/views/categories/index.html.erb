@@ -13,16 +13,11 @@
     </thead>
     <tbody>
       <% @categories.each do |category| %>
-        <tr  id="categoryRow_<%= category.id %>">
-          <td><%= category.id %></td>
-          <td><%= category.name %></td>
-          <td><button><%= link_to "Edit", edit_category_path(category), class: "text-decoration-none", data:{ bs_target: "#editCategoryModal", bs_toggle: "modal", remote: true } %></button>
-            <button class="btn-danger"><%= link_to "Delete", category_path(category), method: :delete, class: "text-decoration-none text-white", data: {confirm: "Tasks with this category will also be deleted.", remote: true } %></button></button></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= link_to 'Back', :back, class: "btn btn-outline-secondary" %>
+        <%= render 'categories/category_row', category: category %>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to 'Back', :back, class: "btn btn-outline-secondary" %>
 </div>
 <!-- New Category Modal -->
 <div class="modal fade" id="newCategoryModal" tabindex="-1" aria-labelledby="newCategoryModalLabel" aria-hidden="true">

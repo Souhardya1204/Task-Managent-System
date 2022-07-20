@@ -18,7 +18,7 @@
           <td><%= task.name %></td>
           <td>
             <div class="form-group mb-3">
-              <%= collection_select(:task, :category_id, Category.all, :id, :name, {:prompt => true, :multiple=>false, selected: task.category_id })%>
+              <%= collection_select(:task, :category_id, Category.all, :id, :name, {:prompt => true, :multiple=>false, selected: task.category_id }, data:{ remote: true, url: category_task_path(id: task.id), method: :patch }) %>
             </div>
           </td>
           <td><%= task.user.name %></td>

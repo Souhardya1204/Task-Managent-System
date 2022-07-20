@@ -1,4 +1,4 @@
-<tr id="subtaskRow_<% subtask.id %>">
+<tr id="subtaskRow_<%= subtask.id %>">
   <td> <%= link_to subtask.title,task_subtask_path(task_id: subtask.task_id, id:subtask.id),data:{bs_toggle:'modal', bs_target: '#showSubtaskModal', remote: true }  %></td>
   <td>
     <div class="dropdown">
