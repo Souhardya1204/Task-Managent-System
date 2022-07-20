@@ -17,6 +17,5 @@ RSpec.describe Task, type: :model do
     task = create(:task, user: user)
     expect(task.status).to eq("Pending")
     expect(task.acceptance).to eq("Pending")
-    expect(task.category).to eq("Not Specified")
   end
 end

@@ -1,7 +1,17 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/souhardya/Desktop/Kreeti/Projects/Rails Project/task_management_system/app/models/notification.rb": {
+      "/home/souhardya/Desktop/Kreeti/Project/Rails_Project/Task-Managent-System/app/models/category.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          1,
+          1,
+          null
+        ]
+      },
+      "/home/souhardya/Desktop/Kreeti/Project/Rails_Project/Task-Managent-System/app/models/application_record.rb": {
         "lines": [
           null,
           null,
@@ -10,7 +20,7 @@
           null
         ]
       },
-      "/home/souhardya/Desktop/Kreeti/Projects/Rails Project/task_management_system/app/models/application_record.rb": {
+      "/home/souhardya/Desktop/Kreeti/Project/Rails_Project/Task-Managent-System/app/models/notification.rb": {
         "lines": [
           null,
           null,
@@ -19,7 +29,7 @@
           null
         ]
       },
-      "/home/souhardya/Desktop/Kreeti/Projects/Rails Project/task_management_system/app/models/subtask.rb": {
+      "/home/souhardya/Desktop/Kreeti/Project/Rails_Project/Task-Managent-System/app/models/subtask.rb": {
         "lines": [
           null,
           null,
@@ -30,7 +40,7 @@
           null
         ]
       },
-      "/home/souhardya/Desktop/Kreeti/Projects/Rails Project/task_management_system/app/models/task.rb": {
+      "/home/souhardya/Desktop/Kreeti/Project/Rails_Project/Task-Managent-System/app/models/task.rb": {
         "lines": [
           null,
           null,
@@ -41,10 +51,20 @@
           1,
           1,
           1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          null,
+          0,
+          null,
+          null,
           null
         ]
       },
-      "/home/souhardya/Desktop/Kreeti/Projects/Rails Project/task_management_system/app/models/user.rb": {
+      "/home/souhardya/Desktop/Kreeti/Project/Rails_Project/Task-Managent-System/app/models/user.rb": {
         "lines": [
           null,
           null,
@@ -86,6 +106,6 @@
         ]
       }
     },
-    "timestamp": 1657466141
+    "timestamp": 1658322089
   }
 }
