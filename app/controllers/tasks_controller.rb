@@ -64,7 +64,7 @@ class TasksController < ApplicationController
   end
 
   def category
-    @task.update_attribute(:category, params[:category])
+    @task.update_attribute(:category_id, params[:category_id])
   end
 
   def document
@@ -107,13 +107,12 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    list_params_allowed = %i[name date time priority repeat employee_id]
-    list_params_allowed << :category if Current.user.is_admin?
+    list_params_allowed = %i[name date time priority repeat employee_id category_id]
     params.require(:task).permit(list_params_allowed)
   end
 
   def task_update_params
-    params.require(:task).permit(:name, :category, :date, :time, :priority, :repeat, :employee_id)
+    params.require(:task).permit(:name, :category_id, :date, :time, :priority, :repeat, :employee_id)
   end
 
   def document_params

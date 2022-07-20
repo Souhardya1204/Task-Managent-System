@@ -8,14 +8,14 @@
       </tr>
       <tr>
         <th> Category</th>
-        <td><%= @task.category%></td>
+        <td><%= check_nil(@task.category).name %></td>
       </tr>
       <tr>
         <th>Required On</th>
         <% if @task.time %>
           <td><%= @task.date %> at <%= @task.time.strftime("%I:%M%p") %></td>
         <% else %>
-          <td><%= @task.date %></td>
+          <td><%= check_nil(@task.date) %></td>
         <% end %>
       </tr>
       <tr>
@@ -24,15 +24,15 @@
       </tr>
       <tr>
         <th> Assigned to</th>
-        <td><%= User.find(@task.employee_id).name %></td>
+        <td><%=User.find(@task.employee_id).name%></td>
       </tr>
       <tr>
         <th>Repeat Interval</th>
-        <td><%= @task.repeat%></td>
+        <td><%=check_nil(@task.repeat)%></td>
       </tr>
       <tr>
         <tr>
-          <th> Done Status</th>
+          <th>Done Status</th>
           <td> <%= 
             check_box_tag 'Done', true , @task.done,
             onchange: "$(this).data('params',  this.checked)",
@@ -41,7 +41,7 @@
         </tr>
         <th>Completion Status</th>
         <td>
-            <%= select_tag( 'status', options_for_select(Task.task_specific_statuses(@task).keys, { selected: @task.status } ), prompt: "Please select", data:{ remote: true, url: status_task_path(id: @task.id), method: :patch }) %>
+          <%= select_tag( 'status', options_for_select(Task.task_specific_statuses(@task).keys, { selected: @task.status } ), prompt: "Please select", data:{ remote: true, url: status_task_path(id: @task.id), method: :patch }) %>
         </td>
       </tr>
       <tr>

@@ -1,6 +1,6 @@
 <tr>
   <td><%= task.name %></td>
-  <td><%= task.category %></td>
+  <td><%= category_name(task) %></td>
   <td><%= task.priority %></td>
   <td><%= task.date %></td>
   <td><%= User.find(task.employee_id).name %></td>
