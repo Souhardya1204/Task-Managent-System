@@ -1,0 +1,50 @@
+<div class="bar d-flex p-2 justify-content-center mt-5" style="gap:5rem">
+  <h2>All Categories</h2>
+  <%= link_to "Add Category", new_category_path, class: "btn btn-primary btn-md", data:{ bs_target: "#newCategoryModal", bs_toggle: "modal", remote: true} %>
+</div>
+<div class="col-lg-6 mx-auto table-responsive">
+  <table class="table col-lg-6" id="category">
+    <thead class="table-dark">
+      <tr>
+        <th>Id</th>
+        <th>Category Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @categories.each do |category| %>
+        <tr  id="categoryRow_<%= category.id %>">
+          <td><%= category.id %></td>
+          <td><%= category.name %></td>
+          <td><button><%= link_to "Edit", edit_category_path(category), class: "text-decoration-none", data:{ bs_target: "#editCategoryModal", bs_toggle: "modal", remote: true } %></button>
+            <button class="btn-danger"><%= link_to "Delete", category_path(category), method: :delete, class: "text-decoration-none text-white", data: {confirm: "Tasks with this category will also be deleted.", remote: true } %></button></button></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Back', :back, class: "btn btn-outline-secondary" %>
+</div>
+<!-- New Category Modal -->
+<div class="modal fade" id="newCategoryModal" tabindex="-1" aria-labelledby="newCategoryModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newCategoryModalLabel">New Category</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div id="newCategoryForm"></div>
+    </div>
+  </div>
+</div>
+<!-- Edit Category Modal -->
+<div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editCategoryModalLabel">Edit Category</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div id="editCategoryForm"></div>
+    </div>
+  </div>
+</div>

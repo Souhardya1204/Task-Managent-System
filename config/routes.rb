@@ -40,4 +40,5 @@ Rails.application.routes.draw do
       patch "document", on: :member
     end
   end
+  resources :categories
 end

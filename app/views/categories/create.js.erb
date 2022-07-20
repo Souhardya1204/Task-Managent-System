@@ -1,0 +1,6 @@
+<% if @category.errors.any? %>
+  $('#errorArea').html("<%= j render('shared/errors', object: @category)%>")
+<% else %>
+  $('#category').append("<%= j render('category_row', category: @category)%>")
+  $('.close-modal').click()
+<% end %>
