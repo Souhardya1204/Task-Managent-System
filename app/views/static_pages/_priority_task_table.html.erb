@@ -15,14 +15,14 @@
         <td><%= task.date %></td>
         <td><%= task.status %></td>
         <td>
-          <% if Current.user.is_admin? %>
+          <% if Current.user == task.user %>
             <div class="dropdown">
               <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                 Actions</a>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li><%= link_to "Edit",edit_task_path(id: task.id), class:"dropdown-item"%></li>
                 <li> <%= link_to "Show",task_path(id: task.id), class: "dropdown-item" %></li>
-                <% if Current.user.is_admin? %>
+                <% if Current.user.admin? %>
                   <li> <%= link_to "Delete",task_path(id: task.id), method: :delete, class: "dropdown-item" %></li>
                 <% end %>
               </ul>

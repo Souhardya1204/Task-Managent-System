@@ -37,10 +37,8 @@ class TasksController < ApplicationController
 
       format.pdf do
         pdf = ApprovedTaskPdf.new(@task)
-        send_data pdf.render,
-                  filename: "Task_#{@task.id}.pdf",
-                  type: "application/pdf",
-                  disposition: "inline"
+        send_data(pdf.render, filename: "Task_#{@task.id}.pdf",
+                              type: "application/pdf", disposition: "inline")
       end
     end
   end
@@ -127,7 +125,7 @@ class TasksController < ApplicationController
   end
 
   def edit_access(task)
-    if Current.user.is_admin? || (Current.user == task.user)
+    if Current.user.admin? || (Current.user == task.user)
       true
     else
       false

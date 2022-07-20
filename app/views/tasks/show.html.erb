@@ -59,7 +59,7 @@
           <% end %>
         </td>
       </tr>
-      <% if @task.status == "Completed" && Current.user.is_admin? %>
+      <% if @task.status == "Completed" && Current.user.admin? %>
         <tr>
           <th>Approve/Reject</th>
           <td>

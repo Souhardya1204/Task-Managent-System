@@ -15,7 +15,7 @@
           </li>
         <% end %>
         <% if Current.user %>
-          <% if ( Current.user.is_admin? ) %>
+          <% if ( Current.user.admin? ) %>
             <li class="nav-item">
               <%= link_to "All Users", users_path, class: "nav-link"%>
             </li>
@@ -25,7 +25,7 @@
             <li class="nav-item">
               <%= link_to "Categories", categories_path, class:"nav-link" %>
             </li>
-          <% elsif Current.user.is_hr? %>
+          <% elsif Current.user.hr? %>
             <li class="nav-item">
               <%= link_to "Approved Tasks", tasks_approved_path, class:"nav-link" %>
             </li>

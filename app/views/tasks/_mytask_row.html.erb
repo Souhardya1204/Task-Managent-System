@@ -3,7 +3,7 @@
   <td><%= task.date %></td>
   <td><%= task.status %></td>
   <td>
-    <% if Current.user.is_admin? %>
+    <% if Current.user.admin? %>
       <div class="dropdown">
         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
           Actions</a>

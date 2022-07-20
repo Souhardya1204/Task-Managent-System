@@ -12,15 +12,15 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }
-
-  def is_admin?
-    return true if role == "admin"
+  enum role: { Admin: "admin", Hrd: "hrd", Employee: "employee" }
+  def admin?
+    return true if role == "Admin"
 
     false
   end
 
-  def is_hr?
-    return true if role == "hrd"
+  def hr?
+    return true if role == "Hrd"
 
     false
   end

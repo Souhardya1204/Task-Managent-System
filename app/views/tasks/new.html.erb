@@ -1,50 +1,51 @@
 <div class="col-lg-6 mx-auto mt-5">
   <h1>Create New Task</h1>
-  <%= render 'shared/errors', object: @task %>
-  <div class="mb-3 required">
-    <%= f.label :name,"Task Name" %>
-    <%= f.text_field :name, class: "form-control", placeholder: "Task Name" , required: true %>
-  </div>
-  <div class="form-group mb-3">
-    <%= f.label :category_id, "Category" %>
-    <%= collection_select(:task, :category_id, Category.all, :id, :name, {:prompt => true, :multiple=>false })%>
-  </div>
-  <div class="mb-3">
-    <%= f.label :date, "Required On" %>
-    <%= f.date_field :date, class: "form-control"%>
-  </div>
-  <div class="mb-3">
-    <%= f.label :time %>
-    <%= f.time_field :time %>
-  </div>
-  <div class="mb-3 required">
-    <%= f.label :priority %>
-    <%= f.select :priority, options_for_select(Task.priorities.keys),prompt: "Please select", class: "form-control", required: true %>
-  </div>
-  <div class="mb-3 required">
-    <%= f.label :employee_id, "Assigned To", class: "required" %>
-    <%= collection_select(:task, :employee_id, User.all, :id, :name, {:prompt => true, :multiple=>false }) %>
-  </div>
-  <div class="mb-3">
-    <%= f.label :repeat, "Repeat Interval" %><br>
-    <%= f.radio_button :repeat, "Onetime" %>
-    <%= f.label :repeat, "OneTime", value:"onetime"%>
-    <%= f.radio_button :repeat, "Daily" %>
-    <%= f.label :repeat, "Daily", value:"daily" %>
-    <%= f.radio_button :repeat, "Weekly" %>
-    <%= f.label :repeat, "Weekly", value:"weekly" %>
-    <%= f.radio_button :repeat, "Monthly" %>
-    <%= f.label :repeat, "Monthly",value:"monthly" %>
-    <%= f.radio_button :repeat, "Quarterly" %>
-    <%= f.label :repeat, "Quarterly", value:"quarterly" %>
-    <%= f.radio_button :repeat, "Halfyearly" %>
-    <%= f.label :repeat, "Half-Yearly", value:"halfyearly" %>
-    <%= f.radio_button :repeat, "Yearly" %>
-    <%= f.label :repeat, "Yearly", value:"yearly" %>
-  </div>
-  <div class="mb-3">
-    <%= f.submit "Create Task", class: "btn btn-primary" %>
-  </div>
-<% end %>
-<%= link_to "Back", :back, class: "btn btn-outline-secondary" %>
+  <%= form_with model: @task, url: tasks_path do |f|%>
+    <%= render 'shared/errors', object: @task %>
+    <div class="mb-3 required">
+      <%= f.label :name,"Task Name" %>
+      <%= f.text_field :name, class: "form-control", placeholder: "Task Name" , required: true %>
+    </div>
+    <div class="form-group mb-3">
+      <%= f.label :category_id, "Category" %>
+      <%= collection_select(:task, :category_id, Category.all, :id, :name, {:prompt => true, :multiple=>false })%>
+    </div>
+    <div class="mb-3">
+      <%= f.label :date, "Required On" %>
+      <%= f.date_field :date, class: "form-control"%>
+    </div>
+    <div class="mb-3">
+      <%= f.label :time %>
+      <%= f.time_field :time %>
+    </div>
+    <div class="mb-3 required">
+      <%= f.label :priority %>
+      <%= f.select :priority, options_for_select(Task.priorities.keys),prompt: "Please select", class: "form-control", required: true %>
+    </div>
+    <div class="mb-3 required">
+      <%= f.label :employee_id, "Assigned To", class: "required" %>
+      <%= collection_select(:task, :employee_id, User.all, :id, :name, {:prompt => true, :multiple=>false }) %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :repeat, "Repeat Interval" %><br>
+      <%= f.radio_button :repeat, "Onetime" %>
+      <%= f.label :repeat, "OneTime", value:"onetime"%>
+      <%= f.radio_button :repeat, "Daily" %>
+      <%= f.label :repeat, "Daily", value:"daily" %>
+      <%= f.radio_button :repeat, "Weekly" %>
+      <%= f.label :repeat, "Weekly", value:"weekly" %>
+      <%= f.radio_button :repeat, "Monthly" %>
+      <%= f.label :repeat, "Monthly",value:"monthly" %>
+      <%= f.radio_button :repeat, "Quarterly" %>
+      <%= f.label :repeat, "Quarterly", value:"quarterly" %>
+      <%= f.radio_button :repeat, "Halfyearly" %>
+      <%= f.label :repeat, "Half-Yearly", value:"halfyearly" %>
+      <%= f.radio_button :repeat, "Yearly" %>
+      <%= f.label :repeat, "Yearly", value:"yearly" %>
+    </div>
+    <div class="mb-3">
+      <%= f.submit "Create Task", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+  <%= link_to "Back", :back, class: "btn btn-outline-secondary" %>
 </div>
