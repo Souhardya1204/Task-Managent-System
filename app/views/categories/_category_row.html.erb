@@ -2,5 +2,5 @@
   <td><%= category.id %></td>
   <td><%= category.name %></td>
   <td><button><%= link_to "Edit", edit_category_path(category), class: "text-decoration-none", data:{ bs_target: "#editCategoryModal", bs_toggle: "modal", remote: true } %></button>
-    <button class="btn-danger"><%= link_to "Delete", category_path(category), method: :delete, class: "text-decoration-none text-white", data: {confirm: "Tasks with this category will also be deleted.", remote: true } %></button></button></td>
+    <button class="btn-danger"><%= link_to "Delete", category_path(category), method: :delete, class: "text-decoration-none text-white", data: { remote: true } %></button></button></td>
 </tr>
