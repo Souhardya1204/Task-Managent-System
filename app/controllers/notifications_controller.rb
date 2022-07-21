@@ -3,7 +3,7 @@
 class NotificationsController < ApplicationController
   before_action :require_user_log_in!
   def index
-    @notifications  = Current.user.notifications.order(created_at: :desc)
+    @notifications  = Current.user.notifications
   end
 
   def seen

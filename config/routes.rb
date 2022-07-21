@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root "static_pages#home"
   get "about", to: "static_pages#about"
-  get "users", to: "users#index"
 
+  get "users", to: "users#index"
   get "sign_up", to: "users#new"
   post "sign_up", to: "users#create"
 
@@ -20,14 +20,13 @@ Rails.application.routes.draw do
   get "tasks/approved", to: "users#approved_tasks"
   get "tasks/approved/show", to: "tasks#approved_show"
   get "search", to: "search#index"
-  resources :users do
-    get "mytasks", on: :member
-  end
+  get "mytasks", to: "users#mytasks"
 
   get "notifications", to: "notifications#index"
   delete "notifications/:id", to: "notifications#destroy", as: :destroy_notification
   patch "notifications/:id/seen", to: "notifications#seen", as: :seen_notification
 
+  resources :users, only: %i[edit update show destroy]
   resources :tasks do
     patch "acceptance", on: :member
     patch "status", on: :member

@@ -42,14 +42,14 @@ class UsersController < ApplicationController
   end
 
   def mytasks
-    @my_tasks = Task.where(employee_id: params[:id])
+    @my_tasks = Task.my_tasks
     @high_tasks = @my_tasks.with_priority(1)
     @medium_tasks = @my_tasks.with_priority(2)
     @low_tasks = @my_tasks.with_priority(3)
   end
 
   def approved_tasks
-    @approved_tasks = Task.where(acceptance: "Approved")
+    @approved_tasks = Task.condition("acceptance", "Approved")
   end
 
   def destroy

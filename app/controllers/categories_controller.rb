@@ -13,6 +13,7 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.new(category_params)
+    @category.save
     respond_to do |format|
       format.js
     end

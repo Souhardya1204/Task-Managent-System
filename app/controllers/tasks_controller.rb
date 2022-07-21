@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   before_action :correct_user, only: [:my_task]
   before_action :set_task, except: %i[index new create search]
   def index
-    @tasks = Task.includes(:user).all.order(:priority)
+    @tasks = Task.includes(:user).all
   end
 
   def new
@@ -27,7 +27,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    @subtasks = @task.subtasks.order(created_at: :desc)
+    @subtasks = @task.subtasks
   end
 
   def approved_show

@@ -10,33 +10,7 @@
   </thead>
   <tbody>
     <% Array(tasks).each do |task| %>
-      <tr>
-        <td><%= link_to task.name, task %></td>
-        <td><%= task.date %></td>
-        <td><%= task.status %></td>
-        <td>
-          <% if Current.user == task.user %>
-            <div class="dropdown">
-              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                Actions</a>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><%= link_to "Edit",edit_task_path(id: task.id), class:"dropdown-item"%></li>
-                <li> <%= link_to "Show",task_path(id: task.id), class: "dropdown-item" %></li>
-                <% if Current.user.admin? %>
-                  <li> <%= link_to "Delete",task_path(id: task.id), method: :delete, class: "dropdown-item" %></li>
-                <% end %>
-              </ul>
-            </div>
-          <% else %>
-            <%= link_to "Show",task, class:"btn btn-secondary"%>
-          <% end %>
-        </td>
-        <td>
-          <%= check_box_tag 'Done', true , task.done,
-          onchange: "$(this).data('params',  this.checked)",
-          data: { remote: true, url: done_task_path(id: task.id), method: :patch }%>
-        </td>
-      </tr>
+      <%= render 'tasks/mytask_row',task: task %>
     <% end %>
   </tbody>
 </table>

@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   def unread_notifications
     return unless Current.user
 
-    @unread_notifications = Current.user.notifications.where({ seen: false }).order(created_at: :desc)
+    @unread_notifications = Current.user.notifications.unread
     @unread_count = @unread_notifications.count
   end
 
@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
     @q = if Current.user.admin?
            Task.ransack(params[:q])
          else
-           Task.where(employee_id: Current.user.id).or(Current.user.tasks).ransack(params[:q])
+           Task.condition("employee_id", Current.user.id).or(Current.user.tasks).ransack(params[:q])
          end
     @search_tasks = @q.result(distinct: true)
   end
