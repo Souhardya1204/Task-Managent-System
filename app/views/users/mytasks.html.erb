@@ -13,4 +13,7 @@
     <%= render partial: "static_pages/priority_task_table" , locals:{tasks: @low_tasks}%>
   </div>
 </div>
+<%= will_paginate @high_tasks, renderer: WillPaginate::ActionView::BootstrapLinkRenderer , previous_label: "Newer", 
+next_label: "Older",inner_window: 1, outer_window: 0 %>
+</div>
 <%= link_to "Back", :back, class: "btn btn-outline-secondary" %>

@@ -27,5 +27,7 @@
       <% end %>
     </tbody>
   </table>
+  <%= will_paginate @notifications, renderer: WillPaginate::ActionView::BootstrapLinkRenderer , previous_label: "Newer", 
+  next_label: "Older",inner_window: 1, outer_window: 0 %>
   <%= link_to 'Back', :back, class: "btn btn-outline-secondary" %>
 </div>

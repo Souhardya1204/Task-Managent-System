@@ -3,7 +3,7 @@
 class NotificationsController < ApplicationController
   before_action :require_user_log_in!
   def index
-    @notifications  = Current.user.notifications
+    @notifications  = Current.user.notifications.paginate(page: params[:page])
   end
 
   def seen

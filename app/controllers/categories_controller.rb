@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   before_action :set_category, except: %i[index new create]
   before_action :check_no_task, only: :destroy
   def index
-    @categories = Category.all
+    @categories = Category.all.paginate(page: params[:page])
   end
 
   def new

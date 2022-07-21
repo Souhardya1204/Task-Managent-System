@@ -35,6 +35,6 @@ class ApplicationController < ActionController::Base
          else
            Task.condition("employee_id", Current.user.id).or(Current.user.tasks).ransack(params[:q])
          end
-    @search_tasks = @q.result(distinct: true)
+    @search_tasks = @q.result(distinct: true).paginate(page: params[:page])
   end
 end

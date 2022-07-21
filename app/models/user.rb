@@ -25,6 +25,10 @@ class User < ApplicationRecord
     false
   end
 
+  def self.per_page
+    1
+  end
+
   def self.from_omniauth(auth)
     where(email: auth.info.email).first_or_initialize do |user|
       user.provider = auth.provider

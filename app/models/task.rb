@@ -19,4 +19,8 @@ class Task < ApplicationRecord
       Task.statuses.reject { |k, _v| k == "Completed" }
     end
   end
+
+  def self.per_page
+    1
+  end
 end

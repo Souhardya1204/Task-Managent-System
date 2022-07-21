@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_action :admin_user, only: %i[index edit update]
   before_action :only_hr, only: [:approved_tasks]
   before_action :set_user, only: %i[show edit update destroy]
-
+  before_action :correct_user, only: :show
   def new
     if Current.user
       redirect_to root_path, notice: "Already logged in"
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = User.all.paginate(page: params[:page])
   end
 
   def create
@@ -43,13 +43,13 @@ class UsersController < ApplicationController
 
   def mytasks
     @my_tasks = Task.my_tasks
-    @high_tasks = @my_tasks.with_priority(1)
-    @medium_tasks = @my_tasks.with_priority(2)
-    @low_tasks = @my_tasks.with_priority(3)
+    @high_tasks = @my_tasks.with_priority(1).paginate(page: params[:page])
+    @medium_tasks = @my_tasks.with_priority(2).paginate(page: params[:page])
+    @low_tasks = @my_tasks.with_priority(3).paginate(page: params[:page])
   end
 
   def approved_tasks
-    @approved_tasks = Task.condition("acceptance", "Approved")
+    @approved_tasks = Task.condition("acceptance", "Approved").paginate(page: params[:page])
   end
 
   def destroy
@@ -69,5 +69,10 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to root_path unless Current.user.admin? || @user == Current.user
   end
 end

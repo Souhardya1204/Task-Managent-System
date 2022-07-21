@@ -3,10 +3,9 @@
 class TasksController < ApplicationController
   before_action :require_user_log_in!
   before_action :admin_user, only: %i[index acceptance delete]
-  before_action :correct_user, only: [:my_task]
   before_action :set_task, except: %i[index new create search]
   def index
-    @tasks = Task.includes(:user).all
+    @tasks = Task.includes(:user).all.paginate(page: params[:page])
   end
 
   def new
@@ -27,7 +26,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    @subtasks = @task.subtasks
+    @subtasks = @task.subtasks.paginate(page: params[:page])
   end
 
   def approved_show
@@ -117,11 +116,6 @@ class TasksController < ApplicationController
 
   def document_params
     params.require(:task).permit(documents: [])
-  end
-
-  def correct_user
-    @user = User.find(params[:id])
-    redirect_to root_path unless @user == Current.user
   end
 
   def edit_access(task)
