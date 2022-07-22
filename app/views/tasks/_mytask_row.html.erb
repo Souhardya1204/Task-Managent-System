@@ -19,7 +19,7 @@
       <%= link_to "Show",task, class:"btn btn-secondary"%>
     <% end %>
   </td>
-  <td>
+  <td class="text-center">
     <%= check_box_tag 'Done', true , task.done,
           onchange: "$(this).data('params',  this.checked)",
           data: { remote: true, url: done_task_path(id: task.id), method: :patch }%>

@@ -3,7 +3,7 @@
 namespace :schedule_task do
   desc "Task for scheduling"
   task schedule_next_task: :environment do
-    todays_tasks = Task.where(date: Date.today)
+    todays_tasks = Task.with_date(Date.today).with_repeatation
     todays_tasks.each do |task|
       repeat = task.repeat
       today = Date.today
@@ -32,7 +32,7 @@ namespace :schedule_task do
 
   desc "Task for sending reminder mail and notification"
   task send_reminder_task: :environment do
-    upcoming_tasks = Task.where(date: (Date.today + 1.week))
+    upcoming_tasks = Task.with_date(Date.today + 1.week)
     upcoming_tasks.each do |task|
       ReminderMailer.with(task: task, user: task.user).send_reminder.deliver_later
       user = User.find(task.employee_id)

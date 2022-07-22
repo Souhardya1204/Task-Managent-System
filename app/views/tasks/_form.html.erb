@@ -27,20 +27,9 @@
     </div>
     <div class="form-group mb-3">
       <%= f.label :repeat, "Repeat Interval" %><br>
-      <%= f.radio_button :repeat, "Onetime" %>
-      <%= f.label :repeat, "OneTime", value:"onetime", style:"margin-right: 15px;" %>
-      <%= f.radio_button :repeat, "Daily" %>
-      <%= f.label :repeat, "Daily", value:"daily", style:"margin-right: 15px;" %>
-      <%= f.radio_button :repeat, "Weekly" %>
-      <%= f.label :repeat, "Weekly", value:"weekly", style:"margin-right: 15px;" %>
-      <%= f.radio_button :repeat, "Monthly" %>
-      <%= f.label :repeat, "Monthly", value:"monthly", style:"margin-right: 15px;" %>
-      <%= f.radio_button :repeat, "Quarterly" %>
-      <%= f.label :repeat, "Quarterly", value:"quarterly", style:"margin-right: 15px;" %>
-      <%= f.radio_button :repeat, "Halfyearly" %>
-      <%= f.label :repeat, "Half-Yearly", value:"halfyearly", style:"margin-right: 15px;" %>
-      <%= f.radio_button :repeat, "Yearly" %>
-      <%= f.label :repeat, "Yearly", value:"yearly" %>
+      <%= f.collection_radio_buttons :repeat, Task.repeats, :second, :first do |b| %>
+        <%= b.label { b.radio_button + " " + b.text } %>
+      <% end %>
     </div>
   </div>
   <div class="modal-footer">

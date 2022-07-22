@@ -32,20 +32,9 @@
     </div>
     <div class="mb-3">
       <%= f.label :repeat, "Repeat Interval" %><br>
-      <%= f.radio_button :repeat, "Onetime" %>
-      <%= f.label :repeat, "OneTime", value:"onetime" %>
-      <%= f.radio_button :repeat, "Daily" %>
-      <%= f.label :repeat, "Daily", value:"daily" %>
-      <%= f.radio_button :repeat, "Weekly" %>
-      <%= f.label :repeat, "Weekly", value:"weekly" %>
-      <%= f.radio_button :repeat, "Monthly" %>
-      <%= f.label :repeat, "Monthly", value:"monthly" %>
-      <%= f.radio_button :repeat, "Quarterly" %>
-      <%= f.label :repeat, "Quarterly", value:"quarterly" %>
-      <%= f.radio_button :repeat, "Halfyearly" %>
-      <%= f.label :repeat, "Half-Yearly", value:"halfyearly" %>
-      <%= f.radio_button :repeat, "Yearly" %>
-      <%= f.label :repeat, "Yearly", value:"yearly" %>
+      <%= f.collection_radio_buttons :repeat, Task.repeats, :second, :first do |b| %>
+        <%= b.label { b.radio_button + " " + b.text } %>
+      <% end %>
     </div>
     <div class="mb-3">
       <%= f.submit "Update Task", class: "btn btn-primary" %>

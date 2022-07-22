@@ -1,16 +1,18 @@
-<table class="table all-task">
-  <thead class="table-primary">
-    <tr>
-      <th>Task Name</th>
-      <th>Required on</th>
-      <th>Status</th>
-      <th>Actions</th>
-      <th>Done</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% Array(tasks).each do |task| %>
-      <%= render 'tasks/mytask_row',task: task %>
-    <% end %>
-  </tbody>
-</table>
+<div class="table-responsive priority_table">
+  <table class="table all-task" >
+    <thead class="table-primary">
+      <tr>
+        <th>Task Name</th>
+        <th>Required on</th>
+        <th>Status</th>
+        <th>Actions</th>
+        <th class="text-center">Done</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% Array(tasks).each do |task| %>
+        <%= render 'tasks/mytask_row',task: task %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
