@@ -16,7 +16,6 @@ class Task < ApplicationRecord
   scope :condition, ->(prop, value) { where("#{prop} = ?", value) }
   scope :with_date, ->(value) { where("date = ?", value) }
   scope :with_repeatation, -> { where.not(repeat: "Onetime") }
-  # Ex:- scope :active, -> {where(:active => true)}
   def self.task_specific_statuses(task)
     if task.done
       Task.statuses

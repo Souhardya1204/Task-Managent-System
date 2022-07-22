@@ -148,3 +148,8 @@ textarea {
 input[type="radio"] {
   margin-left: 10px;
 }
+
+.drop_right .dropdown-menu {
+  right: 0;
+  left: initial !important;
+}

@@ -26,9 +26,10 @@ class User < ApplicationRecord
   end
 
   def self.per_page
-    1
+    5
   end
 
+  # rubocop:disable Metrics/AbcSize
   def self.from_omniauth(auth)
     where(email: auth.info.email).first_or_initialize do |user|
       user.provider = auth.provider
@@ -38,4 +39,5 @@ class User < ApplicationRecord
       user.password = SecureRandom.hex
     end
   end
+  # rubocop:enable Metrics/AbcSize
 end

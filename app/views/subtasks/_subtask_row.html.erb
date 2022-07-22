@@ -8,7 +8,7 @@
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         <%= link_to "Show", task_subtask_path(task_id: subtask.task_id, id:subtask.id) , class: "dropdown-item", data:{bs_toggle:'modal', bs_target: '#showSubtaskModal', remote: true }%>
         <%= link_to "Edit", edit_task_subtask_path(task_id: subtask.task_id, id:subtask.id), class: "dropdown-item", data:{bs_toggle:'modal', bs_target: '#editSubtaskModal', remote: true }%>
-        <%= link_to "Destroy", [@task, subtask ] ,method: :delete,  class: "dropdown-item", remote: true%>
+        <%= link_to "Destroy", [@task, subtask ] ,method: :delete, data: { confirm: "Are you sure?" }, class: "dropdown-item", remote: true%>
       </ul>
     </div>
   </td>

@@ -4,6 +4,7 @@ class TasksController < ApplicationController
   before_action :require_user_log_in!
   before_action :admin_user, only: %i[index acceptance delete]
   before_action :set_task, except: %i[index new create search]
+  before_action :edit_access, only: :edit
   def index
     @tasks = Task.includes(:user).all.paginate(page: params[:page])
   end
@@ -42,9 +43,7 @@ class TasksController < ApplicationController
     end
   end
 
-  def edit
-    redirect_to root_path unless edit_access(@task)
-  end
+  def edit; end
 
   def update
     if @task.update(task_update_params)
@@ -56,14 +55,12 @@ class TasksController < ApplicationController
 
   def status
     @task.update_attribute(:status, params[:status])
-    flash[:notice] = "Task status updated"
-    redirect_back(fallback_location: root_path)
+    redirect_back(fallback_location: root_path, flash: { notice: "Task status updated" })
   end
 
   def category
     @task.update_attribute(:category_id, params[:task][:category_id])
-    flash[:notice] = "Task Category changed"
-    redirect_back(fallback_location: root_path)
+    redirect_back(fallback_location: root_path, flash: { notice: "Task Category changed" })
   end
 
   def document
@@ -118,11 +115,9 @@ class TasksController < ApplicationController
     params.require(:task).permit(documents: [])
   end
 
-  def edit_access(task)
-    if Current.user.admin? || (Current.user == task.user)
-      true
-    else
-      false
-    end
+  def edit_access
+    return if Current.user.admin? || (Current.user == @task.user)
+
+    redirect_to root_path, alert: "You are not authorized to edit the task"
   end
 end

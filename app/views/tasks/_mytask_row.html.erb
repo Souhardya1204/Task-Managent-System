@@ -11,7 +11,7 @@
           <li><%= link_to "Edit",edit_task_path(id: task.id), class:"dropdown-item"%></li>
           <li> <%= link_to "Show",task_path(id: task.id), class: "dropdown-item" %></li>
           <% if Current.user.admin? %>
-            <li> <%= link_to "Delete",task_path(id: task.id), method: :delete, class: "dropdown-item" %></li>
+            <li> <%= link_to "Delete",task_path(id: task.id), method: :delete,data: { confirm: "Are you sure?" }, class: "dropdown-item" %></li>
           <% end %>
         </ul>
       </div>

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+# rubocop:disable Metrics/BlockLength
 RSpec.describe User, type: :model do
   describe "associations" do
     it { should have_many(:tasks).dependent(:destroy) }
@@ -65,3 +66,4 @@ RSpec.describe User, type: :model do
     expect(user.is_hr?).to be false
   end
 end
+# rubocop:enable Metrics/BlockLength

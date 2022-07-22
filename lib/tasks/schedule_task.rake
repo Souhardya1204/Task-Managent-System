@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength
 namespace :schedule_task do
   desc "Task for scheduling"
   task schedule_next_task: :environment do
@@ -41,3 +42,4 @@ namespace :schedule_task do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

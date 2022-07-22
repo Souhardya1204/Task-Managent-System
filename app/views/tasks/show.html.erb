@@ -85,7 +85,7 @@
               <%= link_to "Download" , rails_blob_path(document, disposition: "attachment"),class:"btn btn-primary", target: "_blank"%>
               <%= link_to 'Remove', purge_attachment_task_path(document),class:"btn btn-sm btn-danger",
                 method: :delete,
-                data: { confirm: 'Are you sure?' } %>
+                data: { confirm: "Are you sure?" } %>
             </div>
           </div>
         <% end %>

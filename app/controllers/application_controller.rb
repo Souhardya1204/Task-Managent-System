@@ -30,11 +30,15 @@ class ApplicationController < ActionController::Base
   def set_query
     return unless Current.user
 
-    @q = if Current.user.admin?
-           Task.ransack(params[:q])
-         else
-           Task.condition("employee_id", Current.user.id).or(Current.user.tasks).ransack(params[:q])
-         end
+    @q = task_list
     @search_tasks = @q.result(distinct: true).paginate(page: params[:page])
+  end
+
+  def task_list
+    if Current.user.admin?
+      Task.ransack(params[:q])
+    else
+      Task.condition("employee_id", Current.user.id).or(Current.user.tasks).ransack(params[:q])
+    end
   end
 end
