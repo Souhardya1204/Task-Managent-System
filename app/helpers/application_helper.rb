@@ -22,4 +22,8 @@ module ApplicationHelper
   def task_from_notification(notification)
     Task.find_by(id: notification.task_id)&.name
   end
+
+  def humanize_enum(enum)
+    enum.map { |key, _value| [key.humanize, key] }
+  end
 end

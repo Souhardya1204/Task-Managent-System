@@ -1,7 +1,7 @@
 <tr>
   <td><%= link_to task.name, task %></td>
   <td><%= task.date %></td>
-  <td><%= task.status %></td>
+  <td><%= task.status.humanize %></td>
   <td>
     <% if Current.user.admin? || Current.user == task.user %>
       <div class="dropdown">

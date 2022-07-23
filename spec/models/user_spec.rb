@@ -52,18 +52,18 @@ RSpec.describe User, type: :model do
 
   it "is_admin? returns true only when user is admin" do
     user = create(:user, role: "admin")
-    expect(user.is_admin?).to be true
+    expect(user.admin?).to be true
   end
 
   it "is_hr? returns true when user is hrd" do
     user = create(:user, role: "hrd")
-    expect(user.is_hr?).to be true
+    expect(user.hr?).to be true
   end
 
   it "is_admin? and is_hr? returns false when user is employee " do
     user = create(:user)
-    expect(user.is_admin?).to be false
-    expect(user.is_hr?).to be false
+    expect(user.admin?).to be false
+    expect(user.hr?).to be false
   end
 end
 # rubocop:enable Metrics/BlockLength

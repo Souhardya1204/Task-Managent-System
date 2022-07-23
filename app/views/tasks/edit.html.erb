@@ -24,7 +24,7 @@
     </div>
     <div class="mb-3 required">
       <%= f.label :priority %>
-      <%= f.select :priority, options_for_select(Task.priorities.keys, selected: @task.priority), class: "form-control", required: true %>
+      <%= f.select :priority, options_for_select(humanize_enum(Task.priorities), selected: @task.priority), class: "form-control", required: true %>
     </div>
     <div class="mb-3 required">
       <%= f.label :employee_id, "Assigned To" %>
@@ -32,7 +32,7 @@
     </div>
     <div class="mb-3">
       <%= f.label :repeat, "Repeat Interval" %><br>
-      <%= f.collection_radio_buttons :repeat, Task.repeats, :second, :first do |b| %>
+      <%= f.collection_radio_buttons :repeat, humanize_enum(Task.repeats), :second, :first do |b| %>
         <%= b.label { b.radio_button + " " + b.text } %>
       <% end %>
     </div>

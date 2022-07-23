@@ -9,7 +9,7 @@ class StaticPagesController < ApplicationController
     @high_tasks = @my_tasks.with_priority(1)
     @medium_tasks = @my_tasks.with_priority(2)
     @low_tasks = @my_tasks.with_priority(3)
-    @created_tasks = @user.tasks.paginate(page: params[:page]) unless @user.tasks.empty?
+    @created_tasks = @user.tasks.paginate(page: params[:page])
   end
 
   def about; end

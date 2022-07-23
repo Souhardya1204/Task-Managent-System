@@ -12,21 +12,17 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }
-  enum role: { Admin: "admin", Hrd: "hrd", Employee: "employee" }
+  enum role: { admin: "admin", hrd: "hrd", employee: "employee" }
   def admin?
-    return true if role == "Admin"
+    return true if role == "admin"
 
     false
   end
 
   def hr?
-    return true if role == "Hrd"
+    return true if role == "hrd"
 
     false
-  end
-
-  def self.per_page
-    5
   end
 
   # rubocop:disable Metrics/AbcSize

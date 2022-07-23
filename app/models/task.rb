@@ -6,10 +6,10 @@ class Task < ApplicationRecord
   validates :employee_id, :name, :priority, presence: true
   has_many_attached :documents
   has_many :subtasks, dependent: :destroy
-  enum status: { Pending: "Pending", "In Progress": "In Progress", Completed: "Completed" }
-  enum priority: { High: 1, Medium: 2, Low: 3 }
-  enum repeat: { Onetime: "Onetime", Daily: "Daily", Weekly: "Weekly", Monthly: "Monthly", Quarterly: "Quarterly",
-                 Halfyearly: "Halfyearly", Yearly: "Yearly" }
+  enum status: { pending: "pending", in_progress: "in progress", completed: "completed" }
+  enum priority: { high: 1, medium: 2, low: 3 }
+  enum repeat: { onetime: "onetime", daily: "daily", weekly: "weekly", monthly: "monthly", quarterly: "quarterly",
+                 halfyearly: "halfyearly", yearly: "yearly" }
   default_scope { order(created_at: :desc) }
   scope :my_tasks, -> { where(employee_id: Current.user.id) }
   scope :with_priority, ->(priority) { where("priority = ?", priority) }
@@ -20,11 +20,7 @@ class Task < ApplicationRecord
     if task.done
       Task.statuses
     else
-      Task.statuses.reject { |k, _v| k == "Completed" }
+      Task.statuses.reject { |k, _v| k == "completed" }
     end
-  end
-
-  def self.per_page
-    5
   end
 end

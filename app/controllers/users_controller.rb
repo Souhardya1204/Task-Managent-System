@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   before_action :only_hr, only: [:approved_tasks]
   before_action :set_user, only: %i[show edit update destroy]
   before_action :correct_user, only: :show
+  before_action :check_no_task_assigned, only: :destroy
   def new
     if Current.user
       redirect_to root_path, notice: "Already logged in"
@@ -74,5 +75,12 @@ class UsersController < ApplicationController
   def correct_user
     @user = User.find(params[:id])
     redirect_to root_path unless Current.user.admin? || @user == Current.user
+  end
+
+  def check_no_task_assigned
+    return if Task.condition("employee_id", params[:id]).empty?
+
+    redirect_back(fallback_location: root_path,
+                  alert: "You can only delete if there is no task assigned to the user")
   end
 end

@@ -28,7 +28,7 @@
       </tr>
       <tr>
         <th>Repeat Interval</th>
-        <td><%=check_nil(@task.repeat)%></td>
+        <td><%= check_nil(@task.repeat).humanize %></td>
       </tr>
       <tr>
         <tr>
@@ -41,7 +41,7 @@
         </tr>
         <th>Completion Status</th>
         <td>
-          <%= select_tag( 'status', options_for_select(Task.task_specific_statuses(@task).keys, { selected: @task.status } ), prompt: "Please select", data:{ remote: true, url: status_task_path(id: @task.id), method: :patch }) %>
+          <%= select_tag( 'status', options_for_select(humanize_enum(Task.task_specific_statuses(@task)), { selected: @task.status } ), prompt: "Please select", data:{ remote: true, url: status_task_path(id: @task.id), method: :patch }) %>
         </td>
       </tr>
       <tr>
@@ -59,7 +59,7 @@
           <% end %>
         </td>
       </tr>
-      <% if @task.status == "Completed" && Current.user.admin? %>
+      <% if @task.status == "completed" && Current.user.admin? %>
         <tr>
           <th>Approve/Reject</th>
           <td>

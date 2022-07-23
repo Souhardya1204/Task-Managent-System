@@ -15,7 +15,7 @@ RSpec.describe Task, type: :model do
   it "check default values" do
     user = create(:user)
     task = create(:task, user: user)
-    expect(task.status).to eq("Pending")
+    expect(task.status).to eq("pending")
     expect(task.acceptance).to eq("Pending")
   end
 end

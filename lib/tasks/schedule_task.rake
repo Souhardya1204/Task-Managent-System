@@ -6,7 +6,7 @@ namespace :schedule_task do
   task schedule_next_task: :environment do
     todays_tasks = Task.with_date(Date.today).with_repeatation
     todays_tasks.each do |task|
-      repeat = task.repeat
+      repeat = task.repeat.humanize
       today = Date.today
       next_date = Date.today
       new_task = Task.new(name: task.name, time: task.time, repeat: task.repeat, user_id: task.user_id,

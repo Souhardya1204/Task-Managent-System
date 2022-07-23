@@ -23,12 +23,12 @@
     </tr>
     <tr>
       <th>Repeat Interval</th>
-      <td><%= @task.repeat%></td>
+      <td><%= @task.repeat.humanize%></td>
     </tr>
     <tr>
       <th>Completion Status</th>
       <td>
-        <%= @task.status %>
+        <%= @task.status.humanize %>
       </td>
     </tr>
     <tr>
