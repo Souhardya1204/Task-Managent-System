@@ -24,7 +24,7 @@
           <td><%= task.user.name %></td>
           <td><%= task.date %></td>
           <td><%= task_employee_name(task) %></td>
-          <td><%= task.repeat.humanize %></td>
+          <td><%= task.repeat.humanize if task.repeat %></td>
           <td class="accep-status"><%= task.acceptance %></td>
           <td><%= link_to "Edit",edit_task_path(id: task.id), class: "btn btn-primary", role: "button" %>
             <%= link_to "Show",task_path(id: task.id), class: "btn btn-secondary", role: "button" %>

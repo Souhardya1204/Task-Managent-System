@@ -23,7 +23,7 @@
     </tr>
     <tr>
       <th>Repeat Interval</th>
-      <td><%= @task.repeat.humanize%></td>
+      <td><%= @task.repeat.humanize if task.repeat%></td>
     </tr>
     <tr>
       <th>Completion Status</th>
