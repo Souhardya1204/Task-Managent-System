@@ -2,9 +2,11 @@
 
 class TasksController < ApplicationController
   before_action :require_user_log_in!
-  before_action :admin_user, only: %i[index acceptance delete]
+  before_action :admin_user, only: %i[index acceptance destroy]
   before_action :set_task, except: %i[index new create search]
-  before_action :edit_access, only: :edit
+  before_action :task_edit_access, only: %i[edit update]
+  before_action :correct_task_user, only: %i[show status category document done]
+  before_action :only_hr, only: :approved_show
   def index
     @tasks = Task.includes(:user).all.paginate(page: params[:page])
   end
@@ -113,11 +115,5 @@ class TasksController < ApplicationController
 
   def document_params
     params.require(:task).permit(documents: [])
-  end
-
-  def edit_access
-    return if Current.user.admin? || (Current.user == @task.user)
-
-    redirect_to root_path, alert: "You are not authorized to edit the task"
   end
 end

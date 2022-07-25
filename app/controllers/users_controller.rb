@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
   before_action :require_user_log_in!, except: %i[new create]
-  before_action :admin_user, only: %i[index edit update]
+  before_action :admin_user, only: %i[index edit update destroy]
   before_action :only_hr, only: [:approved_tasks]
   before_action :set_user, only: %i[show edit update destroy]
   before_action :correct_user, only: :show

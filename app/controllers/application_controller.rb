@@ -41,4 +41,16 @@ class ApplicationController < ActionController::Base
       Task.condition("employee_id", Current.user.id).or(Current.user.tasks).ransack(params[:q])
     end
   end
+
+  def task_edit_access
+    return if Current.user.admin? || (Current.user == @task.user)
+
+    redirect_to root_path, alert: "You are not authorized to edit the task"
+  end
+
+  def correct_task_user
+    return if Current.user.admin? || (Current.user == @task.user) || Current.user.id == @task.employee_id
+
+    redirect_to root_path, alert: "You are not authorized to access the task"
+  end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SubtasksController < ApplicationController
-  before_action :set_task
+  before_action :set_task, :correct_task_user
   before_action :set_subtask, only: %i[show edit update destroy complete document]
   helper_method :give_status
   def new
